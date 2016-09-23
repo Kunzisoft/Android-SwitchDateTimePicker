@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Switch DateTime Picker</string>
+
+    <!-- Default simple date format -->
+    <string name="simple_date_format" translatable="false">yyyy-MM-dd \'at\' HH:mm</string>
+
+    <!-- Title -->
+    <string name="label_datetime_dialog">DateTime</string>
+
+    <string name="positive_button_datetime_picker">OK</string>
+    <string name="negative_button_datetime_picker">Cancel</string>
+
+    <!-- Image description -->
+    <string name="img_datetime">Image datetime</string>
+</resources>
