@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +21,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by joker on 22/09/16.
+ * A fragment that displays a dialog window with Date and Time who can be selected by switch button
+ * @author J-Jamet
+ * @version 1.0
  */
 public class SwitchDateTimeDialogFragment extends DialogFragment {
-
-    private static SwitchDateTimeDialogFragment INSTANCE = new SwitchDateTimeDialogFragment();
 
     private Calendar dateTime;
 
@@ -44,7 +45,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
      * Create a new instance of SwitchDateTimeDialogFragment
      */
     public static SwitchDateTimeDialogFragment newInstance(String label, String positiveButton, String negativeButton) {
-        SwitchDateTimeDialogFragment switchDateTimeDialogFragment = INSTANCE;
+        SwitchDateTimeDialogFragment switchDateTimeDialogFragment = new SwitchDateTimeDialogFragment();
         // Add arguments
         Bundle args = new Bundle();
         args.putString(TAG_LABEL, label);
@@ -63,7 +64,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         this.mListener = onButtonClickListener;
     }
 
-
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);

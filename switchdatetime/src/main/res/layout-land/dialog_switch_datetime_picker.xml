@@ -14,57 +14,53 @@
         android:layout_gravity="center">
         <TimePicker
             android:id="@+id/timePicker"
-            android:layout_width="450dp"
+            android:layout_width="430dp"
             android:layout_height="match_parent">
         </TimePicker>
         <DatePicker
             android:id="@+id/datePicker"
-            android:layout_width="450dp"
+            android:layout_width="430dp"
             android:layout_height="match_parent">
         </DatePicker>
     </ViewSwitcher>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/section_add"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:layout_width="100dp"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/value"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:gravity="center_vertical"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/label" />
-            <android.support.v7.widget.AppCompatImageButton
-                android:id="@+id/button_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/ic_calendar_32dp"
-                android:tint="?colorAccent"
-                android:contentDescription="@string/img_datetime"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_datetime_dialog"
-                android:textColor="?colorAccent"
-                android:textStyle="bold"
-                android:padding="5dp"
-                android:gravity="center_vertical"
-                android:layout_below="@+id/button_switch"
-                android:layout_centerHorizontal="true" />
-        </RelativeLayout>
-    </LinearLayout>
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/label" />
+        <android.support.v7.widget.AppCompatImageButton
+            android:id="@+id/button_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_calendar_32dp"
+            android:tint="?colorAccent"
+            android:contentDescription="@string/img_datetime"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/label_datetime_dialog"
+            android:textColor="?colorAccent"
+            android:textStyle="bold"
+            android:padding="5dp"
+            android:gravity="center"
+            android:layout_below="@+id/button_switch"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
 </LinearLayout>
