@@ -2,6 +2,12 @@
 
 SwitchDateTime Picker is a library for select a *Date* object in dialog with a DatePicker (Calendar) and a TimePicker (Clock) in the same UI.
 
+<img src="https://raw.githubusercontent.com/J-Jamet/Android-SwitchDateTimePicker/master/art/demo1.gif">
+
+SwitchDateTime use *AppTheme*, for use another theme add in *Android.manifest*:
+`tools:replace="android:theme"`
+
+## Use
 
 ```
 SwitchDateTimeDialogFragment dateTimeDialogFragment = SwitchDateTimeDialogFragment.newInstance(
