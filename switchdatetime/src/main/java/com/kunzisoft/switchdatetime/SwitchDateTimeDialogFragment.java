@@ -1,4 +1,4 @@
-package com.satanasoft.switchdatetime;
+package com.kunzisoft.switchdatetime;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
