@@ -1,3 +1,5 @@
+[![](https://jitpack.io/v/Kunzisoft/Android-SwitchDateTimePicker.svg)](https://jitpack.io/#Kunzisoft/Android-SwitchDateTimePicker)
+
 # Android SwitchDateTime Picker
 
 SwitchDateTime Picker is a library for select a *Date* object in dialog with a DatePicker (Calendar) and a TimePicker (Clock) in the same UI.
@@ -7,7 +9,24 @@ SwitchDateTime Picker is a library for select a *Date* object in dialog with a D
 SwitchDateTime use *AppTheme*, for use another theme add in *Android.manifest*:
 `tools:replace="android:theme"`
 
-## Use
+## Installation
+Add the JitPack repository in your build.gradle at the end of repositories:
+```
+	allprojects {
+		repositories {
+			...
+			maven { url "https://jitpack.io" }
+		}
+	}
+```
+And add the dependency
+```
+	dependencies {
+	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:v1.0-rc.1'
+	}
+```
+
+## Usage
 You can see
 https://github.com/J-Jamet/Android-SwitchDateTimePicker/blob/master/sample/src/main/java/com/kunzisoft/switchdatetimesample/Sample.java
 for complete sample.
