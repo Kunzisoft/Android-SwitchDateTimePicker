@@ -139,6 +139,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 });
 
         // Show datetime from locale format
+        //TODO DateFormat
         dateText.setText(DateFormat.getDateTimeInstance().format(dateTime.getTime()));
         AlertDialog dialog = db.show();
 

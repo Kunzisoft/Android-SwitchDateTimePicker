@@ -8,13 +8,25 @@ SwitchDateTime use *AppTheme*, for use another theme add in *Android.manifest*:
 `tools:replace="android:theme"`
 
 ## Use
+You can see
+https://github.com/J-Jamet/Android-SwitchDateTimePicker/blob/master/sample/src/main/java/com/kunzisoft/switchdatetimesample/Sample.java
+for complete sample.
+
 
 ```
+// Initialize
 SwitchDateTimeDialogFragment dateTimeDialogFragment = SwitchDateTimeDialogFragment.newInstance(
         getString(R.string.label_datetime_dialog),
         getString(R.string.positive_button_datetime_picker),
         getString(R.string.negative_button_datetime_picker)
 );
+// Assign values
+dateTimeDialogFragment.setYear(2016);
+dateTimeDialogFragment.setMonth(12);
+dateTimeDialogFragment.setMonth(10);
+dateTimeDialogFragment.setHour(1);
+dateTimeDialogFragment.setMinute(20);
+// Set listener
 dateTimeDialogFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
     @Override
     public void onPositiveButtonClick(Date date) {
@@ -27,6 +39,7 @@ dateTimeDialogFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment
         // Date is get on negative button click
     }
 });
+// Show
 dateTimeDialogFragment.show(getSupportFragmentManager(), "dialog_time");
 ```
 
