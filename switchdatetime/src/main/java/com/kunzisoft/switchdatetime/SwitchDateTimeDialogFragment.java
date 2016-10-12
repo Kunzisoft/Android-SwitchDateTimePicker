@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -27,7 +28,8 @@ import java.util.Date;
  */
 public class SwitchDateTimeDialogFragment extends DialogFragment {
 
-    private Calendar dateTime;
+    private static final String STATE_DATETIME = "STATE_DATETIME";
+    private Calendar dateTime = Calendar.getInstance();
 
     private static final String TAG_LABEL = "LABEL";
     private static final String TAG_POSITIVE_BUTTON = "POSITIVE_BUTTON";
@@ -40,6 +42,12 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     private ViewGroup viewGroup;
     private ViewSwitcher switcher;
+
+    private int year = dateTime.get(Calendar.YEAR);
+    private int month = dateTime.get(Calendar.MONTH);
+    private int day = dateTime.get(Calendar.DAY_OF_MONTH);
+    private int hour = dateTime.get(Calendar.HOUR_OF_DAY);
+    private int minute = dateTime.get(Calendar.MINUTE);
 
     /**
      * Create a new instance of SwitchDateTimeDialogFragment
@@ -64,8 +72,17 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         this.mListener = onButtonClickListener;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        // Save the current datetime
+        savedInstanceState.putLong(STATE_DATETIME, dateTime.getTimeInMillis());
+
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
     @NonNull
     @Override
+    @SuppressWarnings("deprecation")
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
@@ -75,12 +92,13 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             mNegativeButton = getArguments().getString(TAG_NEGATIVE_BUTTON);
         }
 
-        dateTime = Calendar.getInstance();
-
-        Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
+        if (savedInstanceState != null) {
+            // Restore value from saved state
+            dateTime.setTime(new Date(savedInstanceState.getLong(STATE_DATETIME)));
+        } else {
+            // Init with values set
+            dateTime.set(year, month, day, hour, minute);
+        }
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View dateTimeLayout = inflater.inflate(R.layout.dialog_switch_datetime_picker,
@@ -144,6 +162,16 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
         // Construct TimePicker
         TimePicker timePicker = (TimePicker) dialog.findViewById(R.id.timePicker);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            timePicker.setHour(hour);
+        } else {
+            timePicker.setCurrentHour(hour);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            timePicker.setMinute(minute);
+        } else {
+            timePicker.setCurrentMinute(minute);
+        }
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int i, int i1) {
@@ -173,6 +201,26 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         });
 
         return dialog;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
     }
 
     /**
