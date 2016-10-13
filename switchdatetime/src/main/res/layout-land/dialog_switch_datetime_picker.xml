@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:src="@drawable/ic_calendar_32dp"
-            android:tint="@color/colorAccent"
+            android:tint="@color/dateTimeColorAccent"
             android:contentDescription="@string/img_datetime"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_datetime_dialog"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/dateTimeColorAccent"
             android:textStyle="bold"
             android:padding="5dp"
             android:gravity="center"
