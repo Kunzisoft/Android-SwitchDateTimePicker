@@ -6,8 +6,10 @@ SwitchDateTime Picker is a library for select a *Date* object in dialog with a D
 
 <img src="https://raw.githubusercontent.com/J-Jamet/Android-SwitchDateTimePicker/master/art/demo1.gif">
 
-SwitchDateTime use *AppTheme*, for use another theme add in *Android.manifest* file, in *\<application>* node:
-`tools:replace="android:theme"`
+<img src="https://raw.githubusercontent.com/J-Jamet/Android-SwitchDateTimePicker/master/art/demo2.gif">
+
+For change color of title and icon, add
+`<color name="dateTimeColorAccent">#494949</color>` to your resources **colors.xml** file.
 
 ## Installation
 Add the JitPack repository in your build.gradle at the end of repositories:
@@ -22,7 +24,7 @@ Add the JitPack repository in your build.gradle at the end of repositories:
 And add the dependency
 ```
 	dependencies {
-	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:v1.0-rc.1'
+	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:v1.0-rc.2'
 	}
 ```
 
