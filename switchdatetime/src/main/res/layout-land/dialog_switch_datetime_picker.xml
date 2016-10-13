@@ -14,12 +14,12 @@
         android:layout_gravity="center">
         <TimePicker
             android:id="@+id/timePicker"
-            android:layout_width="430dp"
+            android:layout_width="@dimen/pickerWidth"
             android:layout_height="match_parent">
         </TimePicker>
         <DatePicker
             android:id="@+id/datePicker"
-            android:layout_width="430dp"
+            android:layout_width="@dimen/pickerWidth"
             android:layout_height="match_parent">
         </DatePicker>
     </ViewSwitcher>
