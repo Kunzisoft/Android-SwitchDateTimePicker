@@ -24,7 +24,7 @@ Add the JitPack repository in your build.gradle at the end of repositories:
 And add the dependency
 ```
 	dependencies {
-	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:v1.0-rc.2'
+	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:v1.0-rc.3'
 	}
 ```
 
