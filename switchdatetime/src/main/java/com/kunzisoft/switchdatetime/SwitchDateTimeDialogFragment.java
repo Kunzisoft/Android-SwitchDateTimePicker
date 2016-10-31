@@ -18,6 +18,7 @@ import android.widget.TimePicker;
 import android.widget.ViewSwitcher;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -48,6 +49,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private int day = dateTime.get(Calendar.DAY_OF_MONTH);
     private int hour = dateTime.get(Calendar.HOUR_OF_DAY);
     private int minute = dateTime.get(Calendar.MINUTE);
+    private DateFormat simpleDateFormat = DateFormat.getDateTimeInstance();
 
     /**
      * Create a new instance of SwitchDateTimeDialogFragment
@@ -139,8 +141,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 });
 
         // Show datetime from locale format
-        //TODO DateFormat
-        dateText.setText(DateFormat.getDateTimeInstance().format(dateTime.getTime()));
+        dateText.setText(simpleDateFormat.format(dateTime.getTime()));
         AlertDialog dialog = db.show();
 
         // Switch date to time and reverse
@@ -178,7 +179,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             public void onTimeChanged(TimePicker timePicker, int i, int i1) {
                 dateTime.set(Calendar.HOUR_OF_DAY, i);
                 dateTime.set(Calendar.MINUTE, i1);
-                dateText.setText(DateFormat.getDateTimeInstance().format(dateTime.getTime()));
+                dateText.setText(simpleDateFormat.format(dateTime.getTime()));
             }
         });
 
@@ -190,7 +191,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 dateTime.set(Calendar.YEAR, i);
                 dateTime.set(Calendar.MONTH, i1);
                 dateTime.set(Calendar.DAY_OF_MONTH, i2);
-                dateText.setText(DateFormat.getDateTimeInstance().format(dateTime.getTime()));
+                dateText.setText(simpleDateFormat.format(dateTime.getTime()));
             }
         });
 
@@ -222,6 +223,14 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     public void setMinute(int minute) {
         this.minute = minute;
+    }
+
+    /**
+     * Assign a SimpleDateFormat like "d MMM yyyy HH:mm:ss" to show formatted DateTime
+     * @param simpleDateFormat
+     */
+    public void setSimpleDateFormat(SimpleDateFormat simpleDateFormat) {
+        this.simpleDateFormat = simpleDateFormat;
     }
 
     /**

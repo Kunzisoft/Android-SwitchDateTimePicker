@@ -47,6 +47,8 @@ dateTimeDialogFragment.setMonth(12);
 dateTimeDialogFragment.setMonth(10);
 dateTimeDialogFragment.setHour(1);
 dateTimeDialogFragment.setMinute(20);
+// Set SimpleDateFormat
+dateTimeDialogFragment.setSimpleDateFormat(new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault()));
 // Set listener
 dateTimeDialogFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
     @Override

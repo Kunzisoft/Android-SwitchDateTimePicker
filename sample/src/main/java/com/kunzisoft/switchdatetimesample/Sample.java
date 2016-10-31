@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Sample extends AppCompatActivity {
@@ -40,13 +41,15 @@ public class Sample extends AppCompatActivity {
             );
         }
         // Assign values we want
+        final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
+        dateTimeFragment.setSimpleDateFormat(myDateFormat);
         dateTimeFragment.setHour(0);
         dateTimeFragment.setMinute(20);
         // Set listener for get Date
         dateTimeFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Date date) {
-                textView.setText(date.toString());
+                textView.setText(myDateFormat.format(date));
             }
 
             @Override
