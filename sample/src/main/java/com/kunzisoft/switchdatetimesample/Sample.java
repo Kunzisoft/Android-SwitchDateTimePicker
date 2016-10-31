@@ -68,7 +68,6 @@ public class Sample extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the current textView
         savedInstanceState.putCharSequence(STATE_TEXTVIEW, textView.getText());
-
         super.onSaveInstanceState(savedInstanceState);
     }
 }

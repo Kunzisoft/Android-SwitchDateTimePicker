@@ -162,7 +162,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         });
 
         // Construct TimePicker
-        TimePicker timePicker = (TimePicker) dialog.findViewById(R.id.timePicker);
+        TimePicker timePicker = (AMPMTimePicker) dialog.findViewById(R.id.timePicker);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             timePicker.setHour(hour);
         } else {

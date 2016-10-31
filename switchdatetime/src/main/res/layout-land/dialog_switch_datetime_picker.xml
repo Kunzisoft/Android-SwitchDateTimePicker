@@ -12,11 +12,11 @@
         android:inAnimation="@anim/dialog_enter_from_top"
         android:outAnimation="@anim/dialog_leave_to_bottom"
         android:layout_gravity="center">
-        <TimePicker
+        <com.kunzisoft.switchdatetime.AMPMTimePicker
             android:id="@+id/timePicker"
             android:layout_width="@dimen/pickerWidth"
             android:layout_height="match_parent">
-        </TimePicker>
+        </com.kunzisoft.switchdatetime.AMPMTimePicker>
         <DatePicker
             android:id="@+id/datePicker"
             android:layout_width="@dimen/pickerWidth"
