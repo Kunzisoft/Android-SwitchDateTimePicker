@@ -44,6 +44,7 @@ public class Sample extends AppCompatActivity {
         final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
         dateTimeFragment.setSimpleDateFormat(myDateFormat);
         dateTimeFragment.setHour(0);
+        dateTimeFragment.setDay(4);
         dateTimeFragment.setMinute(20);
         // Set listener for get Date
         dateTimeFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {

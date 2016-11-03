@@ -1,0 +1,6 @@
+<resources>
+    <attr name="dateTimeColorBackground" format="reference|color" />
+    <attr name="dateTimeColorLabel" format="reference|color" />
+    <attr name="dateTimeColorValue" format="reference|color" />
+    <attr name="dateTimeColorIcon" format="reference|color" />
+</resources>

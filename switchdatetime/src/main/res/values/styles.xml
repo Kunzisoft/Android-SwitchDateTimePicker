@@ -1,0 +1,13 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="SwitchDateTimeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#3F51B5</item>
+        <item name="colorPrimaryDark">#303F9F</item>
+        <item name="colorAccent">#a72a2a</item>
+        <item name="dateTimeColorBackground">#a72a2a</item>
+        <item name="dateTimeColorLabel">#d7f7fc</item>
+        <item name="dateTimeColorValue">#e3f7d9</item>
+        <item name="dateTimeColorIcon">#ffffff</item>
+    </style>
+</resources>

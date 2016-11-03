@@ -26,8 +26,9 @@
 
     <RelativeLayout
         android:id="@+id/section_add"
+        android:background="?attr/dateTimeColorBackground"
         android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
         android:orientation="horizontal">
         <TextView
@@ -36,6 +37,7 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:gravity="center"
+            android:textColor="?attr/dateTimeColorValue"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentLeft="true"
@@ -45,9 +47,10 @@
             android:id="@+id/button_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:src="@drawable/ic_calendar_32dp"
-            android:tint="@color/dateTimeColorAccent"
+            android:tint="?attr/dateTimeColorIcon"
             android:contentDescription="@string/img_datetime"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" />
@@ -56,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_datetime_dialog"
-            android:textColor="@color/dateTimeColorAccent"
+            android:textColor="?attr/dateTimeColorLabel"
             android:textStyle="bold"
             android:padding="5dp"
             android:gravity="center"

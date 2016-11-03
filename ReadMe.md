@@ -8,9 +8,6 @@ SwitchDateTime Picker is a library for select a *Date* object in dialog with a D
 
 <img src="https://raw.githubusercontent.com/J-Jamet/Android-SwitchDateTimePicker/master/art/demo2.gif">
 
-For change color of title and icon, add
-`<color name="dateTimeColorAccent">#494949</color>` to your resources **colors.xml** file.
-
 ## Installation
 Add the JitPack repository in your build.gradle at the end of repositories:
 ```
@@ -24,16 +21,42 @@ Add the JitPack repository in your build.gradle at the end of repositories:
 And add the dependency
 ```
 	dependencies {
-	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:v1.0-rc.3'
+	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:v1.0-rc.4'
 	}
 ```
 
 ## Usage
+
+### Colors
+For colors, add attributes :
+`
+dateTimeColorBackground, dateTimeColorLabel, dateTimeColorValue, dateTimeColorIcon
+`
+in your **styles.xml**, for example :
+```
+<resources>
+    <!-- Base application theme. -->
+    <style name="SwitchDateTimeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="dateTimeColorBackground">@color/colorAccent</item>
+        <item name="dateTimeColorLabel">#d7f7fc</item>
+        <item name="dateTimeColorValue">#c4e4b3</item>
+        <item name="dateTimeColorIcon">#ffffff</item>
+    </style>
+</resources>
+```
+Note : *colorAccent* change DatePicker and TimePicker color.
+
+### SimpleDateFormat
+You can specify a particular [*SimpleDateFormat*](https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html) for value of DateTime with **setSimpleDateFormat(SimpleDateFormat format)**
+
+### Sample
 You can see
 https://github.com/J-Jamet/Android-SwitchDateTimePicker/blob/master/sample/src/main/java/com/kunzisoft/switchdatetimesample/Sample.java
 for complete sample.
-
-
 ```
 // Initialize
 SwitchDateTimeDialogFragment dateTimeDialogFragment = SwitchDateTimeDialogFragment.newInstance(
@@ -41,14 +64,17 @@ SwitchDateTimeDialogFragment dateTimeDialogFragment = SwitchDateTimeDialogFragme
         getString(R.string.positive_button_datetime_picker),
         getString(R.string.negative_button_datetime_picker)
 );
+
 // Assign values
 dateTimeDialogFragment.setYear(2016);
 dateTimeDialogFragment.setMonth(12);
-dateTimeDialogFragment.setMonth(10);
+dateTimeDialogFragment.setDay(1);
 dateTimeDialogFragment.setHour(1);
 dateTimeDialogFragment.setMinute(20);
+
 // Set SimpleDateFormat
 dateTimeDialogFragment.setSimpleDateFormat(new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault()));
+
 // Set listener
 dateTimeDialogFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
     @Override
@@ -62,6 +88,7 @@ dateTimeDialogFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment
         // Date is get on negative button click
     }
 });
+
 // Show
 dateTimeDialogFragment.show(getSupportFragmentManager(), "dialog_time");
 ```
