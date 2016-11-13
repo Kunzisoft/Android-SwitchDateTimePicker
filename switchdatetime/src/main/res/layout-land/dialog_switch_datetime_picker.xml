@@ -1,36 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:switch="http://schemas.android.com/apk/res-auto"
     android:id="@+id/datetime_picker"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal" >
-
-    <ViewSwitcher
-        android:id="@+id/dateSwitcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inAnimation="@anim/dialog_enter_from_top"
-        android:outAnimation="@anim/dialog_leave_to_bottom"
-        android:layout_gravity="center">
-        <com.kunzisoft.switchdatetime.AMPMTimePicker
-            android:id="@+id/timePicker"
-            android:layout_width="@dimen/pickerWidth"
-            android:layout_height="match_parent">
-        </com.kunzisoft.switchdatetime.AMPMTimePicker>
-        <DatePicker
-            android:id="@+id/datePicker"
-            android:layout_width="@dimen/pickerWidth"
-            android:layout_height="match_parent">
-        </DatePicker>
-    </ViewSwitcher>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:id="@+id/section_add"
         android:background="?attr/dateTimeColorBackground"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:orientation="horizontal">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
         <TextView
             android:id="@+id/value"
             android:layout_width="wrap_content"
@@ -59,11 +42,74 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/label_datetime_dialog"
-            android:textColor="?attr/dateTimeColorLabel"
-            android:textStyle="bold"
+            style="@style/Theme.SwitchDateTime.DateTimeLabelText"
             android:padding="5dp"
             android:gravity="center"
             android:layout_below="@+id/button_switch"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
-</LinearLayout>
+
+    <ViewSwitcher
+        android:id="@+id/dateSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:inAnimation="@anim/dialog_enter_from_top"
+        android:outAnimation="@anim/dialog_leave_to_bottom"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/section_add"
+        android:layout_toEndOf="@+id/section_add"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true">
+        <RelativeLayout
+            android:id="@+id/timePicker"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="top"
+            android:focusable="true" >
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/relativeLayout">
+                <include
+                    layout="@layout/time_header_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?attr/timeColorBackground"
+                android:gravity="center"
+                android:layout_toRightOf="@+id/relativeLayout"
+                android:layout_toEndOf="@+id/relativeLayout">
+                <com.kunzisoft.switchdatetime.time.RadialPickerLayout
+                    android:id="@+id/time_picker"
+                    android:layout_width="@dimen/picker_dimen"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    switch:timeCircleColor="?attr/timeColorCircle"
+                    switch:timeCenterColor="?attr/timeColorNumbers"
+                    switch:timeSelectorColor="?attr/timeColorSelector"
+                    switch:timeCircularNumbersColor="?attr/timeColorNumbers"
+                    switch:amPmBackgroundColor="?attr/timeAmPmColorBackground"
+                    switch:amPmSelectBackgroundColor="?attr/timeAmPmColorSelectBackground"
+                    switch:amPmTextColor="?attr/timeAmPmColorText"/>
+            </RelativeLayout>
+        </RelativeLayout>
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="@dimen/pickerWidth"
+            android:layout_height="match_parent">
+        </DatePicker>
+    </ViewSwitcher>
+
+</RelativeLayout>

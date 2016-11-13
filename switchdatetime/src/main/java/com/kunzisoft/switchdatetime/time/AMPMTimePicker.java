@@ -1,4 +1,4 @@
-package com.kunzisoft.switchdatetime;
+package com.kunzisoft.switchdatetime.time;
 
 import android.annotation.TargetApi;
 import android.content.Context;

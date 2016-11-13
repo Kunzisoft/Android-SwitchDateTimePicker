@@ -1,21 +1,21 @@
 package com.kunzisoft.switchdatetime;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.ViewSwitcher;
+
+import com.kunzisoft.switchdatetime.time.RadialPickerLayout;
+import com.kunzisoft.switchdatetime.time.SwitchTimePicker;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -41,6 +41,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private String mNegativeButton;
     private OnButtonClickListener mListener;
 
+    private View dateTimeLayout;
     private ViewGroup viewGroup;
     private ViewSwitcher switcher;
 
@@ -82,9 +83,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    @NonNull
     @Override
-    @SuppressWarnings("deprecation")
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
@@ -103,7 +102,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         }
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        View dateTimeLayout = inflater.inflate(R.layout.dialog_switch_datetime_picker,
+        dateTimeLayout = inflater.inflate(R.layout.dialog_switch_datetime_picker,
                 (ViewGroup) getActivity().findViewById(R.id.datetime_picker));
 
         // ViewGroup add
@@ -116,6 +115,81 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         else
             labelView.setText(getString(R.string.label_datetime_dialog));
         final TextView dateText = (TextView) dateTimeLayout.findViewById(R.id.value);
+
+        // Switch date to time and reverse
+        switcher = (ViewSwitcher) dateTimeLayout.findViewById(R.id.dateSwitcher);
+        ImageButton buttonSwitch = (ImageButton) dateTimeLayout.findViewById(R.id.button_switch);
+        buttonSwitch.setBackgroundColor(Color.TRANSPARENT);
+        buttonSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(switcher.getDisplayedChild() == 0) {
+                    switcher.showNext();
+                    ((ImageButton) view).setImageResource(R.drawable.ic_clock_32dp);
+                }
+                else if (switcher.getDisplayedChild() == 1) {
+                    switcher.showPrevious();
+                    ((ImageButton) view).setImageResource(R.drawable.ic_calendar_32dp);
+                }
+            }
+        });
+
+        // Construct TimePicker
+        SwitchTimePicker timePicker = new SwitchTimePicker(new SwitchTimePicker.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+
+            }
+        }, 1, 1, false, false);
+        timePicker.onCreateView(getContext(), getResources(), dateTimeLayout.findViewById(R.id.timePicker), savedInstanceState);
+        /*
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            timePicker.setHour(hour);
+        } else {
+            timePicker.setCurrentHour(hour);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            timePicker.setMinute(minute);
+        } else {
+            timePicker.setCurrentMinute(minute);
+        }
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
+                dateTime.set(Calendar.HOUR_OF_DAY, i);
+                dateTime.set(Calendar.MINUTE, i1);
+                dateText.setText(simpleDateFormat.format(dateTime.getTime()));
+            }
+        });
+
+
+            private void onDoneButtonClick() {
+        if (mInKbMode && isTypedTimeFullyLegal()) {
+            finishKbMode(false);
+        } else {
+            mTimePicker.tryVibrate();
+        }
+        if (mCallback != null) {
+            mCallback.onTimeSet(mTimePicker,
+                    mTimePicker.getHours(), mTimePicker.getMinutes());
+        }
+        //dismiss();
+    }
+        */
+
+        // Construct DatePicker
+        DatePicker datePicker = (DatePicker) dateTimeLayout.findViewById(R.id.datePicker);
+        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
+                dateTime.set(Calendar.YEAR, i);
+                dateTime.set(Calendar.MONTH, i1);
+                dateTime.set(Calendar.DAY_OF_MONTH, i2);
+                dateText.setText(simpleDateFormat.format(dateTime.getTime()));
+            }
+        });
+
+        //*
 
         // Assign buttons
         AlertDialog.Builder db = new AlertDialog.Builder(getActivity());
@@ -142,67 +216,17 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
         // Show datetime from locale format
         dateText.setText(simpleDateFormat.format(dateTime.getTime()));
-        AlertDialog dialog = db.show();
-
-        // Switch date to time and reverse
-        switcher = (ViewSwitcher) dialog.findViewById(R.id.dateSwitcher);
-        ImageButton buttonSwitch = (ImageButton) dialog.findViewById(R.id.button_switch);
-        buttonSwitch.setBackgroundColor(Color.TRANSPARENT);
-        buttonSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(switcher.getDisplayedChild() == 0) {
-                    switcher.showNext();
-                    ((ImageButton) view).setImageResource(R.drawable.ic_clock_32dp);
-                }
-                else if (switcher.getDisplayedChild() == 1) {
-                    switcher.showPrevious();
-                    ((ImageButton) view).setImageResource(R.drawable.ic_calendar_32dp);
-                }
-            }
-        });
-
-        // Construct TimePicker
-        TimePicker timePicker = (AMPMTimePicker) dialog.findViewById(R.id.timePicker);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            timePicker.setHour(hour);
-        } else {
-            timePicker.setCurrentHour(hour);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            timePicker.setMinute(minute);
-        } else {
-            timePicker.setCurrentMinute(minute);
-        }
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-                dateTime.set(Calendar.HOUR_OF_DAY, i);
-                dateTime.set(Calendar.MINUTE, i1);
-                dateText.setText(simpleDateFormat.format(dateTime.getTime()));
-            }
-        });
-
-        // Construct DatePicker
-        DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePicker);
-        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                dateTime.set(Calendar.YEAR, i);
-                dateTime.set(Calendar.MONTH, i1);
-                dateTime.set(Calendar.DAY_OF_MONTH, i2);
-                dateText.setText(simpleDateFormat.format(dateTime.getTime()));
-            }
-        });
-
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
+        AlertDialog alertDialog = db.create();
+        //*/
+        alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialogInterface) {
-                switcher.setMinimumWidth(viewGroup.getWidth() + switcher.getWidth());
+                dateTimeLayout.setMinimumWidth(viewGroup.getWidth() + switcher.getWidth());
             }
         });
+        //*/
 
-        return dialog;
+        return alertDialog;
     }
 
     public void setYear(int year) {

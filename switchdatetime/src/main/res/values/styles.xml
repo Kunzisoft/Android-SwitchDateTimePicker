@@ -1,13 +1,56 @@
 <resources>
+
+    <color name="colorAccentM">#ea5151</color>
+    <color name="timeLabelColor">#cfcfcf</color>
+
     <!-- Base application theme. -->
-    <style name="SwitchDateTimeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme.SwitchDateTime" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#3F51B5</item>
         <item name="colorPrimaryDark">#303F9F</item>
-        <item name="colorAccent">#a72a2a</item>
-        <item name="dateTimeColorBackground">#a72a2a</item>
-        <item name="dateTimeColorLabel">#d7f7fc</item>
-        <item name="dateTimeColorValue">#e3f7d9</item>
-        <item name="dateTimeColorIcon">#ffffff</item>
+        <item name="colorAccent">@color/colorAccentM</item>
+
+        <item name="dateTimeColorBackground">@color/colorAccentM</item>
+        <item name="dateTimeColorLabel">#cacaca</item>
+        <item name="dateTimeColorValue">#fff</item>
+        <item name="dateTimeColorIcon">#fff</item>
+
+        <item name="timeLabelColorBackground">@color/colorAccentM</item>
+        <item name="timeLabelColorAccent">#f9eaef</item>
+        <item name="timeLabelColor">@color/timeLabelColor</item>
+
+
+        <item name="timeColorBackground">#fff</item>
+        <item name="timeColorCircle">#e1e1e1</item>
+        <item name="timeColorCenter">#000</item>
+        <item name="timeColorNumbers">#494949</item>
+        <item name="timeColorSelector">#fff</item>
+
+        <item name="timeAmPmColorBackground">@color/colorAccentM</item>
+        <item name="timeAmPmColorSelectBackground">@color/colorAccentM</item>
+        <item name="timeAmPmColorText">#fff</item>
+
+    </style>
+
+    <style name="Theme.SwitchDateTime.DateTimeLabelText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Theme.SwitchDateTime.DateTimeValueText">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="Theme.SwitchDateTime.TimeLabelText">
+        <item name="android:textSize">42sp</item>
+        <item name="android:textColor">@color/timeLabelColor</item>
+    </style>
+
+    <style name="Theme.SwitchDateTime.TimeLabelAmPm">
+        <item name="android:textSize">@dimen/ampm_label_size</item>
+        <item name="android:textColor">@color/timeLabelColor</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

@@ -3,4 +3,39 @@
     <attr name="dateTimeColorLabel" format="reference|color" />
     <attr name="dateTimeColorValue" format="reference|color" />
     <attr name="dateTimeColorIcon" format="reference|color" />
+
+    <attr name="timeLabelColorBackground" format="reference|color" />
+    <attr name="timeLabelColor" format="reference|color" />
+    <attr name="timeLabelColorAccent" format="reference|color" />
+
+    <attr name="timeColorBackground" format="reference|color" />
+    <attr name="timeColorCircle" format="reference|color" />
+    <attr name="timeColorCenter" format="reference|color" />
+    <attr name="timeColorNumbers" format="reference|color" />
+    <attr name="timeColorSelector" format="reference|color" />
+
+    <attr name="timeAmPmColorBackground" format="reference|color" />
+    <attr name="timeAmPmColorSelectBackground" format="reference|color" />
+    <attr name="timeAmPmColorText" format="reference|color" />
+
+    <declare-styleable name="SwitchTimeCircleColor">
+        <attr name="timeCircleColor" format="color" />
+        <attr name="timeCenterColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchTimeSelectorColor">
+        <attr name="timeSelectorColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchTimeCircularNumbersColor">
+        <attr name="timeCircularNumbersColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchTimeAMPMColor">
+        <attr name="amPmBackgroundColor" format="color" />
+        <attr name="amPmSelectBackgroundColor" format="color" />
+        <attr name="amPmTextColor" format="color" />
+    </declare-styleable>
+
 </resources>
+
