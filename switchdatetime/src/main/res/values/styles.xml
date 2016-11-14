@@ -1,8 +1,4 @@
 <resources>
-
-    <color name="colorAccentM">#ea5151</color>
-    <color name="timeLabelColor">#cfcfcf</color>
-
     <!-- Base application theme. -->
     <style name="Theme.SwitchDateTime" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -49,7 +45,7 @@
     </style>
 
     <style name="Theme.SwitchDateTime.TimeLabelAmPm">
-        <item name="android:textSize">@dimen/ampm_label_size</item>
+        <item name="android:textSize">@dimen/timeLabelText</item>
         <item name="android:textColor">@color/timeLabelColor</item>
         <item name="android:textStyle">bold</item>
     </style>

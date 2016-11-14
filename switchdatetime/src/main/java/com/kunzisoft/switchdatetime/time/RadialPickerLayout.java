@@ -104,8 +104,16 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         void onValueSelected(int pickerIndex, int newValue, boolean autoAdvance);
     }
 
+    public RadialPickerLayout(Context context) {
+        this(context, null, 0);
+    }
+
     public RadialPickerLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        this(context, attrs, 0);
+    }
+
+    public RadialPickerLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
 
         setOnTouchListener(this);
         ViewConfiguration vc = ViewConfiguration.get(context);

@@ -79,8 +79,8 @@
                 android:gravity="center">
                 <com.kunzisoft.switchdatetime.time.RadialPickerLayout
                     android:id="@+id/time_picker"
-                    android:layout_height="@dimen/picker_dimen"
-                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/timeCircleWidth"
+                    android:layout_width="@dimen/timeCircleWidth"
                     android:layout_gravity="center"
                     android:focusable="true"
                     android:focusableInTouchMode="true"

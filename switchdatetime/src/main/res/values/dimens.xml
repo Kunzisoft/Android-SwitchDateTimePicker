@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="pickerWidth">400dp</dimen>
+    <dimen name="timeCircleWidth">270dp</dimen>
+
+    <dimen name="timeLabelMinWidth">170dp</dimen>
+    <dimen name="timeLabelText">16sp</dimen>
+
 </resources>

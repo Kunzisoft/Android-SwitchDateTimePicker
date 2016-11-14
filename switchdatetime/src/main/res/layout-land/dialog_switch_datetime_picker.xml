@@ -89,8 +89,8 @@
                 android:layout_toEndOf="@+id/relativeLayout">
                 <com.kunzisoft.switchdatetime.time.RadialPickerLayout
                     android:id="@+id/time_picker"
-                    android:layout_width="@dimen/picker_dimen"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/timeCircleWidth"
+                    android:layout_height="@dimen/timeCircleWidth"
                     android:layout_gravity="center"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -107,7 +107,7 @@
         </RelativeLayout>
         <DatePicker
             android:id="@+id/datePicker"
-            android:layout_width="@dimen/pickerWidth"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent">
         </DatePicker>
     </ViewSwitcher>
