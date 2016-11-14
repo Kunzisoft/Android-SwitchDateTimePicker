@@ -20,7 +20,7 @@
         <item name="timeColorCircle">#e1e1e1</item>
         <item name="timeColorCenter">#000</item>
         <item name="timeColorNumbers">#494949</item>
-        <item name="timeColorSelector">#fff</item>
+        <item name="timeColorSelector">@color/colorAccentM</item>
 
         <item name="timeAmPmColorBackground">@color/colorAccentM</item>
         <item name="timeAmPmColorSelectBackground">@color/colorAccentM</item>

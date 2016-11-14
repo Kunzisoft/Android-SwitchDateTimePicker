@@ -136,15 +136,6 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         switchTimeAMPMColorTypedArray.recycle();
         addView(mAmPmCirclesView);
 
-        mHourRadialTextsView = new RadialTextsView(context);
-        mMinuteRadialTextsView = new RadialTextsView(context);
-        TypedArray switchTimeNumbersColorTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircularNumbersColor);
-        mHourRadialTextsView.setNumbersColor(switchTimeNumbersColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircularNumbersColor_timeCircularNumbersColor, Color.BLACK));
-        mMinuteRadialTextsView.setNumbersColor(switchTimeNumbersColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircularNumbersColor_timeCircularNumbersColor, Color.BLACK));
-        switchTimeNumbersColorTypedArray.recycle();
-        addView(mHourRadialTextsView);
-        addView(mMinuteRadialTextsView);
-
         mHourRadialSelectorView = new RadialSelectorView(context);
         mMinuteRadialSelectorView = new RadialSelectorView(context);
         TypedArray switchSelectorColorTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.SwitchTimeSelectorColor);
@@ -154,6 +145,14 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         addView(mHourRadialSelectorView);
         addView(mMinuteRadialSelectorView);
 
+        mHourRadialTextsView = new RadialTextsView(context);
+        mMinuteRadialTextsView = new RadialTextsView(context);
+        TypedArray switchTimeNumbersColorTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircularNumbersColor);
+        mHourRadialTextsView.setNumbersColor(switchTimeNumbersColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircularNumbersColor_timeCircularNumbersColor, Color.BLACK));
+        mMinuteRadialTextsView.setNumbersColor(switchTimeNumbersColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircularNumbersColor_timeCircularNumbersColor, Color.BLACK));
+        switchTimeNumbersColorTypedArray.recycle();
+        addView(mHourRadialTextsView);
+        addView(mMinuteRadialTextsView);
 
         // Prepare mapping to snap touchable degrees to selectable degrees.
         preparePrefer30sMap();
