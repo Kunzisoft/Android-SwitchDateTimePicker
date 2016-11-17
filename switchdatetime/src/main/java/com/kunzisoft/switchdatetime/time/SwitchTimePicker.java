@@ -65,6 +65,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     // Delay before starting the pulse animation, in ms.
     private static final int PULSE_ANIMATOR_DELAY = 300;
 
+    private Context mContext;
     private OnTimeSetListener mCallback;
 
     private TextView mHourView;
@@ -105,9 +106,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private boolean mVibrate = true;
     private boolean mCloseOnSingleTapMinute;
 
-    // Resources
-    private Resources mResources;
-
     /**
      * The callback interface used to indicate the user is done filling in
      * the time (they clicked on the 'Set' button).
@@ -122,8 +120,9 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute);
     }
 
-    public SwitchTimePicker(OnTimeSetListener callback,
+    public SwitchTimePicker(Context context, OnTimeSetListener callback,
                            int hourOfDay, int minute, boolean is24HourMode, boolean vibrate) {
+        mContext = context;
         mCallback = callback;
 
         mInitialHourOfDay = hourOfDay;
@@ -133,10 +132,10 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mVibrate = vibrate;
     }
 
-    public SwitchTimePicker(OnTimeSetListener callback,
+    public SwitchTimePicker(Context context, OnTimeSetListener callback,
                             int hourOfDay, int minute, boolean is24HourMode, boolean vibrate,
                             Bundle savedInstanceState) {
-        this(callback, hourOfDay, minute, is24HourMode, vibrate);
+        this(context, callback, hourOfDay, minute, is24HourMode, vibrate);
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_HOUR_OF_DAY)
                 && savedInstanceState.containsKey(KEY_MINUTE)
                 && savedInstanceState.containsKey(KEY_IS_24_HOUR_VIEW)) {
@@ -182,12 +181,12 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mCloseOnSingleTapMinute = closeOnSingleTapMinute;
     }
 
-    public View onCreateView(Context context, Resources resources, View view,
+    public View onCreateView(View view,
                              Bundle savedInstanceState) {
         KeyboardListener keyboardListener = new KeyboardListener();
         view.setOnKeyListener(keyboardListener);
 
-        mResources = resources;
+        final Resources resources = mContext.getResources();
         mHourPickerDescription = resources.getString(R.string.hour_picker_description);
         mSelectHours = resources.getString(R.string.select_hours);
         mMinutePickerDescription = resources.getString(R.string.minute_picker_description);
@@ -204,7 +203,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
         TypedValue typedValueColorAccent = new TypedValue();
         TypedValue typedValueColor = new TypedValue();
-        Resources.Theme theme = context.getTheme();
+        Resources.Theme theme = mContext.getTheme();
         theme.resolveAttribute(com.kunzisoft.switchdatetime.R.attr.timeLabelColorAccent, typedValueColorAccent, true);
         theme.resolveAttribute(com.kunzisoft.switchdatetime.R.attr.timeLabelColor, typedValueColor, true);
         mColorAccent = typedValueColorAccent.data;
@@ -214,7 +213,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
             mAmPmTextView.setTransformationMethod(new TransformationMethod() {
 
-                private final Locale locale = mResources.getConfiguration().locale;
+                private final Locale locale = resources.getConfiguration().locale;
 
                 @Override
                 public CharSequence getTransformation(CharSequence source, View view) {
@@ -234,7 +233,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mTimePicker = (RadialPickerLayout) view.findViewById(R.id.time_picker);
         mTimePicker.setOnValueSelectedListener(this);
         mTimePicker.setOnKeyListener(keyboardListener);
-        mTimePicker.initialize(context, mInitialHourOfDay, mInitialMinute, mIs24HourMode, mVibrate);
+        mTimePicker.initialize(mContext, mInitialHourOfDay, mInitialMinute, mIs24HourMode, mVibrate);
         int currentItemShowing = HOUR_INDEX;
         if (savedInstanceState != null &&
                 savedInstanceState.containsKey(KEY_CURRENT_ITEM_SHOWING)) {

@@ -9,11 +9,11 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.kunzisoft.switchdatetime.date.SwitchDatePicker;
 import com.kunzisoft.switchdatetime.time.RadialPickerLayout;
 import com.kunzisoft.switchdatetime.time.SwitchTimePicker;
 
@@ -135,49 +135,24 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         });
 
         // Construct TimePicker
-        SwitchTimePicker timePicker = new SwitchTimePicker(new SwitchTimePicker.OnTimeSetListener() {
+        SwitchTimePicker timePicker = new SwitchTimePicker(getContext(), new SwitchTimePicker.OnTimeSetListener() {
             @Override
             public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
 
             }
         }, 1, 1, false, false);
-        timePicker.onCreateView(getContext(), getResources(), dateTimeLayout.findViewById(R.id.timePicker), savedInstanceState);
-        /*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            timePicker.setHour(hour);
-        } else {
-            timePicker.setCurrentHour(hour);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            timePicker.setMinute(minute);
-        } else {
-            timePicker.setCurrentMinute(minute);
-        }
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-                dateTime.set(Calendar.HOUR_OF_DAY, i);
-                dateTime.set(Calendar.MINUTE, i1);
-                dateText.setText(simpleDateFormat.format(dateTime.getTime()));
-            }
-        });
-
-
-            private void onDoneButtonClick() {
-        if (mInKbMode && isTypedTimeFullyLegal()) {
-            finishKbMode(false);
-        } else {
-            mTimePicker.tryVibrate();
-        }
-        if (mCallback != null) {
-            mCallback.onTimeSet(mTimePicker,
-                    mTimePicker.getHours(), mTimePicker.getMinutes());
-        }
-        //dismiss();
-    }
-        */
+        timePicker.onCreateView(dateTimeLayout.findViewById(R.id.timePicker), savedInstanceState);
 
         // Construct DatePicker
+        SwitchDatePicker datePicker = new SwitchDatePicker(getContext(), new SwitchDatePicker.OnDateSetListener() {
+            @Override
+            public void onDateSet(SwitchDatePicker switchDatePicker, int year, int month, int day) {
+
+            }
+        }, 1980, 1, 1, false);
+        datePicker.onCreateView(dateTimeLayout.findViewById(R.id.datePicker), savedInstanceState);
+
+        /*
         DatePicker datePicker = (DatePicker) dateTimeLayout.findViewById(R.id.datePicker);
         datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
             @Override
@@ -188,6 +163,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 dateText.setText(simpleDateFormat.format(dateTime.getTime()));
             }
         });
+        */
 
         //*
 

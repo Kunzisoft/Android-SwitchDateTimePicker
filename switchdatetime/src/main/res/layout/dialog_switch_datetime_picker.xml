@@ -93,11 +93,14 @@
                     switch:amPmTextColor="?attr/timeAmPmColorText"/>
             </RelativeLayout>
         </LinearLayout>
-        <DatePicker
+
+        <include
             android:id="@+id/datePicker"
+            layout="@layout/date_picker_dialog"
             android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent">
-        </DatePicker>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
     </ViewSwitcher>
 </LinearLayout>

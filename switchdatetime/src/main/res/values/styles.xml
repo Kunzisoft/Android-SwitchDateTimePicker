@@ -6,15 +6,16 @@
         <item name="colorPrimaryDark">#303F9F</item>
         <item name="colorAccent">@color/colorAccentM</item>
 
+        <!-- DateTime -->
         <item name="dateTimeColorBackground">@color/colorAccentM</item>
         <item name="dateTimeColorLabel">#cacaca</item>
         <item name="dateTimeColorValue">#fff</item>
         <item name="dateTimeColorIcon">#fff</item>
 
+        <!-- Time -->
         <item name="timeLabelColorBackground">@color/colorAccentM</item>
         <item name="timeLabelColorAccent">#f9eaef</item>
         <item name="timeLabelColor">@color/timeLabelColor</item>
-
 
         <item name="timeColorBackground">#fff</item>
         <item name="timeColorCircle">#e1e1e1</item>
@@ -25,6 +26,9 @@
         <item name="timeAmPmColorBackground">@color/colorAccentM</item>
         <item name="timeAmPmColorSelectBackground">@color/colorAccentM</item>
         <item name="timeAmPmColorText">#fff</item>
+
+        <!-- Date -->
+        <item name="dateLabelColorBackground">@color/colorAccentM</item>
 
     </style>
 
