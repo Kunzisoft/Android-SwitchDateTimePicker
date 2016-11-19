@@ -5,4 +5,9 @@
     <dimen name="timeLabelMinWidth">170dp</dimen>
     <dimen name="timeLabelText">16sp</dimen>
 
+    <dimen name="timeHeight">32dip</dimen>
+    <dimen name="timeWidth">128dip</dimen>
+
+    <dimen name="headerWidth">200dp</dimen>
+
 </resources>

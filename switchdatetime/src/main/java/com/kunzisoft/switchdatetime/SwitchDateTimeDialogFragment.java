@@ -21,6 +21,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * A fragment that displays a dialog window with Date and Time who can be selected by switch button
@@ -114,7 +115,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             labelView.setText(mLabel);
         else
             labelView.setText(getString(R.string.label_datetime_dialog));
-        final TextView dateText = (TextView) dateTimeLayout.findViewById(R.id.value);
 
         // Switch date to time and reverse
         switcher = (ViewSwitcher) dateTimeLayout.findViewById(R.id.dateSwitcher);
@@ -141,7 +141,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
             }
         }, 1, 1, false, false);
-        timePicker.onCreateView(dateTimeLayout.findViewById(R.id.timePicker), savedInstanceState);
+        timePicker.onCreateView(dateTimeLayout, savedInstanceState);
 
         // Construct DatePicker
         SwitchDatePicker datePicker = new SwitchDatePicker(getContext(), new SwitchDatePicker.OnDateSetListener() {
@@ -149,8 +149,9 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             public void onDateSet(SwitchDatePicker switchDatePicker, int year, int month, int day) {
 
             }
-        }, 1980, 1, 1, false);
-        datePicker.onCreateView(dateTimeLayout.findViewById(R.id.datePicker), savedInstanceState);
+            // TODO change simple date format
+        }, 1980, 1, 1, new SimpleDateFormat("MMMM dd", Locale.getDefault()), false);
+        datePicker.onCreateView(dateTimeLayout, savedInstanceState);
 
         /*
         DatePicker datePicker = (DatePicker) dateTimeLayout.findViewById(R.id.datePicker);
@@ -190,8 +191,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                     }
                 });
 
-        // Show datetime from locale format
-        dateText.setText(simpleDateFormat.format(dateTime.getTime()));
         AlertDialog alertDialog = db.create();
         //*/
         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {

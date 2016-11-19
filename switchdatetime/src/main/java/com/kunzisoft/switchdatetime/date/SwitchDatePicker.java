@@ -8,7 +8,6 @@ import android.os.Vibrator;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fourmob.datetimepicker.R;
@@ -76,12 +75,12 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
 
     private TextView mDayOfWeekView;
     private DayPickerView mDayPickerView;
-    private LinearLayout mMonthAndDayView;
-    private TextView mSelectedDayTextView;
-    private TextView mSelectedMonthTextView;
+    private TextView mMonthAndDayView;
     private Vibrator mVibrator;
     private YearPickerView mYearPickerView;
     private TextView mYearView;
+
+    private SimpleDateFormat mSimpleDateFormatMonthDay;
 
     private boolean mVibrate = true;
     private boolean mCloseOnSingleTapDay;
@@ -103,7 +102,8 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
      * @param day
      * @param vibrate
      */
-    public SwitchDatePicker(Context context, OnDateSetListener onDateSetListener, int year, int month, int day, boolean vibrate) {
+    public SwitchDatePicker(Context context, OnDateSetListener onDateSetListener, int year, int month, int day,
+                            SimpleDateFormat simpleDateFormat, boolean vibrate) {
         mContext = context;
         if (year > MAX_YEAR)
             throw new IllegalArgumentException("year end must < " + MAX_YEAR);
@@ -113,6 +113,7 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
         mCalendar.set(Calendar.YEAR, year);
         mCalendar.set(Calendar.MONTH, month);
         mCalendar.set(Calendar.DAY_OF_MONTH, day);
+        mSimpleDateFormatMonthDay = simpleDateFormat;
         mVibrate = vibrate;
     }
 
@@ -168,21 +169,13 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
     }
 
     private void updateDisplay(boolean announce) {
-        /*if (mDayOfWeekView != null) {
-            mDayOfWeekView.setText(mCalendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG,
-                    Locale.getDefault()).toUpperCase(Locale.getDefault()));
-        }
-        mSelectedMonthTextView.setText(mCalendar.getDisplayName(Calendar.MONTH, Calendar.SHORT,
-                Locale.getDefault()).toUpperCase(Locale.getDefault()));*/
 
         if (this.mDayOfWeekView != null){
             this.mCalendar.setFirstDayOfWeek(mWeekStart);
             this.mDayOfWeekView.setText(mDateFormatSymbols.getWeekdays()[this.mCalendar.get(Calendar.DAY_OF_WEEK)].toUpperCase(Locale.getDefault()));
         }
 
-        this.mSelectedMonthTextView.setText(mDateFormatSymbols.getMonths()[this.mCalendar.get(Calendar.MONTH)].toUpperCase(Locale.getDefault()));
-
-        mSelectedDayTextView.setText(DAY_FORMAT.format(mCalendar.getTime()));
+        mMonthAndDayView.setText(mSimpleDateFormatMonthDay.format(mCalendar.getTime()));
         mYearView.setText(YEAR_FORMAT.format(mCalendar.getTime()));
 
         // Accessibility.
@@ -236,10 +229,8 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
     public View onCreateView(View view, Bundle savedInstanceState) {
 
         mDayOfWeekView = ((TextView) view.findViewById(R.id.date_picker_header));
-        mMonthAndDayView = ((LinearLayout) view.findViewById(R.id.date_picker_month_and_day));
+        mMonthAndDayView = ((TextView) view.findViewById(R.id.date_picker_month_and_day));
         mMonthAndDayView.setOnClickListener(this);
-        mSelectedMonthTextView = ((TextView) view.findViewById(R.id.date_picker_month));
-        mSelectedDayTextView = ((TextView) view.findViewById(R.id.date_picker_day));
         mYearView = ((TextView) view.findViewById(R.id.date_picker_year));
         mYearView.setOnClickListener(this);
 
