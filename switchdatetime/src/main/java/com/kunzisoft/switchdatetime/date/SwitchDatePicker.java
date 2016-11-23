@@ -1,7 +1,6 @@
 package com.kunzisoft.switchdatetime.date;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Vibrator;
@@ -28,7 +27,7 @@ import java.util.Locale;
 /**
  * Thanks to FlavienLaurent and Writtmeyer
  */
-public class SwitchDatePicker implements View.OnClickListener, DatePickerController {
+public class SwitchDatePicker implements View.OnClickListener, DatePickerListener {
 
     private Context mContext;
 
@@ -69,12 +68,6 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
     private int mMaxYear = MAX_YEAR;
     private int mMinYear = MIN_YEAR;
 
-    private String mDayPickerDescription;
-    private String mYearPickerDescription;
-    private String mSelectDay;
-    private String mSelectYear;
-
-    private DayPickerView mDayPickerView;
     private TextView mMonthAndDayView;
     private Vibrator mVibrator;
     private YearPickerView mYearPickerView;
@@ -134,7 +127,6 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
                     monthDayAnim.setStartDelay(ANIMATION_DELAY);
                     mDelayAnimation = false;
                 }
-                mDayPickerView.onDateChanged();
                 if (mCurrentView != currentView || forceRefresh) {
                     mMonthAndDayView.setSelected(true);
                     mYearView.setSelected(false);
@@ -149,7 +141,7 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
                     yearAnim.setStartDelay(ANIMATION_DELAY);
                     mDelayAnimation = false;
                 }
-                mYearPickerView.onDateChanged();
+                mYearPickerView.refreshAndCenter();
                 if (mCurrentView != currentView  || forceRefresh) {
                     mMonthAndDayView.setSelected(false);
                     mYearView.setSelected(true);
@@ -157,6 +149,7 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
                 }
                 yearAnim.start();
                 String dayDesc = YEAR_FORMAT.format(timeInMillis);
+
                 break;
         }
     }
@@ -196,8 +189,10 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
         return mMinYear;
     }
 
-    public SimpleMonthAdapter.CalendarDay getSelectedDay() {
-        return new SimpleMonthAdapter.CalendarDay(mCalendar);
+    @Override
+    public int getYear() {
+        // TODO Year
+        return 1990;
     }
 
     public void onClick(View view) {
@@ -230,8 +225,8 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
             listPositionOffset = savedInstanceState.getInt(KEY_LIST_POSITION_OFFSET);
         }
 
-        mDayPickerView = new DayPickerView(mContext, this);
-        mYearPickerView = new YearPickerView(mContext, this);
+        mYearPickerView = new YearPickerView(mContext);
+        mYearPickerView.setDatePickerListener(this);
 
         MaterialCalendarView materialCalendarView = (MaterialCalendarView) view.findViewById(com.kunzisoft.switchdatetime.R.id.datePicker);
         final TextView dateText = (TextView) view.findViewById(com.kunzisoft.switchdatetime.R.id.date_picker_month_and_day);
@@ -253,23 +248,9 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
             }
         });
 
-        Resources resources = mContext.getResources();
-        mDayPickerDescription = resources.getString(R.string.day_picker_description);
-        mSelectDay = resources.getString(R.string.select_day);
-        mYearPickerDescription = resources.getString(R.string.year_picker_description);
-        mSelectYear = resources.getString(R.string.select_year);
-
         updateDisplay(false);
         setCurrentView(currentView, true);
 
-        if (listPosition != -1) {
-            if (currentView == MONTH_AND_DAY_VIEW) {
-                mDayPickerView.postSetSelection(listPosition);
-            }
-            if (currentView == YEAR_VIEW) {
-                mYearPickerView.postSetSelectionFromTop(listPosition, listPositionOffset);
-            }
-        }
         return view;
     }
 
@@ -286,6 +267,15 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
         }
     }
 
+    @Override
+    public void onYearChange(int year) {
+        adjustDayInMonthIfNeeded(mCalendar.get(Calendar.MONTH), year);
+        mCalendar.set(Calendar.YEAR, year);
+        updatePickers();
+        setCurrentView(MONTH_AND_DAY_VIEW);
+        updateDisplay(true);
+    }
+
     public void onSaveInstanceState(Bundle bundle) {
         bundle.putInt(KEY_SELECTED_YEAR, mCalendar.get(Calendar.YEAR));
         bundle.putInt(KEY_SELECTED_MONTH, mCalendar.get(Calendar.MONTH));
@@ -297,21 +287,13 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
 
         int listPosition = -1;
         if (mCurrentView == 0) {
-            listPosition = mDayPickerView.getMostVisiblePosition();
+            // TODO remove
         } if (mCurrentView == 1) {
             listPosition = mYearPickerView.getFirstVisiblePosition();
             bundle.putInt(KEY_LIST_POSITION_OFFSET, mYearPickerView.getFirstPositionOffset());
         }
         bundle.putInt(KEY_LIST_POSITION, listPosition);
         bundle.putBoolean(KEY_VIBRATE, mVibrate);
-    }
-
-    public void onYearSelected(int year) {
-        adjustDayInMonthIfNeeded(mCalendar.get(Calendar.MONTH), year);
-        mCalendar.set(Calendar.YEAR, year);
-        updatePickers();
-        setCurrentView(MONTH_AND_DAY_VIEW);
-        updateDisplay(true);
     }
 
     public void registerOnDateChangedListener(OnDateChangedListener onDateChangedListener) {
@@ -324,9 +306,6 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
                     "Calendar.SATURDAY");
         }
         mWeekStart = startOfWeek;
-        if (mDayPickerView != null) {
-            mDayPickerView.onChange();
-        }
     }
 
     public void setOnDateSetListener(OnDateSetListener onDateSetListener) {
@@ -342,8 +321,6 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
             throw new IllegalArgumentException("min year end must > " + MIN_YEAR);
         mMinYear = minYear;
         mMaxYear = maxYear;
-        if (mDayPickerView != null)
-            mDayPickerView.onChange();
     }
 
     public void tryVibrate() {

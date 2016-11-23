@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
+import android.widget.ViewFlipper;
 
 import com.kunzisoft.switchdatetime.date.SwitchDatePicker;
 import com.kunzisoft.switchdatetime.time.RadialPickerLayout;
@@ -43,7 +43,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     private View dateTimeLayout;
     private ViewGroup viewGroup;
-    private ViewSwitcher switcher;
+    private ViewFlipper switcher;
 
     private int year = dateTime.get(Calendar.YEAR);
     private int month = dateTime.get(Calendar.MONTH);
@@ -117,7 +117,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             labelView.setText(getString(R.string.label_datetime_dialog));
 
         // Switch date to time and reverse
-        switcher = (ViewSwitcher) dateTimeLayout.findViewById(R.id.dateSwitcher);
+        switcher = (ViewFlipper) dateTimeLayout.findViewById(R.id.dateSwitcher);
         ImageButton buttonSwitch = (ImageButton) dateTimeLayout.findViewById(R.id.button_switch);
         buttonSwitch.setBackgroundColor(Color.TRANSPARENT);
         buttonSwitch.setOnClickListener(new View.OnClickListener() {
@@ -128,8 +128,12 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                     ((ImageButton) view).setImageResource(R.drawable.ic_clock_32dp);
                 }
                 else if (switcher.getDisplayedChild() == 1) {
-                    switcher.showPrevious();
+                    switcher.showNext();
                     ((ImageButton) view).setImageResource(R.drawable.ic_calendar_32dp);
+                }
+                else if (switcher.getDisplayedChild() == 2) {
+                    switcher.showNext();
+                    ((ImageButton) view).setImageResource(R.drawable.ic_calendar_32dp); // TODO change image
                 }
             }
         });

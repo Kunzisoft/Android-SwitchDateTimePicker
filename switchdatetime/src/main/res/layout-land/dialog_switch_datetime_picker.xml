@@ -150,6 +150,10 @@
             app:mcv_showOtherDates="all"
             app:mcv_selectionColor="?attr/dateSelectDayColor"
             />
+
+        <com.kunzisoft.switchdatetime.date.YearPickerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </ViewSwitcher>
 
 </RelativeLayout>

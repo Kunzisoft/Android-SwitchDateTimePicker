@@ -94,7 +94,7 @@
         </RelativeLayout>
 
     </LinearLayout>
-    <ViewSwitcher
+    <ViewFlipper
         android:id="@+id/dateSwitcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -139,5 +139,9 @@
             app:mcv_showOtherDates="all"
             app:mcv_selectionColor="?attr/dateSelectDayColor"
             />
-    </ViewSwitcher>
+
+        <com.kunzisoft.switchdatetime.date.YearPickerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ViewFlipper>
 </LinearLayout>
