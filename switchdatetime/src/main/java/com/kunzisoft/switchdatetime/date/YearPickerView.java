@@ -59,6 +59,8 @@ public class YearPickerView extends ListView implements AdapterView.OnItemClickL
             //TODO minYear maxYear
         }
 
+        // TODO select year in listener
+
         setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 
         Resources resources = context.getResources();

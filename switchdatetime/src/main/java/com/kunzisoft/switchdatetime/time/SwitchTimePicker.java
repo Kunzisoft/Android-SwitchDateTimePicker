@@ -67,6 +67,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
     private Context mContext;
     private OnTimeSetListener mCallback;
+    private OnClickListener onClickTimeListener;
 
     private TextView mHourView;
     private TextView mHourSpaceView;
@@ -181,7 +182,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mCloseOnSingleTapMinute = closeOnSingleTapMinute;
     }
 
-    public View onCreateView(View view,
+    public View onCreateView(final View view,
                              Bundle savedInstanceState) {
         KeyboardListener keyboardListener = new KeyboardListener();
         view.setOnKeyListener(keyboardListener);
@@ -247,6 +248,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             public void onClick(View v) {
                 setCurrentItemShowing(HOUR_INDEX, true, false, true);
                 mTimePicker.tryVibrate();
+                if(onClickTimeListener != null)
+                    onClickTimeListener.onClick(mHourView);
             }
         });
         mMinuteView.setOnClickListener(new OnClickListener() {
@@ -254,6 +257,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             public void onClick(View v) {
                 setCurrentItemShowing(MINUTE_INDEX, true, false, true);
                 mTimePicker.tryVibrate();
+                if(onClickTimeListener != null)
+                    onClickTimeListener.onClick(mMinuteView);
             }
         });
 
@@ -273,6 +278,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             mAmPmHitspace.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if(onClickTimeListener != null)
+                        onClickTimeListener.onClick(v);
                     mTimePicker.tryVibrate();
                     int amOrPm = mTimePicker.getIsCurrentlyAmOrPm();
                     if (amOrPm == AM) {
@@ -872,6 +879,14 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             // The time must be finished now. E.g. 2:57am, 9:30pm.
             thirdDigit.addChild(ampm);
         }
+    }
+
+    /**
+     * Add listener for clik on time view
+     * @param onClickListener
+     */
+    public void setOnClickTimeListener(View.OnClickListener onClickListener) {
+        this.onClickTimeListener = onClickListener;
     }
 
     /**

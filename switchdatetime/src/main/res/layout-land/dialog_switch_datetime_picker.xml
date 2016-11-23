@@ -58,7 +58,7 @@
             android:layout_marginBottom="16dp" >
 
             <include
-                android:id="@+id/time_header_label"
+                android:id="@+id/time_header_values"
                 layout="@layout/time_header_label"
                 android:layout_marginBottom="22dp"
                 android:layout_width="@dimen/timeWidth"
@@ -77,7 +77,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:includeFontPadding="false"
-                android:layout_below="@id/time_header_label" />
+                android:layout_below="@id/time_header_values" />
 
             <TextView
                 android:id="@id/date_picker_month_and_day"
@@ -94,7 +94,7 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <ViewSwitcher
+    <ViewFlipper
         android:id="@+id/dateSwitcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -154,6 +154,6 @@
         <com.kunzisoft.switchdatetime.date.YearPickerView
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </ViewSwitcher>
+    </ViewFlipper>
 
 </RelativeLayout>

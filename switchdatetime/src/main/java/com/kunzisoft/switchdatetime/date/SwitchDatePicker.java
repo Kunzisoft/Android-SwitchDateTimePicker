@@ -57,8 +57,10 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerListene
     private DateFormatSymbols mDateFormatSymbols = new DateFormatSymbols();
 
     private final Calendar mCalendar = Calendar.getInstance();
-    private HashSet<OnDateChangedListener> mListeners = new HashSet<OnDateChangedListener>();
+    private HashSet<OnDateChangedListener> mListeners = new HashSet<>();
     private OnDateSetListener mCallBack;
+    private View.OnClickListener onMonthAndDayClickListener;
+    private View.OnClickListener onYearClickListener;
 
     private boolean mDelayAnimation = true;
     private long mLastVibrate;
@@ -197,10 +199,18 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerListene
 
     public void onClick(View view) {
         tryVibrate();
-        if (view.getId() == R.id.date_picker_year)
+        if (view.getId() == R.id.date_picker_year) {
             setCurrentView(YEAR_VIEW);
-        else if (view.getId() == R.id.date_picker_month_and_day)
+            if(onYearClickListener != null) {
+                onYearClickListener.onClick(view);
+            }
+        }
+        else if (view.getId() == R.id.date_picker_month_and_day) {
             setCurrentView(MONTH_AND_DAY_VIEW);
+            if(onMonthAndDayClickListener != null) {
+                onMonthAndDayClickListener.onClick(view);
+            }
+        }
     }
 
     /**
@@ -321,6 +331,14 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerListene
             throw new IllegalArgumentException("min year end must > " + MIN_YEAR);
         mMinYear = minYear;
         mMaxYear = maxYear;
+    }
+
+    public void setOnMonthAndDayClickListener(View.OnClickListener onMonthAndDayClickListener) {
+        this.onMonthAndDayClickListener = onMonthAndDayClickListener;
+    }
+
+    public void setOnYearlickListener(View.OnClickListener onYearlickListener) {
+        this.onYearClickListener = onYearlickListener;
     }
 
     public void tryVibrate() {
