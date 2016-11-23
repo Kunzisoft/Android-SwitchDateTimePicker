@@ -17,7 +17,6 @@ import com.kunzisoft.switchdatetime.date.SwitchDatePicker;
 import com.kunzisoft.switchdatetime.time.RadialPickerLayout;
 import com.kunzisoft.switchdatetime.time.SwitchTimePicker;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -51,7 +50,8 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private int day = dateTime.get(Calendar.DAY_OF_MONTH);
     private int hour = dateTime.get(Calendar.HOUR_OF_DAY);
     private int minute = dateTime.get(Calendar.MINUTE);
-    private DateFormat simpleDateFormat = DateFormat.getDateTimeInstance();
+
+    private SimpleDateFormat dayAndMonthSimpleDate;
 
     /**
      * Create a new instance of SwitchDateTimeDialogFragment
@@ -135,6 +135,10 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         });
 
         // Construct TimePicker
+
+        // Init simple date format if null
+        if(dayAndMonthSimpleDate == null)
+            dayAndMonthSimpleDate = new SimpleDateFormat("MMMM dd", Locale.getDefault());
         SwitchTimePicker timePicker = new SwitchTimePicker(getContext(), new SwitchTimePicker.OnTimeSetListener() {
             @Override
             public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
@@ -146,27 +150,13 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         // Construct DatePicker
         SwitchDatePicker datePicker = new SwitchDatePicker(getContext(), new SwitchDatePicker.OnDateSetListener() {
             @Override
-            public void onDateSet(SwitchDatePicker switchDatePicker, int year, int month, int day) {
-
+            public void onDateSet(int year, int month, int day) {
+                dateTime.set(Calendar.YEAR, year);
+                dateTime.set(Calendar.MONTH, month);
+                dateTime.set(Calendar.DAY_OF_MONTH, day);
             }
-            // TODO change simple date format
-        }, 1980, 1, 1, new SimpleDateFormat("MMMM dd", Locale.getDefault()), false);
+        }, 1980, 1, 1, dayAndMonthSimpleDate, false);
         datePicker.onCreateView(dateTimeLayout, savedInstanceState);
-
-        /*
-        DatePicker datePicker = (DatePicker) dateTimeLayout.findViewById(R.id.datePicker);
-        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                dateTime.set(Calendar.YEAR, i);
-                dateTime.set(Calendar.MONTH, i1);
-                dateTime.set(Calendar.DAY_OF_MONTH, i2);
-                dateText.setText(simpleDateFormat.format(dateTime.getTime()));
-            }
-        });
-        */
-
-        //*
 
         // Assign buttons
         AlertDialog.Builder db = new AlertDialog.Builder(getActivity());
@@ -225,12 +215,22 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     }
 
     /**
-     * Assign a SimpleDateFormat like "d MMM yyyy HH:mm:ss" to show formatted DateTime
+     * TODO
+     * @return
+     */
+    public SimpleDateFormat getSimpleDateMonthAndDayFormat() {
+        return dayAndMonthSimpleDate;
+    }
+
+    /**
+     * Assign a SimpleDateFormat like "d MMM" to show formatted DateTime
      * @param simpleDateFormat
      */
-    public void setSimpleDateFormat(SimpleDateFormat simpleDateFormat) {
-        this.simpleDateFormat = simpleDateFormat;
+    public void setSimpleDateMonthAndDayFormat(SimpleDateFormat simpleDateFormat) {
+        // TODO REGEX for dd MM
+        this.dayAndMonthSimpleDate = simpleDateFormat;
     }
+
 
     /**
      * Callback class for assign action on positive and negative button

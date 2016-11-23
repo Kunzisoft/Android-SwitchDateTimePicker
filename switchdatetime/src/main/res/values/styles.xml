@@ -30,6 +30,7 @@
 
         <!-- Date -->
         <item name="dateLabelColorBackground">@color/colorAccentM</item>
+        <item name="dateSelectDayColor">@color/colorAccentM</item>
 
     </style>
 

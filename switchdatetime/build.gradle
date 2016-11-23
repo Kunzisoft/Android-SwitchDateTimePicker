@@ -28,5 +28,6 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.github.flavienlaurent.datetimepicker:library:0.0.2'
+    compile 'com.prolificinteractive:material-calendarview:1.4.2'
     testCompile 'junit:junit:4.12'
 }

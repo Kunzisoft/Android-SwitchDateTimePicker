@@ -8,6 +8,6 @@
     <dimen name="timeHeight">32dip</dimen>
     <dimen name="timeWidth">128dip</dimen>
 
-    <dimen name="headerWidth">200dp</dimen>
+    <dimen name="headerWidth">180dp</dimen>
 
 </resources>

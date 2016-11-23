@@ -98,6 +98,7 @@
         android:id="@+id/dateSwitcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:inAnimation="@anim/dialog_enter_from_right"
         android:outAnimation="@anim/dialog_leave_to_left"
         android:layout_gravity="center">
@@ -125,13 +126,18 @@
                 switch:amPmTextColor="?attr/timeAmPmColorText"/>
         </LinearLayout>
 
-        <include
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/datePicker"
-            layout="@layout/date_picker_dialog"
-            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginEnd="28dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:mcv_showOtherDates="all"
+            app:mcv_selectionColor="?attr/dateSelectDayColor"
             />
-
     </ViewSwitcher>
 </LinearLayout>

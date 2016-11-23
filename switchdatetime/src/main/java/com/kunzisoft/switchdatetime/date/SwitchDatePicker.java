@@ -5,15 +5,17 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.TextView;
 
 import com.fourmob.datetimepicker.R;
 import com.fourmob.datetimepicker.Utils;
-import com.fourmob.datetimepicker.date.AccessibleDateAnimator;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
@@ -59,7 +61,6 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
     private HashSet<OnDateChangedListener> mListeners = new HashSet<OnDateChangedListener>();
     private OnDateSetListener mCallBack;
 
-    private AccessibleDateAnimator mAnimator;
     private boolean mDelayAnimation = true;
     private long mLastVibrate;
     private int mCurrentView = UNINITIALIZED;
@@ -73,7 +74,6 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
     private String mSelectDay;
     private String mSelectYear;
 
-    private TextView mDayOfWeekView;
     private DayPickerView mDayPickerView;
     private TextView mMonthAndDayView;
     private Vibrator mVibrator;
@@ -117,7 +117,6 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
         mVibrate = vibrate;
     }
 
-
     public void setVibrate(boolean vibrate) {
         mVibrate = vibrate;
     }
@@ -139,13 +138,10 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
                 if (mCurrentView != currentView || forceRefresh) {
                     mMonthAndDayView.setSelected(true);
                     mYearView.setSelected(false);
-                    mAnimator.setDisplayedChild(MONTH_AND_DAY_VIEW);
                     mCurrentView = currentView;
                 }
                 monthDayAnim.start();
                 String monthDayDesc = DateUtils.formatDateTime(mContext, timeInMillis, DateUtils.FORMAT_SHOW_DATE);
-                mAnimator.setContentDescription(mDayPickerDescription + ": " + monthDayDesc);
-                Utils.tryAccessibilityAnnounce(mAnimator, mSelectDay);
                 break;
             case YEAR_VIEW:
                 ObjectAnimator yearAnim = Utils.getPulseAnimator(mYearView, 0.85F, 1.1F);
@@ -157,38 +153,27 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
                 if (mCurrentView != currentView  || forceRefresh) {
                     mMonthAndDayView.setSelected(false);
                     mYearView.setSelected(true);
-                    mAnimator.setDisplayedChild(YEAR_VIEW);
                     mCurrentView = currentView;
                 }
                 yearAnim.start();
                 String dayDesc = YEAR_FORMAT.format(timeInMillis);
-                mAnimator.setContentDescription(mYearPickerDescription + ": " + dayDesc);
-                Utils.tryAccessibilityAnnounce(mAnimator, mSelectYear);
                 break;
         }
     }
 
     private void updateDisplay(boolean announce) {
 
-        if (this.mDayOfWeekView != null){
-            this.mCalendar.setFirstDayOfWeek(mWeekStart);
-            this.mDayOfWeekView.setText(mDateFormatSymbols.getWeekdays()[this.mCalendar.get(Calendar.DAY_OF_WEEK)].toUpperCase(Locale.getDefault()));
-        }
-
         mMonthAndDayView.setText(mSimpleDateFormatMonthDay.format(mCalendar.getTime()));
         mYearView.setText(YEAR_FORMAT.format(mCalendar.getTime()));
 
         // Accessibility.
         long millis = mCalendar.getTimeInMillis();
-        mAnimator.setDateMillis(millis);
         int flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_YEAR;
         String monthAndDayText = DateUtils.formatDateTime(mContext, millis, flags);
         mMonthAndDayView.setContentDescription(monthAndDayText);
 
         if (announce) {
             flags = DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR;
-            String fullDateText = DateUtils.formatDateTime(mContext, millis, flags);
-            Utils.tryAccessibilityAnnounce(mAnimator, fullDateText);
         }
     }
 
@@ -228,7 +213,6 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
      * */
     public View onCreateView(View view, Bundle savedInstanceState) {
 
-        mDayOfWeekView = ((TextView) view.findViewById(R.id.date_picker_header));
         mMonthAndDayView = ((TextView) view.findViewById(R.id.date_picker_month_and_day));
         mMonthAndDayView.setOnClickListener(this);
         mYearView = ((TextView) view.findViewById(R.id.date_picker_year));
@@ -249,24 +233,31 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
         mDayPickerView = new DayPickerView(mContext, this);
         mYearPickerView = new YearPickerView(mContext, this);
 
+        MaterialCalendarView materialCalendarView = (MaterialCalendarView) view.findViewById(com.kunzisoft.switchdatetime.R.id.datePicker);
+        final TextView dateText = (TextView) view.findViewById(com.kunzisoft.switchdatetime.R.id.date_picker_month_and_day);
+
+        // TODO inject first date
+        /*
+        materialCalendarView.state().edit()
+                .setFirstDayOfWeek(Calendar.WEDNESDAY)
+                .setMinimumDate(CalendarDay.from(2014, 4, 3))
+                .setMaximumDate(CalendarDay.from(2018, 5, 12))
+                .setCalendarDisplayMode(CalendarMode.WEEKS)
+                .commit();
+                */
+        materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+                dateText.setText(mSimpleDateFormatMonthDay.format(date.getDate()));
+                mCallBack.onDateSet(date.getYear(), date.getMonth(), date.getDay());
+            }
+        });
+
         Resources resources = mContext.getResources();
         mDayPickerDescription = resources.getString(R.string.day_picker_description);
         mSelectDay = resources.getString(R.string.select_day);
         mYearPickerDescription = resources.getString(R.string.year_picker_description);
         mSelectYear = resources.getString(R.string.select_year);
-
-        mAnimator = ((AccessibleDateAnimator) view.findViewById(R.id.animator));
-        mAnimator.addView(mDayPickerView);
-        mAnimator.addView(mYearPickerView);
-        mAnimator.setDateMillis(mCalendar.getTimeInMillis());
-
-        AlphaAnimation inAlphaAnimation = new AlphaAnimation(0.0F, 1.0F);
-        inAlphaAnimation.setDuration(300L);
-        mAnimator.setInAnimation(inAlphaAnimation);
-
-        AlphaAnimation outAlphaAnimation = new AlphaAnimation(1.0F, 0.0F);
-        outAlphaAnimation.setDuration(300L);
-        mAnimator.setOutAnimation(outAlphaAnimation);
 
         updateDisplay(false);
         setCurrentView(currentView, true);
@@ -374,6 +365,6 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerControl
     }
 
     public interface OnDateSetListener {
-        void onDateSet(SwitchDatePicker switchDatePicker, int year, int month, int day);
+        void onDateSet(int year, int month, int day);
     }
 }
