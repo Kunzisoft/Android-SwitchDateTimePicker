@@ -124,18 +124,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         buttonSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(switcher.getDisplayedChild() == ViewDatePosition.VIEW_HOURS_AND_MINUTES.getPosition()) {
-                    switcher.showNext();
-                    ((ImageButton) view).setImageResource(R.drawable.ic_clock_32dp);
-                }
-                else if (switcher.getDisplayedChild() == ViewDatePosition.VIEW_MONTH_AND_DAY.getPosition()) {
-                    switcher.showNext();
-                    ((ImageButton) view).setImageResource(R.drawable.ic_calendar_32dp);
-                }
-                else if (switcher.getDisplayedChild() == ViewDatePosition.VIEW_YEAR.getPosition()) {
-                    switcher.showNext();
-                    ((ImageButton) view).setImageResource(R.drawable.ic_calendar_32dp); // TODO change image
-                }
+                switcher.showNext();
             }
         });
 
