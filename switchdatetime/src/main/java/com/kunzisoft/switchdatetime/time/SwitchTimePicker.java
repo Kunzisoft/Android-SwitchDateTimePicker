@@ -66,7 +66,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private static final int PULSE_ANIMATOR_DELAY = 300;
 
     private Context mContext;
-    private OnTimeSetListener mCallback;
+    private OnTimeSelectedListener mCallback;
     private OnClickListener onClickTimeListener;
 
     private TextView mHourView;
@@ -83,8 +83,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private String mPmText;
 
     private boolean mAllowAutoAdvance;
-    private int mInitialHourOfDay;
-    private int mInitialMinute;
+    private int hourOfDay;
+    private int minute;
     private boolean mIs24HourMode;
 
     // For hardware IME input.
@@ -107,41 +107,26 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private boolean mVibrate = true;
     private boolean mCloseOnSingleTapMinute;
 
-    /**
-     * The callback interface used to indicate the user is done filling in
-     * the time (they clicked on the 'Set' button).
-     */
-    public interface OnTimeSetListener {
 
-        /**
-         * @param view      The view associated with this listener.
-         * @param hourOfDay The hour that was set.
-         * @param minute    The minute that was set.
-         */
-        void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute);
-    }
-
-    public SwitchTimePicker(Context context, OnTimeSetListener callback,
-                           int hourOfDay, int minute, boolean is24HourMode, boolean vibrate) {
+    public SwitchTimePicker(Context context, OnTimeSelectedListener callback) {
         mContext = context;
         mCallback = callback;
 
-        mInitialHourOfDay = hourOfDay;
-        mInitialMinute = minute;
-        mIs24HourMode = is24HourMode;
+        hourOfDay = hourOfDay;
+        minute = minute;
+        mIs24HourMode = false;
         mInKbMode = false;
-        mVibrate = vibrate;
+        mVibrate = false;
     }
 
-    public SwitchTimePicker(Context context, OnTimeSetListener callback,
-                            int hourOfDay, int minute, boolean is24HourMode, boolean vibrate,
+    public SwitchTimePicker(Context context, OnTimeSelectedListener callback,
                             Bundle savedInstanceState) {
-        this(context, callback, hourOfDay, minute, is24HourMode, vibrate);
+        this(context, callback);
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_HOUR_OF_DAY)
                 && savedInstanceState.containsKey(KEY_MINUTE)
                 && savedInstanceState.containsKey(KEY_IS_24_HOUR_VIEW)) {
-            mInitialHourOfDay = savedInstanceState.getInt(KEY_HOUR_OF_DAY);
-            mInitialMinute = savedInstanceState.getInt(KEY_MINUTE);
+            hourOfDay = savedInstanceState.getInt(KEY_HOUR_OF_DAY);
+            minute = savedInstanceState.getInt(KEY_MINUTE);
             mIs24HourMode = savedInstanceState.getBoolean(KEY_IS_24_HOUR_VIEW);
             mInKbMode = savedInstanceState.getBoolean(KEY_IN_KB_MODE);
             mVibrate = savedInstanceState.getBoolean(KEY_VIBRATE);
@@ -162,13 +147,13 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         }
     }
 
-    public void setOnTimeSetListener(OnTimeSetListener callback) {
+    public void setOnTimeSetListener(OnTimeSelectedListener callback) {
         mCallback = callback;
     }
 
     public void setStartTime(int hourOfDay, int minute) {
-        mInitialHourOfDay = hourOfDay;
-        mInitialMinute = minute;
+        this.hourOfDay = hourOfDay;
+        this.minute = minute;
         mInKbMode = false;
     }
 
@@ -234,7 +219,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mTimePicker = (RadialPickerLayout) view.findViewById(R.id.time_picker);
         mTimePicker.setOnValueSelectedListener(this);
         mTimePicker.setOnKeyListener(keyboardListener);
-        mTimePicker.initialize(mContext, mInitialHourOfDay, mInitialMinute, mIs24HourMode, mVibrate);
+        mTimePicker.initialize(mContext, hourOfDay, minute, mIs24HourMode, mVibrate);
         int currentItemShowing = HOUR_INDEX;
         if (savedInstanceState != null &&
                 savedInstanceState.containsKey(KEY_CURRENT_ITEM_SHOWING)) {
@@ -274,7 +259,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             separatorView.setLayoutParams(paramsSeparator);
         } else {
             mAmPmTextView.setVisibility(View.VISIBLE);
-            updateAmPmDisplay(mInitialHourOfDay < 12 ? AM : PM);
+            updateAmPmDisplay(hourOfDay < 12 ? AM : PM);
             mAmPmHitspace.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -294,8 +279,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         }
 
         mAllowAutoAdvance = true;
-        setHour(mInitialHourOfDay, true);
-        setMinute(mInitialMinute);
+        setHour(hourOfDay, true);
+        attributeMinute(minute);
 
         // Set up for keyboard mode.
         mDoublePlaceholderText = resources.getString(R.string.time_placeholder);
@@ -342,7 +327,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             }
             Utils.tryAccessibilityAnnounce(mTimePicker, announcement);
         } else if (pickerIndex == MINUTE_INDEX) {
-            setMinute(newValue);
+            attributeMinute(newValue);
             /*if(mCloseOnSingleTapMinute) {
                 onDoneButtonClick();
             }*/
@@ -376,7 +361,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         }
     }
 
-    private void setMinute(int value) {
+    private void attributeMinute(int value) {
         if (value == 60) {
             value = 0;
         }
@@ -448,7 +433,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
                 finishKbMode(false);
             }
             if (mCallback != null) {
-                mCallback.onTimeSet(mTimePicker,
+                mCallback.onTimeSelected(mTimePicker,
                         mTimePicker.getHours(), mTimePicker.getMinutes());
             }
             //dismiss();
@@ -615,7 +600,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             int hour = mTimePicker.getHours();
             int minute = mTimePicker.getMinutes();
             setHour(hour, true);
-            setMinute(minute);
+            attributeMinute(minute);
             if (!mIs24HourMode) {
                 updateAmPmDisplay(hour < 12 ? AM : PM);
             }
@@ -889,6 +874,22 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         this.onClickTimeListener = onClickListener;
     }
 
+    public int getHourOfDay() {
+        return hourOfDay;
+    }
+
+    public void setHourOfDay(int hourOfDay) {
+        this.hourOfDay = hourOfDay;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
     /**
      * Simple node class to be used for traversal to check for legal times.
      * mLegalKeys represents the keys that can be typed to get to the node.
@@ -937,5 +938,19 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             }
             return false;
         }
+    }
+
+    /**
+     * The callback interface used to indicate the user is done filling in
+     * the time (they clicked on the 'Set' button).
+     */
+    public interface OnTimeSelectedListener {
+
+        /**
+         * @param view      The view associated with this listener.
+         * @param hourOfDay The hour that was set.
+         * @param minute    The minute that was set.
+         */
+        void onTimeSelected(RadialPickerLayout view, int hourOfDay, int minute);
     }
 }

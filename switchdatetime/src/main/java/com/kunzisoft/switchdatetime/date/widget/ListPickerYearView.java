@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.kunzisoft.switchdatetime.R;
-import com.kunzisoft.switchdatetime.date.DatePickerListener;
+import com.kunzisoft.switchdatetime.date.OnYearSelectedListener;
 
 import java.util.ArrayList;
 
@@ -28,7 +28,7 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
 
     private YearPickerAdapter mAdapter;
     private int mChildSize;
-    private DatePickerListener yearChangeListener;
+    private OnYearSelectedListener yearChangeListener;
     private TextCircularIndicatorView mSelectedView;
     private int mViewSize;
 
@@ -105,7 +105,7 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
         if (clickedView != null) {
             currentYear = getYearFromTextView(clickedView);
             if(yearChangeListener != null) {
-                yearChangeListener.onYearChange(getYearFromTextView(clickedView));
+                yearChangeListener.onYearSelected(clickedView, getYearFromTextView(clickedView));
             }
             mAdapter.setSelectedYear(currentYear);
             mAdapter.notifyDataSetChanged();
@@ -131,8 +131,8 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
         return Integer.valueOf(view.getText().toString());
     }
 
-    public void setDatePickerListener(DatePickerListener datePickerListener) {
-        this.yearChangeListener = datePickerListener;
+    public void setDatePickerListener(OnYearSelectedListener onYearSelectedListener) {
+        this.yearChangeListener = onYearSelectedListener;
     }
 
     public int getMinYear() {
@@ -158,5 +158,4 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
     public void setYear(int year) {
         this.currentYear = year;
     }
-
 }

@@ -21,14 +21,12 @@ class YearPickerAdapter extends BaseAdapter {
     private static final int LIST_ITEM_TYPE_INDICATOR = 1;
     private static final int LIST_ITEM_TYPE_COUNT = 2;
 
-    private Context context;
     private List<Integer> listYears;
     private int selectedYear;
 
     private LayoutInflater layoutInflater;
 
     YearPickerAdapter(Context context, List<Integer> listYears, int selectedYear) {
-        this.context = context;
         this.listYears = listYears;
         this.selectedYear = selectedYear;
         this.layoutInflater = LayoutInflater.from(context);
