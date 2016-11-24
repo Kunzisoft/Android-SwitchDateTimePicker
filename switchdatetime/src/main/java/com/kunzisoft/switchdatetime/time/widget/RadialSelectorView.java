@@ -291,7 +291,7 @@ public class RadialSelectorView extends View {
         int pointY = mYCenter - (int) (mLineLength * Math.cos(mSelectionRadians));
 
         // Draw the selection circle.
-        mPaint.setAlpha(51);
+        mPaint.setAlpha(50);
         canvas.drawCircle(pointX, pointY, mSelectionRadius, mPaint);
 
         if (mForceDrawDot | mSelectionDegrees % 30 != 0) {

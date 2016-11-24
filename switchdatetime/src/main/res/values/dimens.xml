@@ -10,4 +10,6 @@
 
     <dimen name="headerWidth">180dp</dimen>
 
+    <dimen name="paddingYear">16dp</dimen>
+
 </resources>

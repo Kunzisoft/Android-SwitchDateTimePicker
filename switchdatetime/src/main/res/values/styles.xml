@@ -31,6 +31,8 @@
         <!-- Date -->
         <item name="dateLabelColorBackground">@color/colorAccentM</item>
         <item name="dateSelectDayColor">@color/colorAccentM</item>
+        <item name="dateSelectYearBackgroundColor">@color/colorAccentM</item>
+        <item name="dateSelectYearTextColor">#fff</item>
 
     </style>
 

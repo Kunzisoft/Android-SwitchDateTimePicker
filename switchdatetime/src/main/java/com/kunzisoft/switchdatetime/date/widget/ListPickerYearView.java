@@ -1,7 +1,8 @@
-package com.kunzisoft.switchdatetime.date;
+package com.kunzisoft.switchdatetime.date.widget;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -9,57 +10,55 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.fourmob.datetimepicker.R;
-import com.fourmob.datetimepicker.date.TextViewWithCircularIndicator;
+import com.kunzisoft.switchdatetime.R;
+import com.kunzisoft.switchdatetime.date.DatePickerListener;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
-public class YearPickerView extends ListView implements AdapterView.OnItemClickListener {
+public class ListPickerYearView extends ListView implements AdapterView.OnItemClickListener {
+
+    private static final String TAG = "YearPickerView";
 
     private int minYear = 1902;
     private int maxYear = 2037;
     private int currentYear = 2000;
 
-    private YearAdapter mAdapter;
+    private YearPickerAdapter mAdapter;
     private int mChildSize;
     private DatePickerListener yearChangeListener;
-    private TextViewWithCircularIndicator mSelectedView;
+    private TextCircularIndicatorView mSelectedView;
     private int mViewSize;
 
-    public YearPickerView(Context context) {
+    public ListPickerYearView(Context context) {
         this(context, null, 0);
     }
 
-    public YearPickerView(Context context, AttributeSet attrs) {
+    public ListPickerYearView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public YearPickerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ListPickerYearView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public YearPickerView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public ListPickerYearView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-    private static int getYearFromTextView(TextView view) {
-        return Integer.valueOf(view.getText().toString());
+        init(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
         if(attrs != null) {
-            //TODO minYear maxYear
+            TypedArray yearTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView);
+            setMinYear(yearTypedArray.getInt(com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView_minYear, minYear));
+            setMaxYear(yearTypedArray.getInt(com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView_maxYear, minYear));
+            setYear(yearTypedArray.getInt(com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView_defaultYear, minYear));
+            yearTypedArray.recycle();
         }
-
-        // TODO select year in listener
 
         setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
 
@@ -70,11 +69,12 @@ public class YearPickerView extends ListView implements AdapterView.OnItemClickL
         setVerticalFadingEdgeEnabled(true);
         setFadingEdgeLength(mChildSize / 3);
 
-        ArrayList<String> years = new ArrayList<String>();
+        ArrayList<Integer> years = new ArrayList<>();
         for (int year = minYear; year <= maxYear; year++) {
-            years.add(String.format(Locale.getDefault(), "%d", year));
+            years.add(year);
         }
-        mAdapter = new YearAdapter(context, R.layout.year_label_text_view, years);
+
+        mAdapter = new YearPickerAdapter(getContext(), years, currentYear);
         setAdapter(mAdapter);
 
         setOnItemClickListener(this);
@@ -94,31 +94,21 @@ public class YearPickerView extends ListView implements AdapterView.OnItemClickL
 
     public void refreshAndCenter() {
         mAdapter.notifyDataSetChanged();
-        if(yearChangeListener == null)
-            postSetSelectionCentered((maxYear - minYear) /2);
-        else
-            postSetSelectionCentered(yearChangeListener.getYear() - minYear);
+        postSetSelectionCentered(currentYear - minYear -1);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // TODO Vibrate
         //mController.tryVibrate();
-        TextViewWithCircularIndicator clickedView = (TextViewWithCircularIndicator) view;
+        TextView clickedView = (TextView) view.findViewById(R.id.year_textView);
         if (clickedView != null) {
-            if (clickedView != mSelectedView) {
-                if (mSelectedView != null) {
-                    mSelectedView.drawIndicator(false);
-                    mSelectedView.requestLayout();
-                }
-                clickedView.drawIndicator(true);
-                clickedView.requestLayout();
-                mSelectedView = clickedView;
-            }
+            currentYear = getYearFromTextView(clickedView);
             if(yearChangeListener != null) {
                 yearChangeListener.onYearChange(getYearFromTextView(clickedView));
             }
-            refreshAndCenter();
+            mAdapter.setSelectedYear(currentYear);
+            mAdapter.notifyDataSetChanged();
         }
     }
 
@@ -133,6 +123,12 @@ public class YearPickerView extends ListView implements AdapterView.OnItemClickL
                 requestLayout();
             }
         });
+    }
+
+    private static int getYearFromTextView(TextView view) {
+        if(view == null)
+            return 0;
+        return Integer.valueOf(view.getText().toString());
     }
 
     public void setDatePickerListener(DatePickerListener datePickerListener) {
@@ -163,26 +159,4 @@ public class YearPickerView extends ListView implements AdapterView.OnItemClickL
         this.currentYear = year;
     }
 
-    /**
-     * Adapter for year view
-     */
-    private class YearAdapter extends ArrayAdapter<String> {
-
-        public YearAdapter(Context context, int resource, List<String> years) {
-            super(context, resource, years);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            TextViewWithCircularIndicator v = (TextViewWithCircularIndicator) super.getView(position, convertView, parent);
-            v.requestLayout();
-            int year = getYearFromTextView(v);
-            boolean selected = currentYear == year;
-            v.drawIndicator(selected);
-            if (selected) {
-                mSelectedView = v;
-            }
-            return v;
-        }
-    }
 }

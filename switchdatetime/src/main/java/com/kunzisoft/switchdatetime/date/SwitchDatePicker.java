@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.fourmob.datetimepicker.R;
 import com.fourmob.datetimepicker.Utils;
+import com.kunzisoft.switchdatetime.date.widget.ListPickerYearView;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
@@ -72,7 +73,7 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerListene
 
     private TextView mMonthAndDayView;
     private Vibrator mVibrator;
-    private YearPickerView mYearPickerView;
+    private ListPickerYearView mListPickerYearView;
     private TextView mYearView;
 
     private SimpleDateFormat mSimpleDateFormatMonthDay;
@@ -143,7 +144,7 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerListene
                     yearAnim.setStartDelay(ANIMATION_DELAY);
                     mDelayAnimation = false;
                 }
-                mYearPickerView.refreshAndCenter();
+                mListPickerYearView.refreshAndCenter();
                 if (mCurrentView != currentView  || forceRefresh) {
                     mMonthAndDayView.setSelected(false);
                     mYearView.setSelected(true);
@@ -235,8 +236,8 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerListene
             listPositionOffset = savedInstanceState.getInt(KEY_LIST_POSITION_OFFSET);
         }
 
-        mYearPickerView = new YearPickerView(mContext);
-        mYearPickerView.setDatePickerListener(this);
+        mListPickerYearView = new ListPickerYearView(mContext);
+        mListPickerYearView.setDatePickerListener(this);
 
         MaterialCalendarView materialCalendarView = (MaterialCalendarView) view.findViewById(com.kunzisoft.switchdatetime.R.id.datePicker);
         final TextView dateText = (TextView) view.findViewById(com.kunzisoft.switchdatetime.R.id.date_picker_month_and_day);
@@ -299,8 +300,8 @@ public class SwitchDatePicker implements View.OnClickListener, DatePickerListene
         if (mCurrentView == 0) {
             // TODO remove
         } if (mCurrentView == 1) {
-            listPosition = mYearPickerView.getFirstVisiblePosition();
-            bundle.putInt(KEY_LIST_POSITION_OFFSET, mYearPickerView.getFirstPositionOffset());
+            listPosition = mListPickerYearView.getFirstVisiblePosition();
+            bundle.putInt(KEY_LIST_POSITION_OFFSET, mListPickerYearView.getFirstPositionOffset());
         }
         bundle.putInt(KEY_LIST_POSITION, listPosition);
         bundle.putBoolean(KEY_VIBRATE, mVibrate);

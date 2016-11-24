@@ -4,7 +4,7 @@ package com.kunzisoft.switchdatetime.date;
  * Created by joker on 17/11/16.
  */
 
-interface DatePickerListener {
+public interface DatePickerListener {
     int getFirstDayOfWeek();
 
     int getYear();

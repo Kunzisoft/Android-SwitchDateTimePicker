@@ -23,7 +23,10 @@
     <!-- Date -->
     <attr name="dateLabelColorBackground" format="reference|color" />
     <attr name="dateSelectDayColor" format="reference|color" />
+    <attr name="dateSelectYearBackgroundColor" format="reference|color" />
+    <attr name="dateSelectYearTextColor" format="reference|color" />
 
+    <!-- Attrs Switch Time -->
     <declare-styleable name="SwitchTimeCircleColor">
         <attr name="timeCircleColor" format="color" />
         <attr name="timeCenterColor" format="color" />
@@ -41,6 +44,17 @@
         <attr name="amPmBackgroundColor" format="color" />
         <attr name="amPmSelectBackgroundColor" format="color" />
         <attr name="amPmTextColor" format="color" />
+    </declare-styleable>
+
+    <!-- Attrs Years -->
+    <declare-styleable name="ListPickerYearView">
+        <attr name="minYear" format="integer" />
+        <attr name="maxYear" format="integer" />
+        <attr name="defaultYear" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="TextCircularIndicatorView">
+        <attr name="colorCircleIndicator" format="reference|color" />
     </declare-styleable>
 
 </resources>
