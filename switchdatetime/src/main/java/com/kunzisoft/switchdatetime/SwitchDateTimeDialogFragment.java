@@ -27,6 +27,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A fragment that displays a dialog window with Date and Time who can be selected by switch button
@@ -49,11 +51,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private String mNegativeButton;
     private OnButtonClickListener mListener;
 
-    private View dateTimeLayout;
-    private ViewGroup viewGroup;
-    private ViewAnimator switcher;
-    private boolean lockAnimation = false;
-
     private int year;
     private int month;
     private int day;
@@ -63,9 +60,13 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private SimpleDateFormat dayAndMonthSimpleDate;
     private SimpleDateFormat yearSimpleDate;
 
+    private ViewAnimator switcher;
     private SwitchTimePicker timePicker;
     private MaterialCalendarView materialCalendarView;
     private ListPickerYearView listPickerYearView;
+
+    private TextView monthAndDayHeaderValues;
+    private TextView yearHeaderValues;
 
     private boolean blockAnimationIn;
     private boolean blockAnimationOut;
@@ -127,11 +128,8 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
-        dateTimeLayout = inflater.inflate(R.layout.dialog_switch_datetime_picker,
+        View dateTimeLayout = inflater.inflate(R.layout.dialog_switch_datetime_picker,
                 (ViewGroup) getActivity().findViewById(R.id.datetime_picker));
-
-        // ViewGroup add
-        viewGroup = (ViewGroup) dateTimeLayout.findViewById(R.id.section_add);
 
         // Set label
         TextView labelView = (TextView) dateTimeLayout.findViewById(R.id.label);
@@ -185,17 +183,17 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         });
 
         // Values header hourOfDay minutes
-        final View timeHeaderValues = dateTimeLayout.findViewById(R.id.time_header_values);
+        View timeHeaderValues = dateTimeLayout.findViewById(R.id.time_header_values);
         View.OnClickListener onTimeClickListener =
                 new OnClickHeaderElementListener(HeaderViewsPosition.VIEW_HOURS_AND_MINUTES.getPosition());
         timeHeaderValues.setOnClickListener(onTimeClickListener);
         // Values header month day
-        final TextView monthAndDayHeaderValues = (TextView) dateTimeLayout.findViewById(R.id.date_picker_month_and_day);
+        monthAndDayHeaderValues = (TextView) dateTimeLayout.findViewById(R.id.date_picker_month_and_day);
         View.OnClickListener onMonthAndDayClickListener =
                 new OnClickHeaderElementListener(HeaderViewsPosition.VIEW_MONTH_AND_DAY.getPosition());
         monthAndDayHeaderValues.setOnClickListener(onMonthAndDayClickListener);
         // Values header year
-        final TextView yearHeaderValues = (TextView) dateTimeLayout.findViewById(R.id.date_picker_year);
+        yearHeaderValues = (TextView) dateTimeLayout.findViewById(R.id.date_picker_year);
         View.OnClickListener onYearClickListener =
                 new OnClickHeaderElementListener(HeaderViewsPosition.VIEW_YEAR.getPosition());
         yearHeaderValues.setOnClickListener(onYearClickListener);
@@ -214,11 +212,8 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         SwitchTimePicker.OnTimeSelectedListener onTimeSelectedListener = new SwitchTimePicker.OnTimeSelectedListener() {
             @Override
             public void onTimeSelected(int hourOfDayTime, int minuteTime) {
-                hourOfDay = hourOfDayTime;
-                minute = minuteTime;
-
-                dateTimeCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-                dateTimeCalendar.set(Calendar.MINUTE, minute);
+                setHourOfDay(hourOfDayTime);
+                setMinute(minuteTime);
             }
         };
         // Init time with saved elements
@@ -302,7 +297,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         return db.create();
     }
 
-    //TODO resolve bug
     private void assignAllValuesToCalendar() {
         dateTimeCalendar.set(Calendar.YEAR, year);
         dateTimeCalendar.set(Calendar.MONTH, month);
@@ -332,8 +326,28 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         this.minute = minute;
     }
 
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public int getHourOfDay() {
+        return hourOfDay;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
     /**
-     * TODO
+     * Return default SimpleDateFormat for Month and Day
      * @return
      */
     public SimpleDateFormat getSimpleDateMonthAndDayFormat() {
@@ -344,9 +358,22 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
      * Assign a SimpleDateFormat like "d MMM" to show formatted DateTime
      * @param simpleDateFormat
      */
-    public void setSimpleDateMonthAndDayFormat(SimpleDateFormat simpleDateFormat) {
-        // TODO REGEX for dd MM
+    public void setSimpleDateMonthAndDayFormat(SimpleDateFormat simpleDateFormat) throws SimpleDateMonthAndDayFormatException{
+        Pattern patternMonthAndDay = Pattern.compile("(M|w|W|D|d|F|E|u|\\s)*");
+        Matcher matcherMonthAndDay = patternMonthAndDay.matcher(simpleDateFormat.toPattern());
+        if(!matcherMonthAndDay.matches()) {
+            throw new SimpleDateMonthAndDayFormatException(simpleDateFormat.toPattern() + "isn't allowed for " + patternMonthAndDay.pattern());
+        }
         this.dayAndMonthSimpleDate = simpleDateFormat;
+    }
+
+    /**
+     * Class exception if SimpleDateFormat contains something else that "d" or/and "M"
+     */
+    public class SimpleDateMonthAndDayFormatException extends Exception {
+        SimpleDateMonthAndDayFormatException(String message) {
+            super(message);
+        }
     }
 
 

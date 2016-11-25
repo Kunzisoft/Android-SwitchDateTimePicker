@@ -31,14 +31,16 @@
         <!-- Date -->
         <item name="dateLabelColorBackground">@color/colorAccentM</item>
         <item name="dateSelectDayColor">@color/colorAccentM</item>
+
+        <!-- Year -->
         <item name="dateSelectYearBackgroundColor">@color/colorAccentM</item>
-        <item name="dateSelectYearTextColor">#fff</item>
+        <item name="dateSelectYearTextColor">@color/timeLabelColor</item>
 
     </style>
 
-    <style name="Theme.SwitchDateTime.DateTimeLabelText">
+    <style name="Theme.SwitchDateTime.TitleDateTimeLabelText">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">#fff</item>
+        <item name="android:textColor">@color/titleLabelColor</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -55,15 +57,16 @@
     </style>
 
     <!-- Date Precise -->
-    <style name="Theme.SwitchDateTime.DateLabelYear">
-        <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/dateLabelColor</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
     <style name="Theme.SwitchDateTime.DateLabelMonthAndDay">
         <item name="android:textSize">26sp</item>
-        <item name="android:textColor">@color/dateLabelColor</item>
+        <item name="android:textColor">@color/timeLabelColor</item>
+    </style>
+
+    <!-- Year Precise -->
+    <style name="Theme.SwitchDateTime.DateLabelYear">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/timeLabelColor</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
 </resources>

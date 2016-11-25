@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/label_datetime_dialog"
-                style="@style/Theme.SwitchDateTime.DateTimeLabelText"
+                style="@style/Theme.SwitchDateTime.TitleDateTimeLabelText"
                 android:padding="5dp"
                 android:gravity="center_vertical"
                 android:layout_centerVertical="true"
