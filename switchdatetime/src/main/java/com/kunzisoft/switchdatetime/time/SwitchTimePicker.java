@@ -348,6 +348,11 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             onTimeSelectedListener.onTimeSelected(hourOfDay, minute);
     }
 
+    /**
+     * Assign value to hour (12 or 24 doesn't matter)
+     * @param value
+     * @param announce
+     */
     private void attributeHour(int value, boolean announce) {
         hourOfDay = value;
 
@@ -370,6 +375,10 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         }
     }
 
+    /**
+     * Assign value to minute
+     * @param value
+     */
     private void attributeMinute(int value) {
         minute = value;
 
@@ -890,7 +899,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
     public void setHourOfDay(int hourOfDay) {
         this.hourOfDay = hourOfDay;
-        // TODO
+        // TODO assign later
     }
 
     public int getMinute() {
@@ -899,7 +908,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
     public void setMinute(int minute) {
         this.minute = minute;
-        // TODO
+        // TODO assign later
     }
 
     /**

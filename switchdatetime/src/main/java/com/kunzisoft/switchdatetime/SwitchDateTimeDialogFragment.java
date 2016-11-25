@@ -38,7 +38,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private static final String TAG = "SwitchDateTimeDialogFrg";
 
     private static final String STATE_DATETIME = "STATE_DATETIME";
-    private Calendar dateTimeCalendar = Calendar.getInstance();
+    private Calendar dateTimeCalendar;
 
     private static final String TAG_LABEL = "LABEL";
     private static final String TAG_POSITIVE_BUTTON = "POSITIVE_BUTTON";
@@ -54,11 +54,11 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private ViewAnimator switcher;
     private boolean lockAnimation = false;
 
-    private int year = dateTimeCalendar.get(Calendar.YEAR);
-    private int month = dateTimeCalendar.get(Calendar.MONTH);
-    private int day = dateTimeCalendar.get(Calendar.DAY_OF_MONTH);
-    private int hourOfDay = dateTimeCalendar.get(Calendar.HOUR_OF_DAY);
-    private int minute = dateTimeCalendar.get(Calendar.MINUTE);
+    private int year;
+    private int month;
+    private int day;
+    private int hourOfDay;
+    private int minute;
 
     private SimpleDateFormat dayAndMonthSimpleDate;
     private SimpleDateFormat yearSimpleDate;
@@ -97,7 +97,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the current datetime
         savedInstanceState.putLong(STATE_DATETIME, dateTimeCalendar.getTimeInMillis());
-
         timePicker.onSaveInstanceState(savedInstanceState);
 
         super.onSaveInstanceState(savedInstanceState);
@@ -113,13 +112,19 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             mNegativeButton = getArguments().getString(TAG_NEGATIVE_BUTTON);
         }
 
+        dateTimeCalendar = Calendar.getInstance();
+
         if (savedInstanceState != null) {
             // Restore value from saved state
             dateTimeCalendar.setTime(new Date(savedInstanceState.getLong(STATE_DATETIME)));
-        } else {
-            // Init with values set
-            dateTimeCalendar.set(year, month, day, hourOfDay, minute);
         }
+
+        year = dateTimeCalendar.get(Calendar.YEAR);
+        month = dateTimeCalendar.get(Calendar.MONTH);
+        day = dateTimeCalendar.get(Calendar.DAY_OF_MONTH);
+        hourOfDay = dateTimeCalendar.get(Calendar.HOUR_OF_DAY);
+        minute = dateTimeCalendar.get(Calendar.MINUTE);
+
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         dateTimeLayout = inflater.inflate(R.layout.dialog_switch_datetime_picker,
