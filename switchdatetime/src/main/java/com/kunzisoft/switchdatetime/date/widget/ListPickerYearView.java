@@ -24,7 +24,7 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
 
     private int minYear = 1902;
     private int maxYear = 2037;
-    private int currentYear = 2000;
+    private int currentYear;
 
     private YearPickerAdapter mAdapter;
     private int mChildSize;
@@ -56,7 +56,7 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
             TypedArray yearTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView);
             setMinYear(yearTypedArray.getInt(com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView_minYear, minYear));
             setMaxYear(yearTypedArray.getInt(com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView_maxYear, minYear));
-            setYear(yearTypedArray.getInt(com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView_defaultYear, minYear));
+            currentYear = yearTypedArray.getInt(com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView_defaultYear, 2000);
             yearTypedArray.recycle();
         }
 
@@ -135,6 +135,7 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
         this.yearChangeListener = onYearSelectedListener;
     }
 
+    //TODO modify setter
     public int getMinYear() {
         return minYear;
     }
@@ -155,7 +156,10 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
         return currentYear;
     }
 
-    public void setYear(int year) {
-        this.currentYear = year;
+    public void assignCurrentYear(int year) {
+        currentYear = year;
+        if(mAdapter != null)
+            mAdapter.setSelectedYear(currentYear);
+        refreshAndCenter();
     }
 }

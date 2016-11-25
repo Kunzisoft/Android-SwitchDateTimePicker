@@ -42,7 +42,7 @@ public class Sample extends AppCompatActivity {
         }
         // Assign values we want
         final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
-        dateTimeFragment.setHour(0);
+        dateTimeFragment.setHourOfDay(0);
         dateTimeFragment.setDay(4);
         dateTimeFragment.setMinute(20);
         // Set listener for get Date

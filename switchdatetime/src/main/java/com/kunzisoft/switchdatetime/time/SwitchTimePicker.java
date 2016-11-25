@@ -66,7 +66,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private static final int PULSE_ANIMATOR_DELAY = 300;
 
     private Context mContext;
-    private OnTimeSelectedListener mCallback;
+    private OnTimeSelectedListener onTimeSelectedListener;
     private OnClickListener onClickTimeListener;
 
     private TextView mHourView;
@@ -110,10 +110,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
     public SwitchTimePicker(Context context, OnTimeSelectedListener callback) {
         mContext = context;
-        mCallback = callback;
+        onTimeSelectedListener = callback;
 
-        hourOfDay = hourOfDay;
-        minute = minute;
         mIs24HourMode = false;
         mInKbMode = false;
         mVibrate = false;
@@ -133,6 +131,10 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         }
     }
 
+    /**
+     * Save elements for view
+     * @param outState
+     */
     public void onSaveInstanceState(Bundle outState) {
         if (mTimePicker != null) {
             outState.putInt(KEY_HOUR_OF_DAY, mTimePicker.getHours());
@@ -148,7 +150,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     }
 
     public void setOnTimeSetListener(OnTimeSelectedListener callback) {
-        mCallback = callback;
+        onTimeSelectedListener = callback;
     }
 
     public void setStartTime(int hourOfDay, int minute) {
@@ -279,7 +281,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         }
 
         mAllowAutoAdvance = true;
-        setHour(hourOfDay, true);
+        attributeHour(hourOfDay, true);
         attributeMinute(minute);
 
         // Set up for keyboard mode.
@@ -300,6 +302,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     }
 
     private void updateAmPmDisplay(int amOrPm) {
+        hourOfDay = hourOfDay % 12;
         if (amOrPm == AM) {
             mAmPmTextView.setText(mAmText);
             Utils.tryAccessibilityAnnounce(mTimePicker, mAmText);
@@ -308,9 +311,13 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             mAmPmTextView.setText(mPmText);
             Utils.tryAccessibilityAnnounce(mTimePicker, mPmText);
             mAmPmHitspace.setContentDescription(mPmText);
+            hourOfDay += 12;
         } else {
             mAmPmTextView.setText(mDoublePlaceholderText);
         }
+
+        if(onTimeSelectedListener != null)
+            onTimeSelectedListener.onTimeSelected(hourOfDay, minute);
     }
 
     /**
@@ -319,8 +326,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     @Override
     public void onValueSelected(int pickerIndex, int newValue, boolean autoAdvance) {
         if (pickerIndex == HOUR_INDEX) {
-            setHour(newValue, false);
-            String announcement = String.format("%d", newValue);
+            attributeHour(newValue, false);
+            String announcement = String.format(Locale.getDefault(), "%d", newValue);
             if (mAllowAutoAdvance && autoAdvance) {
                 setCurrentItemShowing(MINUTE_INDEX, true, true, false);
                 announcement += ". " + mSelectMinutes;
@@ -328,9 +335,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             Utils.tryAccessibilityAnnounce(mTimePicker, announcement);
         } else if (pickerIndex == MINUTE_INDEX) {
             attributeMinute(newValue);
-            /*if(mCloseOnSingleTapMinute) {
-                onDoneButtonClick();
-            }*/
         } else if (pickerIndex == AMPM_INDEX) {
             updateAmPmDisplay(newValue);
         } else if (pickerIndex == ENABLE_PICKER_INDEX) {
@@ -339,9 +343,14 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             }
             finishKbMode(true);
         }
+
+        if(onTimeSelectedListener != null)
+            onTimeSelectedListener.onTimeSelected(hourOfDay, minute);
     }
 
-    private void setHour(int value, boolean announce) {
+    private void attributeHour(int value, boolean announce) {
+        hourOfDay = value;
+
         String format;
         if (mIs24HourMode) {
             format = "%02d";
@@ -362,6 +371,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     }
 
     private void attributeMinute(int value) {
+        minute = value;
+
         if (value == 60) {
             value = 0;
         }
@@ -432,9 +443,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
                 }
                 finishKbMode(false);
             }
-            if (mCallback != null) {
-                mCallback.onTimeSelected(mTimePicker,
-                        mTimePicker.getHours(), mTimePicker.getMinutes());
+            if (onTimeSelectedListener != null) {
+                onTimeSelectedListener.onTimeSelected(mTimePicker.getHours(), mTimePicker.getMinutes());
             }
             //dismiss();
             return true;
@@ -448,7 +458,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
                     } else if (deleted == getAmOrPmKeyCode(PM)) {
                         deletedKeyStr = mPmText;
                     } else {
-                        deletedKeyStr = String.format("%d", getValFromKeyCode(deleted));
+                        deletedKeyStr = String.format(Locale.getDefault(), "%d", getValFromKeyCode(deleted));
                     }
                     Utils.tryAccessibilityAnnounce(mTimePicker,
                             String.format(mDeletedKeyFormat, deletedKeyStr));
@@ -513,7 +523,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         }
 
         int val = getValFromKeyCode(keyCode);
-        Utils.tryAccessibilityAnnounce(mTimePicker, String.format("%d", val));
+        Utils.tryAccessibilityAnnounce(mTimePicker, String.format(Locale.getDefault(), "%d", val));
         // Automatically fill in 0's if AM or PM was legally entered.
         if (isTypedTimeFullyLegal()) {
             if (!mIs24HourMode && mTypedTimes.size() <= 3) {
@@ -599,7 +609,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         if (!allowEmptyDisplay && mTypedTimes.isEmpty()) {
             int hour = mTimePicker.getHours();
             int minute = mTimePicker.getMinutes();
-            setHour(hour, true);
+            attributeHour(hour, true);
             attributeMinute(minute);
             if (!mIs24HourMode) {
                 updateAmPmDisplay(hour < 12 ? AM : PM);
@@ -875,19 +885,21 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     }
 
     public int getHourOfDay() {
-        return hourOfDay;
+        return mTimePicker.getHours();
     }
 
     public void setHourOfDay(int hourOfDay) {
         this.hourOfDay = hourOfDay;
+        // TODO
     }
 
     public int getMinute() {
-        return minute;
+        return mTimePicker.getMinutes();
     }
 
     public void setMinute(int minute) {
         this.minute = minute;
+        // TODO
     }
 
     /**
@@ -947,10 +959,9 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     public interface OnTimeSelectedListener {
 
         /**
-         * @param view      The view associated with this listener.
          * @param hourOfDay The hour that was set.
          * @param minute    The minute that was set.
          */
-        void onTimeSelected(RadialPickerLayout view, int hourOfDay, int minute);
+        void onTimeSelected(int hourOfDay, int minute);
     }
 }
