@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -46,9 +47,11 @@ public class Sample extends AppCompatActivity {
         }
         // Assign values we want
         final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
-        dateTimeFragment.setHourOfDay(5);
-        dateTimeFragment.setDay(4);
-        dateTimeFragment.setMinute(20);
+        dateTimeFragment.setDefaultHourOfDay(5);
+        dateTimeFragment.setDefaultMinute(20);
+        dateTimeFragment.setDefaultDay(4);
+        dateTimeFragment.setDefaultMonth(Calendar.DECEMBER);
+        dateTimeFragment.setDefaultYear(1976);
         try {
             dateTimeFragment.setSimpleDateMonthAndDayFormat(new SimpleDateFormat("MMMM dd", Locale.getDefault()));
         } catch (SwitchDateTimeDialogFragment.SimpleDateMonthAndDayFormatException e) {
