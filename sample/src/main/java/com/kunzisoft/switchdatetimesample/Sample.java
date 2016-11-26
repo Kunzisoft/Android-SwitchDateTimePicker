@@ -14,6 +14,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Sample class for an example of using the API SwitchDateTimePicker
+ * @author JJamet
+ */
 public class Sample extends AppCompatActivity {
 
     private static final String TAG = "Sample";
@@ -45,19 +49,23 @@ public class Sample extends AppCompatActivity {
                     getString(R.string.negative_button_datetime_picker)
             );
         }
+
         // Assign values we want
         final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
-        dateTimeFragment.setDefaultHourOfDay(5);
+        dateTimeFragment.setDefaultHourOfDay(15);
         dateTimeFragment.setDefaultMinute(20);
         dateTimeFragment.setDefaultDay(4);
         dateTimeFragment.setDefaultMonth(Calendar.DECEMBER);
         dateTimeFragment.setDefaultYear(1976);
+
+        // Define new day and month format
         try {
             dateTimeFragment.setSimpleDateMonthAndDayFormat(new SimpleDateFormat("MMMM dd", Locale.getDefault()));
         } catch (SwitchDateTimeDialogFragment.SimpleDateMonthAndDayFormatException e) {
             Log.e(TAG, e.getMessage());
         }
-        // Set listener for get Date
+
+        // Set listener for date
         dateTimeFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Date date) {

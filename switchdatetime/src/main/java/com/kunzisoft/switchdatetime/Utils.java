@@ -8,9 +8,6 @@ import android.os.Build;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 
-/**
- * Created by joker on 24/11/16.
- */
 public class Utils {
 
     private static final int ANIMATION_DELAY = 0;

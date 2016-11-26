@@ -113,10 +113,18 @@ public class AmPmCirclesView extends View {
         mIsInitialized = true;
     }
 
+    /**
+     * Set to AM or PM mode
+     * @param amOrPm AM or PM id
+     */
     public void setAmOrPm(int amOrPm) {
         mAmOrPm = amOrPm;
     }
 
+    /**
+     * Set to AM or PM mode when pressed
+     * @param amOrPmPressed
+     */
     public void setAmOrPmPressed(int amOrPmPressed) {
         mAmOrPmPressed = amOrPmPressed;
     }
@@ -209,26 +217,50 @@ public class AmPmCirclesView extends View {
         canvas.drawText(mPmText, mPmXCenter, textYCenter, mPaint);
     }
 
+    /**
+     * Get circle background color
+     * @return background color
+     */
     public int getCircleColor() {
         return mBackgroundColor;
     }
 
+    /**
+     * Assign circle background color
+     * @param backgroundColor background color
+     */
     public void setCircleColor(int backgroundColor) {
         this.mBackgroundColor = backgroundColor;
     }
 
+    /**
+     * Get AP/PM text color
+     * @return text color
+     */
     public int getAmPmTextColor() {
         return mAmPmTextColor;
     }
 
+    /**
+     * Assign AP/PM text color
+     * @param amPmTextColor text color
+     */
     public void setAmPmTextColor(int amPmTextColor) {
         this.mAmPmTextColor = amPmTextColor;
     }
 
+    /**
+     * Get select background color
+     * @return text color
+     */
     public int getSelectCircleColor() {
         return mSelectBackgroundColor;
     }
 
+    /**
+     * Set select background color
+     * @param selectBackgroundColor background color
+     */
     public void setSelectCircleColor(int selectBackgroundColor) {
         this.mSelectBackgroundColor = selectBackgroundColor;
     }

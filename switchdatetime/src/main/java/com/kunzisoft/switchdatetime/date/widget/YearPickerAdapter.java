@@ -13,7 +13,8 @@ import com.kunzisoft.switchdatetime.R;
 import java.util.List;
 
 /**
- * Adapter for year view
+ * Adapter for manage elements of ListPickerYearView
+ * @author JJamet
  */
 class YearPickerAdapter extends BaseAdapter {
 
@@ -26,6 +27,12 @@ class YearPickerAdapter extends BaseAdapter {
 
     private LayoutInflater layoutInflater;
 
+    /**
+     * Initialize adapter with list of years and element selected
+     * @param context of adapter for layout
+     * @param listYears list of years
+     * @param selectedYear default year selected
+     */
     YearPickerAdapter(Context context, List<Integer> listYears, int selectedYear) {
         this.listYears = listYears;
         this.selectedYear = selectedYear;
@@ -87,18 +94,34 @@ class YearPickerAdapter extends BaseAdapter {
         return convertView;
     }
 
+    /**
+     * Get the list of years
+     * @return years
+     */
     public List<Integer> getListYears() {
         return listYears;
     }
 
+    /**
+     * Assign tle list of years, replace current list
+     * @param listYears
+     */
     public void setListYears(List<Integer> listYears) {
         this.listYears = listYears;
     }
 
+    /**
+     * Get the current selected year
+     * @return
+     */
     public int getSelectedYear() {
         return selectedYear;
     }
 
+    /**
+     * Assign the current selected year
+     * @param selectedYear
+     */
     public void setSelectedYear(int selectedYear) {
         this.selectedYear = selectedYear;
     }
@@ -107,6 +130,9 @@ class YearPickerAdapter extends BaseAdapter {
      * Holder for TextIndicatorView
      */
     private class TextIndicatorViewHolder {
+        /**
+         * View of year
+         */
         TextView textView;
     }
 }

@@ -73,6 +73,10 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Create a new instance of SwitchDateTimeDialogFragment
+     * @param label Title of dialog
+     * @param positiveButton Text for positive button
+     * @param negativeButton Text for negative button
+     * @return DialogFragment
      */
     public static SwitchDateTimeDialogFragment newInstance(String label, String positiveButton, String negativeButton) {
         SwitchDateTimeDialogFragment switchDateTimeDialogFragment = new SwitchDateTimeDialogFragment();
@@ -94,6 +98,8 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         this.mListener = onButtonClickListener;
     }
 
+
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the current datetime
@@ -104,7 +110,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
         if(getArguments() != null) {
@@ -328,6 +334,15 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         this.year = year;
     }
 
+    @Deprecated
+    /**
+     * @deprecated Does not change after launch
+     * {@link #setDefaultYear(int)}
+     */
+    public void setYear(int year) {
+        setDefaultYear(year);
+    }
+
     /**
      * Assign default month at start (ex: Calendar.DECEMBER)
      * @see Calendar
@@ -335,6 +350,15 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
      */
     public void setDefaultMonth(int month) {
         this.month = month;
+    }
+
+    @Deprecated
+    /**
+     * @deprecated Does not change after launch
+     * {@link #setDefaultMonth(int)}
+     */
+    public void setMonth(int month) {
+        setDefaultMonth(month);
     }
 
     /**
@@ -345,6 +369,15 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         this.day = day;
     }
 
+    @Deprecated
+    /**
+     * @deprecated Does not change after launch
+     * {@link #setDefaultDay(int)}
+     */
+    public void setDay(int day) {
+        setDefaultDay(day);
+    }
+
     /**
      * Assign default hour of day (in 24 hours) at start
      * @param hourOfDay
@@ -353,12 +386,30 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         this.hourOfDay = hourOfDay;
     }
 
+    @Deprecated
+    /**
+     * @deprecated Does not change after launch and 24 hours format
+     * {@link #setDefaultHourOfDay(int)}
+     */
+    public void setHour(int hour) {
+        setDefaultHourOfDay(hour);
+    }
+
     /**
      * Assign default minute at start
      * @param minute
      */
     public void setDefaultMinute(int minute) {
         this.minute = minute;
+    }
+
+    @Deprecated
+    /**
+     * @deprecated Does not change after launch
+     * {@link #setDefaultMinute(int)}
+     */
+    public void setMinute(int minute) {
+        setDefaultMinute(minute);
     }
 
     /**
@@ -431,7 +482,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             super(message);
         }
     }
-
 
     /**
      * Callback class for assign action on positive and negative button

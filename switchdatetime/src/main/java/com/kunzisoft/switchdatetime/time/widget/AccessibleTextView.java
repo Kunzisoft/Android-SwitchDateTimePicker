@@ -17,6 +17,7 @@ public class AccessibleTextView extends TextView {
         super(context, attrs);
     }
 
+    @Override
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
         if (Build.VERSION.SDK_INT >= 14) {
             super.onInitializeAccessibilityEvent(event);
@@ -24,6 +25,7 @@ public class AccessibleTextView extends TextView {
         }
     }
 
+    @Override
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
         if (Build.VERSION.SDK_INT >= 14) {
             super.onInitializeAccessibilityNodeInfo(info);

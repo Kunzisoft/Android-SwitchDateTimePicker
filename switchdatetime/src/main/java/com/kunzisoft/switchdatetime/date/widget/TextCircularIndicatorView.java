@@ -14,7 +14,8 @@ import android.widget.TextView;
 import com.kunzisoft.switchdatetime.R;
 
 /**
- * Modified
+ * TextView with circular colored background
+ * @author JJamet
  */
 public class TextCircularIndicatorView extends TextView {
 
@@ -59,10 +60,12 @@ public class TextCircularIndicatorView extends TextView {
         mCirclePaint.setStyle(Paint.Style.FILL);
     }
 
+    @Override
     public CharSequence getContentDescription() {
         return getText();
     }
 
+    @Override
     public void onDraw(Canvas canvas) {
         int width = getWidth();
         int height = getHeight();
@@ -71,10 +74,18 @@ public class TextCircularIndicatorView extends TextView {
         super.onDraw(canvas);
     }
 
+    /**
+     * Get color of background circle
+     * @return
+     */
     public int getCircleColor() {
         return mCircleColor;
     }
 
+    /**
+     * Set color of background circle
+     * @param color
+     */
     public void setCircleColor(@ColorInt int color) {
         this.mCircleColor = color;
     }

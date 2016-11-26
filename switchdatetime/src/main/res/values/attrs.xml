@@ -54,6 +54,7 @@
     </declare-styleable>
 
     <declare-styleable name="TextCircularIndicatorView">
+        <!-- Change color of circle background -->
         <attr name="colorCircleIndicator" format="reference|color" />
     </declare-styleable>
 

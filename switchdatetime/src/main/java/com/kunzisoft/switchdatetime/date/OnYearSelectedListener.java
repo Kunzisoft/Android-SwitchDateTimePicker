@@ -3,8 +3,14 @@ package com.kunzisoft.switchdatetime.date;
 import android.view.View;
 
 /**
- * Created by joker on 24/11/16.
+ * Listener for select year
+ * @author JJamet
  */
 public interface OnYearSelectedListener {
+    /**
+     * Call when year is selected
+     * @param view of event
+     * @param year selected
+     */
     void onYearSelected(View view, int year);
 }

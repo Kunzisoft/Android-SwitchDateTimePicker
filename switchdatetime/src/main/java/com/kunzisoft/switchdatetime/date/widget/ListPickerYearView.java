@@ -18,9 +18,13 @@ import com.kunzisoft.switchdatetime.date.OnYearSelectedListener;
 
 import java.util.ArrayList;
 
+/**
+ * ListView for select one year, year selected is highlight <br />
+ * To get the year, assign an OnYearSelectedListener
+ * @see com.kunzisoft.switchdatetime.date.OnYearSelectedListener#onYearSelected(View, int)
+ * @author JJamet
+ */
 public class ListPickerYearView extends ListView implements AdapterView.OnItemClickListener {
-
-    private static final String TAG = "YearPickerView";
 
     private int minYear = 1902;
     private int maxYear = 2037;
@@ -29,7 +33,6 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
     private YearPickerAdapter mAdapter;
     private int mChildSize;
     private OnYearSelectedListener yearChangeListener;
-    private TextCircularIndicatorView mSelectedView;
     private int mViewSize;
 
     public ListPickerYearView(Context context) {
@@ -84,17 +87,12 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
         refreshAndCenter();
     }
 
-    public int getFirstPositionOffset() {
-        final View firstChild = getChildAt(0);
-        if (firstChild == null) {
-            return 0;
-        }
-        return firstChild.getTop();
-    }
-
+    /**
+     * Refresh list and center on the selected year
+     */
     public void refreshAndCenter() {
         mAdapter.notifyDataSetChanged();
-        postSetSelectionCentered(currentYear - minYear -1);
+        centerListOn(currentYear - minYear -1);
     }
 
     @Override
@@ -112,11 +110,20 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
         }
     }
 
-    public void postSetSelectionCentered(int position) {
-        postSetSelectionFromTop(position, mViewSize / 2 - mChildSize / 2);
+    /**
+     * Center list on the selected year
+     * @param position of year in the list
+     */
+    public void centerListOn(int position) {
+        centerListOnWithTop(position, mViewSize / 2 - mChildSize / 2);
     }
 
-    public void postSetSelectionFromTop(final int position, final int y) {
+    /**
+     * Center list on the selected year and add y at the top
+     * @param position of year in the list
+     * @param y pixels from top
+     */
+    public void centerListOnWithTop(final int position, final int y) {
         post(new Runnable() {
             public void run() {
                 setSelectionFromTop(position, y);
@@ -125,37 +132,69 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
         });
     }
 
+    /**
+     * Get year integer from TextView
+     * @param view of text
+     * @return
+     */
     private static int getYearFromTextView(TextView view) {
         if(view == null)
             return 0;
         return Integer.valueOf(view.getText().toString());
     }
 
+    /**
+     * Attach listener for select year
+     * @param onYearSelectedListener listener
+     */
     public void setDatePickerListener(OnYearSelectedListener onYearSelectedListener) {
         this.yearChangeListener = onYearSelectedListener;
     }
 
-    //TODO modify setter
+    /**
+     * Get current minYear
+     * @return
+     */
     public int getMinYear() {
         return minYear;
     }
 
+    /**
+     * Set minimum year of list
+     * @param minYear minimum year
+     */
     public void setMinYear(int minYear) {
         this.minYear = minYear;
     }
 
+    /**
+     * Get maximum year of list
+     * @return
+     */
     public int getMaxYear() {
         return maxYear;
     }
 
+    /**
+     * Set maximum year of list
+     * @param maxYear
+     */
     public void setMaxYear(int maxYear) {
         this.maxYear = maxYear;
     }
 
-    public int getYear() {
+    /**
+     * Get current year select
+     * @return
+     */
+    public int getYearSelected() {
         return currentYear;
     }
 
+    /**
+     * Assign current year and refresh list
+     * @param year
+     */
     public void assignCurrentYear(int year) {
         currentYear = year;
         if(mAdapter != null)
