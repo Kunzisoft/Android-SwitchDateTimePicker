@@ -15,6 +15,10 @@ package com.kunzisoft.switchdatetime.time.widget;
  * limitations under the License.
  */
 
+import android.animation.Keyframe;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -25,11 +29,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.fourmob.datetimepicker.R;
-import com.nineoldandroids.animation.Keyframe;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.PropertyValuesHolder;
-import com.nineoldandroids.animation.ValueAnimator;
+import com.kunzisoft.switchdatetime.R;
 
 /**
  * View to show what number is selected. This will draw a blue circle over the number, with a blue
@@ -79,8 +79,8 @@ public class RadialSelectorView extends View {
 
         mIsInitialized = false;
 
-        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.SwitchTimeSelectorColor);
-        setSelectorColor(switchTimeColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeSelectorColor_timeSelectorColor, Color.BLUE));
+        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeSelectorColor);
+        setSelectorColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeSelectorColor_timeSelectorColor, Color.BLUE));
         switchTimeColorTypedArray.recycle();
 
         mPaint.setAntiAlias(true);

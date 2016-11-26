@@ -53,10 +53,10 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
 
     private void init(Context context, AttributeSet attrs) {
         if(attrs != null) {
-            TypedArray yearTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView);
-            setMinYear(yearTypedArray.getInt(com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView_minYear, minYear));
-            setMaxYear(yearTypedArray.getInt(com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView_maxYear, minYear));
-            currentYear = yearTypedArray.getInt(com.kunzisoft.switchdatetime.R.styleable.ListPickerYearView_defaultYear, 2000);
+            TypedArray yearTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ListPickerYearView);
+            setMinYear(yearTypedArray.getInt(R.styleable.ListPickerYearView_minYear, minYear));
+            setMaxYear(yearTypedArray.getInt(R.styleable.ListPickerYearView_maxYear, minYear));
+            currentYear = yearTypedArray.getInt(R.styleable.ListPickerYearView_defaultYear, 2000);
             yearTypedArray.recycle();
         }
 

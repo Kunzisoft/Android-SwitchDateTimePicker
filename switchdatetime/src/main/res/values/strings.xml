@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="http://schemas.android.com/tools">
     <string name="app_name">Switch DateTime Picker</string>
 
     <!-- Default simple date format -->
@@ -12,4 +12,16 @@
 
     <!-- Image description -->
     <string name="img_datetime">Image datetime</string>
+
+
+    <string name="hour_picker_description">Hours circular slider</string>
+    <string name="select_hours">Select hours</string>
+    <string name="minute_picker_description">Minutes circular slider</string>
+    <string name="select_minutes">Select minutes</string>
+    <string name="time_placeholder" translatable="false">--</string>
+    <string name="time_separator" translatable="false">:</string>
+
+    <string name="sans_serif" translatable="false">sans-serif</string>
+    <string name="radial_numbers_typeface" translatable="false">sans-serif</string>
+    <string name="deleted_key"><xliff:g id="key" example="4">%1$s</xliff:g> deleted</string>
 </resources>

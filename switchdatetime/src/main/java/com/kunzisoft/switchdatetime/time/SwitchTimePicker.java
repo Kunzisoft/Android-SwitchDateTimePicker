@@ -15,6 +15,7 @@ package com.kunzisoft.switchdatetime.time;
  * limitations under the License
  */
 
+import android.animation.ObjectAnimator;
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.res.Resources;
@@ -32,8 +33,8 @@ import android.view.View.OnKeyListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.fourmob.datetimepicker.R;
-import com.fourmob.datetimepicker.Utils;
+import com.kunzisoft.switchdatetime.R;
+import com.kunzisoft.switchdatetime.Utils;
 
 import java.text.DateFormatSymbols;
 import java.util.ArrayList;
@@ -291,7 +292,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mAmKeyCode = mPmKeyCode = -1;
         generateLegalTimesTree();
         if (mInKbMode) {
-            mTypedTimes = savedInstanceState.getIntegerArrayList(KEY_TYPED_TIMES);
+            if(savedInstanceState != null)
+                mTypedTimes = savedInstanceState.getIntegerArrayList(KEY_TYPED_TIMES);
             tryStartingKbMode(-1);
             mHourView.invalidate();
         } else if (mTypedTimes == null) {
@@ -421,7 +423,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mHourView.setTextColor(hourColor);
         mMinuteView.setTextColor(minuteColor);
 
-        com.nineoldandroids.animation.ObjectAnimator pulseAnimator = Utils.getPulseAnimator(labelToAnimate, 0.85f, 1.1f);
+        ObjectAnimator pulseAnimator = Utils.getPulseAnimator(labelToAnimate, 0.85f, 1.1f);
         if (delayLabelAnimate) {
             pulseAnimator.setStartDelay(PULSE_ANIMATOR_DELAY);
         }
@@ -920,25 +922,25 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         private int[] mLegalKeys;
         private ArrayList<Node> mChildren;
 
-        public Node(int... legalKeys) {
+        Node(int... legalKeys) {
             mLegalKeys = legalKeys;
             mChildren = new ArrayList<Node>();
         }
 
-        public void addChild(Node child) {
+        void addChild(Node child) {
             mChildren.add(child);
         }
 
-        public boolean containsKey(int key) {
-            for (int i = 0; i < mLegalKeys.length; i++) {
-                if (mLegalKeys[i] == key) {
+        boolean containsKey(int key) {
+            for (int mLegalKey : mLegalKeys) {
+                if (mLegalKey == key) {
                     return true;
                 }
             }
             return false;
         }
 
-        public Node canReach(int key) {
+        Node canReach(int key) {
             if (mChildren == null) {
                 return null;
             }
@@ -954,10 +956,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private class KeyboardListener implements OnKeyListener {
         @Override
         public boolean onKey(View v, int keyCode, KeyEvent event) {
-            if (event.getAction() == KeyEvent.ACTION_UP) {
-                return processKeyUp(keyCode);
-            }
-            return false;
+            return event.getAction() == KeyEvent.ACTION_UP && processKeyUp(keyCode);
         }
     }
 

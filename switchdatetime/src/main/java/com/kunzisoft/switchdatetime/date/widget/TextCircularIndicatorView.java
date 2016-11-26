@@ -47,7 +47,7 @@ public class TextCircularIndicatorView extends TextView {
     private void init(AttributeSet attrs) {
 
         if(attrs != null) {
-            TypedArray circularIndicatorTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.TextCircularIndicatorView);
+            TypedArray circularIndicatorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TextCircularIndicatorView);
             setCircleColor(circularIndicatorTypedArray.getColor(R.styleable.TextCircularIndicatorView_colorCircleIndicator, mCircleColor));
             circularIndicatorTypedArray.recycle();
         }

@@ -17,7 +17,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:minWidth="@dimen/timeLabelMinWidth"
+    android:minWidth="@dimen/time_label_min_width"
     android:layout_gravity="center"
     android:background="?attr/timeLabelColorBackground" >
     <View
@@ -50,7 +50,7 @@
         android:layout_marginLeft="@dimen/extra_time_label_margin"
         android:layout_marginRight="@dimen/extra_time_label_margin"
         android:layout_centerVertical="true" >
-        <com.sleepbot.datetimepicker.AccessibleTextView
+        <com.kunzisoft.switchdatetime.time.widget.AccessibleTextView
             android:id="@+id/hours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,7 +94,7 @@
         android:layout_marginLeft="@dimen/extra_time_label_margin"
         android:layout_marginRight="@dimen/extra_time_label_margin"
         android:layout_centerVertical="true" >
-        <com.sleepbot.datetimepicker.AccessibleTextView
+        <com.kunzisoft.switchdatetime.time.widget.AccessibleTextView
             android:id="@+id/minutes"
             style="@style/Theme.SwitchDateTime.TimeLabelText"
             android:layout_width="wrap_content"
@@ -103,7 +103,7 @@
             android:text="@string/time_placeholder"
             android:layout_gravity="center" />
     </FrameLayout>
-    <com.sleepbot.datetimepicker.AccessibleTextView
+    <com.kunzisoft.switchdatetime.time.widget.AccessibleTextView
         android:id="@+id/ampm_hitspace"
         android:layout_width="@dimen/ampm_label_size"
         android:layout_height="wrap_content"
@@ -126,4 +126,3 @@
         style="@style/Theme.SwitchDateTime.TimeLabelAmPm"
         android:importantForAccessibility="no" />
 </RelativeLayout>
-    <!-- From: file:/C:/Users/f.laurent/dev/perso/github/datetimepicker/datetimepicker-library/res/layout/time_header_label.xml -->

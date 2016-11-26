@@ -15,23 +15,23 @@ package com.kunzisoft.switchdatetime.time.widget;
  * limitations under the License.
  */
 
+import android.animation.Keyframe;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.Paint.Align;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.fourmob.datetimepicker.R;
-import com.nineoldandroids.animation.Keyframe;
-import com.nineoldandroids.animation.ObjectAnimator;
-import com.nineoldandroids.animation.PropertyValuesHolder;
-import com.nineoldandroids.animation.ValueAnimator;
+import com.kunzisoft.switchdatetime.R;
 
 /**
  * A view to show a series of numbers in a circular pattern.
@@ -89,8 +89,8 @@ public class RadialTextsView extends View {
 
         mIsInitialized = false;
 
-        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircularNumbersColor);
-        setNumbersColor(switchTimeColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircularNumbersColor_timeCircularNumbersColor, Color.BLACK));
+        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeCircularNumbersColor);
+        setNumbersColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeCircularNumbersColor_timeCircularNumbersColor, Color.BLACK));
         switchTimeColorTypedArray.recycle();
 
         mPaint.setAntiAlias(true);
@@ -104,8 +104,6 @@ public class RadialTextsView extends View {
         }
 
         // Set up the paint.
-        int numbersTextColor = res.getColor(R.color.numbers_text_color);
-        mPaint.setColor(numbersTextColor);
         String typefaceFamily = res.getString(R.string.radial_numbers_typeface);
         mTypefaceLight = Typeface.create(typefaceFamily, Typeface.NORMAL);
         String typefaceFamilyRegular = res.getString(R.string.sans_serif);

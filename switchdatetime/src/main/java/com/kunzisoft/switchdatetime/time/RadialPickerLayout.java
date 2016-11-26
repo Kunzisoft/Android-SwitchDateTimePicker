@@ -16,6 +16,8 @@ package com.kunzisoft.switchdatetime.time;
  * limitations under the License.
  */
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Context;
@@ -41,14 +43,14 @@ import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.FrameLayout;
 
-import com.fourmob.datetimepicker.Utils;
 import com.kunzisoft.switchdatetime.R;
+import com.kunzisoft.switchdatetime.Utils;
 import com.kunzisoft.switchdatetime.time.widget.AmPmCirclesView;
 import com.kunzisoft.switchdatetime.time.widget.CircleView;
 import com.kunzisoft.switchdatetime.time.widget.RadialSelectorView;
 import com.kunzisoft.switchdatetime.time.widget.RadialTextsView;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
+
+import java.util.Locale;
 
 public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
     private static final String TAG = "RadialPickerLayout";
@@ -129,27 +131,27 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         addView(mCircleView);
 
         mAmPmCirclesView = new AmPmCirclesView(context);
-        TypedArray switchTimeAMPMColorTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.SwitchTimeAMPMColor);
-        mAmPmCirclesView.setCircleColor(switchTimeAMPMColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeAMPMColor_amPmBackgroundColor, Color.WHITE));
-        mAmPmCirclesView.setSelectCircleColor(switchTimeAMPMColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeAMPMColor_amPmSelectBackgroundColor, Color.RED));
-        mAmPmCirclesView.setAmPmTextColor(switchTimeAMPMColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeAMPMColor_amPmTextColor, Color.BLACK));
+        TypedArray switchTimeAMPMColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeAMPMColor);
+        mAmPmCirclesView.setCircleColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_amPmBackgroundColor, Color.WHITE));
+        mAmPmCirclesView.setSelectCircleColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_amPmSelectBackgroundColor, Color.RED));
+        mAmPmCirclesView.setAmPmTextColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_amPmTextColor, Color.BLACK));
         switchTimeAMPMColorTypedArray.recycle();
         addView(mAmPmCirclesView);
 
         mHourRadialSelectorView = new RadialSelectorView(context);
         mMinuteRadialSelectorView = new RadialSelectorView(context);
-        TypedArray switchSelectorColorTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.SwitchTimeSelectorColor);
-        mHourRadialSelectorView.setSelectorColor(switchSelectorColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeSelectorColor_timeSelectorColor, Color.RED));
-        mMinuteRadialSelectorView.setSelectorColor(switchSelectorColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeSelectorColor_timeSelectorColor, Color.RED));
+        TypedArray switchSelectorColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeSelectorColor);
+        mHourRadialSelectorView.setSelectorColor(switchSelectorColorTypedArray.getColor(R.styleable.SwitchTimeSelectorColor_timeSelectorColor, Color.RED));
+        mMinuteRadialSelectorView.setSelectorColor(switchSelectorColorTypedArray.getColor(R.styleable.SwitchTimeSelectorColor_timeSelectorColor, Color.RED));
         switchSelectorColorTypedArray.recycle();
         addView(mHourRadialSelectorView);
         addView(mMinuteRadialSelectorView);
 
         mHourRadialTextsView = new RadialTextsView(context);
         mMinuteRadialTextsView = new RadialTextsView(context);
-        TypedArray switchTimeNumbersColorTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircularNumbersColor);
-        mHourRadialTextsView.setNumbersColor(switchTimeNumbersColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircularNumbersColor_timeCircularNumbersColor, Color.BLACK));
-        mMinuteRadialTextsView.setNumbersColor(switchTimeNumbersColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircularNumbersColor_timeCircularNumbersColor, Color.BLACK));
+        TypedArray switchTimeNumbersColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeCircularNumbersColor);
+        mHourRadialTextsView.setNumbersColor(switchTimeNumbersColorTypedArray.getColor(R.styleable.SwitchTimeCircularNumbersColor_timeCircularNumbersColor, Color.BLACK));
+        mMinuteRadialTextsView.setNumbersColor(switchTimeNumbersColorTypedArray.getColor(R.styleable.SwitchTimeCircularNumbersColor_timeCircularNumbersColor, Color.BLACK));
         switchTimeNumbersColorTypedArray.recycle();
         addView(mHourRadialTextsView);
         addView(mMinuteRadialTextsView);
@@ -229,9 +231,9 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         String[] minutesTexts = new String[12];
         for (int i = 0; i < 12; i++) {
             hoursTexts[i] = is24HourMode ?
-                    String.format("%02d", hours_24[i]) : String.format("%d", hours[i]);
-            innerHoursTexts[i] = String.format("%d", hours[i]);
-            minutesTexts[i] = String.format("%02d", minutes[i]);
+                    String.format(Locale.getDefault(), "%02d", hours_24[i]) : String.format(Locale.getDefault(), "%d", hours[i]);
+            innerHoursTexts[i] = String.format(Locale.getDefault(), "%d", hours[i]);
+            minutesTexts[i] = String.format(Locale.getDefault(), "%02d", minutes[i]);
         }
         mHourRadialTextsView.initialize(res,
                 hoursTexts, (is24HourMode ? innerHoursTexts : null), mHideAmPm, true);

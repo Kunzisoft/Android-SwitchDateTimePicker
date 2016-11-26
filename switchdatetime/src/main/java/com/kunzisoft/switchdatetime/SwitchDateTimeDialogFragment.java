@@ -16,7 +16,6 @@ import android.widget.TextView;
 import android.widget.ViewAnimator;
 
 import com.kunzisoft.switchdatetime.date.OnYearSelectedListener;
-import com.kunzisoft.switchdatetime.date.Utils;
 import com.kunzisoft.switchdatetime.date.widget.ListPickerYearView;
 import com.kunzisoft.switchdatetime.time.SwitchTimePicker;
 import com.prolificinteractive.materialcalendarview.CalendarDay;

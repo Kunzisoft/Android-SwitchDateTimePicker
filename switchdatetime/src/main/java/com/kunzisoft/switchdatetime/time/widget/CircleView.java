@@ -25,7 +25,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-import com.fourmob.datetimepicker.R;
+import com.kunzisoft.switchdatetime.R;
 
 /**
  * Draws a simple white circle on which the numbers will be drawn.
@@ -58,9 +58,9 @@ public class CircleView extends View {
     public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircleColor);
-        setCircleColor(switchTimeColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircleColor_timeCircleColor, Color.WHITE));
-        setCenterColor(switchTimeColorTypedArray.getColor(com.kunzisoft.switchdatetime.R.styleable.SwitchTimeCircleColor_timeCenterColor, Color.BLACK));
+        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeCircleColor);
+        setCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeCircleColor_timeCircleColor, Color.WHITE));
+        setCenterColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeCircleColor_timeCenterColor, Color.BLACK));
         switchTimeColorTypedArray.recycle();
 
         mPaint.setAntiAlias(true);

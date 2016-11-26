@@ -60,14 +60,14 @@
             <include
                 android:id="@+id/time_header_values"
                 layout="@layout/time_header_label"
-                android:layout_width="@dimen/timeWidth"
-                android:layout_height="@dimen/timeHeight"
+                android:layout_width="@dimen/time_label_width"
+                android:layout_height="@dimen/time_label_height"
                 android:layout_gravity="center_vertical"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 
             <TextView
-                android:id="@id/date_picker_year"
+                android:id="@+id/date_picker_year"
                 style="@style/Theme.SwitchDateTime.DateLabelYear"
                 android:gravity="top|end"
                 android:layout_gravity="center"
@@ -79,7 +79,7 @@
                 android:layout_above="@+id/date_picker_month_and_day" />
 
             <TextView
-                android:id="@id/date_picker_month_and_day"
+                android:id="@+id/date_picker_month_and_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
@@ -112,8 +112,8 @@
             android:focusable="true" >
             <com.kunzisoft.switchdatetime.time.RadialPickerLayout
                 android:id="@+id/time_picker"
-                android:layout_height="@dimen/timeCircleWidth"
-                android:layout_width="@dimen/timeCircleWidth"
+                android:layout_height="@dimen/time_circle_width"
+                android:layout_width="@dimen/time_circle_width"
                 android:layout_gravity="center"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
