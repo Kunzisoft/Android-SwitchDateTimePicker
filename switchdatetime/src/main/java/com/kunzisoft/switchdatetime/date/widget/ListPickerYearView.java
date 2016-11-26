@@ -26,8 +26,8 @@ import java.util.ArrayList;
  */
 public class ListPickerYearView extends ListView implements AdapterView.OnItemClickListener {
 
-    private int minYear = 1902;
-    private int maxYear = 2037;
+    private int minYear = 0;
+    private int maxYear = 3000;
     private int currentYear;
 
     private YearPickerAdapter mAdapter;

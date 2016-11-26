@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorAccentM">#ea5151</color>
     <color name="titleLabelColor">#ffffff</color>
     <color name="timeLabelColor">#ffffff</color>
     <color name="dateLabelColor">#f2f2f2</color>

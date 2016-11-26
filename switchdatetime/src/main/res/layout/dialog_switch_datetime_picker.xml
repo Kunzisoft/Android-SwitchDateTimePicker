@@ -145,8 +145,8 @@
             android:id="@+id/yearPicker"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            year:minYear="1950"
-            year:maxYear="2030"
+            year:minYear="0000"
+            year:maxYear="3000"
             year:defaultYear="2016"
             />
     </ViewFlipper>

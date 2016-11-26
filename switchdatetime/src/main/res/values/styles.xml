@@ -1,20 +1,15 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.SwitchDateTime" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#3F51B5</item>
-        <item name="colorPrimaryDark">#303F9F</item>
-        <item name="colorAccent">@color/colorAccentM</item>
-
         <!-- DateTime -->
-        <item name="dateTimeColorBackground">@color/colorAccentM</item>
-        <item name="dateTimeColorLabelBackground">@color/colorAccentM</item>
+        <item name="dateTimeColorBackground">?android:attr/colorAccent</item>
+        <item name="dateTimeColorLabelBackground">?android:attr/colorAccent</item>
         <item name="dateTimeColorLabel">#cacaca</item>
         <item name="dateTimeColorValue">#fff</item>
         <item name="dateTimeColorIcon">#fff</item>
 
         <!-- Time -->
-        <item name="timeLabelColorBackground">@color/colorAccentM</item>
+        <item name="timeLabelColorBackground">?android:attr/colorAccent</item>
         <item name="timeLabelColorAccent">#ffffff</item>
         <item name="timeLabelColor">@color/timeLabelColor</item>
 
@@ -22,18 +17,18 @@
         <item name="timeColorCircle">#e1e1e1</item>
         <item name="timeColorCenter">#000</item>
         <item name="timeColorNumbers">#494949</item>
-        <item name="timeColorSelector">@color/colorAccentM</item>
+        <item name="timeColorSelector">?android:attr/colorAccent</item>
 
-        <item name="timeAmPmColorBackground">@color/colorAccentM</item>
-        <item name="timeAmPmColorSelectBackground">@color/colorAccentM</item>
+        <item name="timeAmPmColorBackground">?android:attr/colorAccent</item>
+        <item name="timeAmPmColorSelectBackground">?android:attr/colorAccent</item>
         <item name="timeAmPmColorText">#fff</item>
 
         <!-- Date -->
-        <item name="dateLabelColorBackground">@color/colorAccentM</item>
-        <item name="dateSelectDayColor">@color/colorAccentM</item>
+        <item name="dateLabelColorBackground">?android:attr/colorAccent</item>
+        <item name="dateSelectDayColor">?android:attr/colorAccent</item>
 
         <!-- Year -->
-        <item name="dateSelectYearBackgroundColor">@color/colorAccentM</item>
+        <item name="dateSelectYearBackgroundColor">?android:attr/colorAccent</item>
         <item name="dateSelectYearTextColor">@color/timeLabelColor</item>
 
     </style>
