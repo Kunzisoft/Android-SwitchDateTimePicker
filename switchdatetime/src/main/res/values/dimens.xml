@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- header -->
-    <dimen name="header_width">180dp</dimen>
+    <dimen name="header_width">200dp</dimen>
 
     <dimen name="time_label_text">16sp</dimen>
     <dimen name="time_label_height">32dip</dimen>
@@ -12,11 +12,21 @@
     <dimen name="extra_time_label_margin">-30dp</dimen>
     <dimen name="separator_padding">4dip</dimen>
 
-    <dimen name="padding_year">16dp</dimen>
     <dimen name="year_label_height">64dip</dimen>
 
     <!-- Content -->
-    <dimen name="time_circle_width">270dp</dimen>
+    <dimen name="time_circle_width">320dp</dimen>
+
+    <dimen name="calendar_margin_top_portrait">54dp</dimen>
+    <dimen name="calendar_margin_start_portrait">18dp</dimen>
+    <dimen name="calendar_margin_end_portrait">18dp</dimen>
+    <dimen name="calendar_margin_bottom_portrait">54dp</dimen>
+    <dimen name="calendar_margin_top_land">62dp</dimen>
+    <dimen name="calendar_margin_start_land">0dp</dimen>
+    <dimen name="calendar_margin_end_land">0dp</dimen>
+    <dimen name="calendar_margin_bottom_land">62dp</dimen>
+
+    <dimen name="year_padding">24dp</dimen>
 
     <dimen name="date_picker_view_animator_height">270dip</dimen>
 

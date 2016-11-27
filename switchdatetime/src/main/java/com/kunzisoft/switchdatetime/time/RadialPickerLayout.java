@@ -19,7 +19,6 @@ package com.kunzisoft.switchdatetime.time;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
-import android.app.Service;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -27,8 +26,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
-import android.os.Vibrator;
+import android.support.annotation.RequiresApi;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.AttributeSet;
@@ -55,8 +53,8 @@ import java.util.Locale;
 public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
     private static final String TAG = "RadialPickerLayout";
 
-    private final int TOUCH_SLOP;
-    private final int TAP_TIMEOUT;
+    private int TOUCH_SLOP;
+    private int TAP_TIMEOUT;
 
     private static final int VISIBLE_DEGREES_STEP_SIZE = 30;
     private static final int HOUR_VALUE_TO_DEGREES_STEP_SIZE = VISIBLE_DEGREES_STEP_SIZE;
@@ -68,7 +66,7 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
     private static final int AM = SwitchTimePicker.AM;
     private static final int PM = SwitchTimePicker.PM;
 
-    private Vibrator mVibrator;
+    //private Vibrator mVibrator;
     private boolean mVibrate = true;
     private long mLastVibrate;
     private int mLastValueSelected;
@@ -116,6 +114,16 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
 
     public RadialPickerLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        initialize(context, attrs, defStyleAttr);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public RadialPickerLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        initialize(context, attrs, defStyleAttr);
+    }
+
+    private void initialize(Context context, AttributeSet attrs, int defStyleAttr) {
 
         setOnTouchListener(this);
         ViewConfiguration vc = ViewConfiguration.get(context);
@@ -159,7 +167,7 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         // Prepare mapping to snap touchable degrees to selectable degrees.
         preparePrefer30sMap();
 
-        mVibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
+        //mVibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
         mLastVibrate = 0;
         mLastValueSelected = -1;
 
@@ -575,7 +583,7 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
                 anims[1] = mHourRadialSelectorView.getDisappearAnimator();
                 anims[2] = mMinuteRadialTextsView.getReappearAnimator();
                 anims[3] = mMinuteRadialSelectorView.getReappearAnimator();
-            } else if (index == HOUR_INDEX) {
+            } else {
                 anims[0] = mHourRadialTextsView.getReappearAnimator();
                 anims[1] = mHourRadialSelectorView.getReappearAnimator();
                 anims[2] = mMinuteRadialTextsView.getDisappearAnimator();
@@ -616,8 +624,6 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         int value;
         final Boolean[] isInnerCircle = new Boolean[1];
         isInnerCircle[0] = false;
-
-        long millis = SystemClock.uptimeMillis();
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
@@ -777,6 +783,8 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
      * happen if we have vibrated very recently.
      */
     public void tryVibrate() {
+        /*
+        TODO Vibrator
         if (mVibrate && mVibrator != null) {
             long now = SystemClock.uptimeMillis();
             // We want to try to vibrate each individual tick discretely.
@@ -785,6 +793,7 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
                 mLastVibrate = now;
             }
         }
+        */
     }
 
     /**
@@ -806,7 +815,11 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
      * in the circle.
      */
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
-        if (Build.VERSION.SDK_INT >= 14) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            super.onInitializeAccessibilityNodeInfo(info);
+            info.addAction(AccessibilityNodeInfo.AccessibilityAction.ACTION_SCROLL_FORWARD);
+            info.addAction(AccessibilityNodeInfo.AccessibilityAction.ACTION_SCROLL_BACKWARD);
+        } else if(Build.VERSION.SDK_INT >= 16) {
             super.onInitializeAccessibilityNodeInfo(info);
             info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
             info.addAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);
