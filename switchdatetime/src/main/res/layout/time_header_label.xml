@@ -18,8 +18,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:minWidth="@dimen/time_label_min_width"
-    android:layout_gravity="center"
-    android:background="?attr/timeLabelColorBackground" >
+    android:layout_gravity="center">
     <View
         android:id="@+id/center_view"
         android:layout_width="1dp"
