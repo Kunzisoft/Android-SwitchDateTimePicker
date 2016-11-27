@@ -56,7 +56,7 @@ public class Sample extends AppCompatActivity {
         dateTimeFragment.setDefaultMinute(20);
         dateTimeFragment.setDefaultDay(4);
         dateTimeFragment.setDefaultMonth(Calendar.DECEMBER);
-        dateTimeFragment.setDefaultYear(1976);
+        dateTimeFragment.setDefaultYear(2018);
 
         // Define new day and month format
         try {
