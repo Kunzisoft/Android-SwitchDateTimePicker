@@ -57,6 +57,8 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private int hourOfDay = UNDEFINED_TIME_VALUE;
     private int minute = UNDEFINED_TIME_VALUE;
 
+    private boolean is24HoursMode = false;
+
     private SimpleDateFormat dayAndMonthSimpleDate;
     private SimpleDateFormat yearSimpleDate;
 
@@ -237,6 +239,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         else
             timePicker = new SwitchTimePicker(getContext(), onTimeSelectedListener, savedInstanceState);
             timePicker = new SwitchTimePicker(getContext(), onTimeSelectedListener, savedInstanceState);
+        timePicker.setIs24HourMode(is24HoursMode);
         timePicker.setHourOfDay(hourOfDay);
         timePicker.setMinute(minute);
         timePicker.onCreateView(dateTimeLayout, savedInstanceState);
@@ -472,6 +475,14 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             throw new SimpleDateMonthAndDayFormatException(simpleDateFormat.toPattern() + "isn't allowed for " + patternMonthAndDay.pattern());
         }
         this.dayAndMonthSimpleDate = simpleDateFormat;
+    }
+
+    /**
+     * Define if time miust be in 24 hours mode or in 12 hours, must be applied before "show"
+     * @param is24HoursMode
+     */
+    public void set24HoursMode(boolean is24HoursMode) {
+        this.is24HoursMode = is24HoursMode;
     }
 
     /**

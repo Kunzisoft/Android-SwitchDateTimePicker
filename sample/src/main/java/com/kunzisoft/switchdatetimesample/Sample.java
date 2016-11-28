@@ -52,6 +52,7 @@ public class Sample extends AppCompatActivity {
 
         // Assign values we want
         final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
+        dateTimeFragment.set24HoursMode(true);
         dateTimeFragment.setDefaultHourOfDay(15);
         dateTimeFragment.setDefaultMinute(20);
         dateTimeFragment.setDefaultDay(4);

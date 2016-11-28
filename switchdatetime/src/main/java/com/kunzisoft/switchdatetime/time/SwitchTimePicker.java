@@ -86,6 +86,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private boolean mAllowAutoAdvance;
     private int hourOfDay;
     private int minute;
+
     private boolean mIs24HourMode;
 
     // For hardware IME input.
@@ -911,6 +912,14 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     public void setMinute(int minute) {
         this.minute = minute;
         // TODO assign later
+    }
+
+    public boolean is24HourMode() {
+        return mIs24HourMode;
+    }
+
+    public void setIs24HourMode(boolean is24HourMode) {
+        this.mIs24HourMode = is24HourMode;
     }
 
     /**
