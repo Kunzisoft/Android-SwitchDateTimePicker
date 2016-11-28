@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/year_element_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.kunzisoft.switchdatetime.date.widget.TextCircularIndicatorView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/year_textView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:padding="@dimen/year_padding"
+        android:textColor="?attr/dateSelectYearTextColor"
+        app:colorCircleIndicator="?attr/dateSelectYearBackgroundColor"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+</LinearLayout>

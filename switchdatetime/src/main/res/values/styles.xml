@@ -1,13 +1,65 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="SwitchDateTimeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#3F51B5</item>
-        <item name="colorPrimaryDark">#303F9F</item>
-        <item name="colorAccent">#a72a2a</item>
-        <item name="dateTimeColorBackground">#a72a2a</item>
-        <item name="dateTimeColorLabel">#d7f7fc</item>
-        <item name="dateTimeColorValue">#e3f7d9</item>
-        <item name="dateTimeColorIcon">#ffffff</item>
+    <!-- Theme for SwitchDateTime -->
+    <style name="Theme.SwitchDateTime" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- DateTime -->
+        <item name="dateTimeColorBackground">#c94545</item>
+        <item name="dateTimeColorLabelBackground">#c94545</item>
+        <item name="dateTimeColorLabel">#cacaca</item>
+        <item name="dateTimeColorValue">#fff</item>
+        <item name="dateTimeColorIcon">#fff</item>
+
+        <!-- Time -->
+        <item name="timeLabelColorBackground">#c94545</item>
+        <item name="timeLabelColorAccent">#fff</item>
+        <item name="timeLabelColor">#fff</item>
+
+        <item name="timeColorBackground">#fff</item>
+        <item name="timeColorCircle">#e1e1e1</item>
+        <item name="timeColorCenter">#000</item>
+        <item name="timeColorNumbers">#494949</item>
+        <item name="timeColorSelector">#c94545</item>
+
+        <item name="timeAmPmColorBackground">#c94545</item>
+        <item name="timeAmPmColorSelectBackground">#c94545</item> <!-- Alpha is apply-->
+        <item name="timeAmPmColorText">#fff</item>
+
+        <!-- Date -->
+        <item name="dateLabelColorBackground">#c94545</item>
+        <item name="dateSelectDayColor">#c94545</item>
+
+        <!-- Year -->
+        <item name="dateSelectYearBackgroundColor">#c94545</item>
+        <item name="dateSelectYearTextColor">#fff</item>
+    </style>
+
+    <style name="Theme.SwitchDateTime.TitleDateTimeLabelText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Time precise -->
+    <style name="Theme.SwitchDateTime.TimeLabelText">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="Theme.SwitchDateTime.TimeLabelAmPm">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Date Precise -->
+    <style name="Theme.SwitchDateTime.DateLabelMonthAndDay">
+        <item name="android:textSize">26sp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <!-- Year Precise -->
+    <style name="Theme.SwitchDateTime.DateLabelYear">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

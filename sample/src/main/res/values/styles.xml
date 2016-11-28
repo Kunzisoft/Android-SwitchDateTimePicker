@@ -1,13 +1,16 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="SwitchDateTimeTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="SwitchDateTimeThemeCustom" parent="AlertDialog.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="dateTimeColorBackground">@color/colorAccent</item>
-        <item name="dateTimeColorLabel">#d7f7fc</item>
-        <item name="dateTimeColorValue">#c4e4b3</item>
-        <item name="dateTimeColorIcon">#ffffff</item>
+    </style>
+
+    <!-- Custom SwitchDateTime style -->
+    <style name="Theme.SwitchDateTime.TitleDateTimeLabelText">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

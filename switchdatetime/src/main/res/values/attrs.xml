@@ -1,6 +1,62 @@
 <resources>
     <attr name="dateTimeColorBackground" format="reference|color" />
+    <attr name="dateTimeColorLabelBackground" format="reference|color" />
     <attr name="dateTimeColorLabel" format="reference|color" />
     <attr name="dateTimeColorValue" format="reference|color" />
     <attr name="dateTimeColorIcon" format="reference|color" />
+
+    <!-- Time -->
+    <attr name="timeLabelColorBackground" format="reference|color" />
+    <attr name="timeLabelColor" format="reference|color" />
+    <attr name="timeLabelColorAccent" format="reference|color" />
+
+    <attr name="timeColorBackground" format="reference|color" />
+    <attr name="timeColorCircle" format="reference|color" />
+    <attr name="timeColorCenter" format="reference|color" />
+    <attr name="timeColorNumbers" format="reference|color" />
+    <attr name="timeColorSelector" format="reference|color" />
+
+    <attr name="timeAmPmColorBackground" format="reference|color" />
+    <attr name="timeAmPmColorSelectBackground" format="reference|color" />
+    <attr name="timeAmPmColorText" format="reference|color" />
+
+    <!-- Date -->
+    <attr name="dateLabelColorBackground" format="reference|color" />
+    <attr name="dateSelectDayColor" format="reference|color" />
+    <attr name="dateSelectYearBackgroundColor" format="reference|color" />
+    <attr name="dateSelectYearTextColor" format="reference|color" />
+
+    <!-- Attrs Switch Time -->
+    <declare-styleable name="SwitchTimeCircleColor">
+        <attr name="timeCircleColor" format="color" />
+        <attr name="timeCenterColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchTimeSelectorColor">
+        <attr name="timeSelectorColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchTimeCircularNumbersColor">
+        <attr name="timeCircularNumbersColor" format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchTimeAMPMColor">
+        <attr name="amPmBackgroundColor" format="color" />
+        <attr name="amPmSelectBackgroundColor" format="color" />
+        <attr name="amPmTextColor" format="color" />
+    </declare-styleable>
+
+    <!-- Attrs Years -->
+    <declare-styleable name="ListPickerYearView">
+        <attr name="minYear" format="integer" />
+        <attr name="maxYear" format="integer" />
+        <attr name="defaultYear" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="TextCircularIndicatorView">
+        <!-- Change color of circle background -->
+        <attr name="colorCircleIndicator" format="reference|color" />
+    </declare-styleable>
+
 </resources>
+

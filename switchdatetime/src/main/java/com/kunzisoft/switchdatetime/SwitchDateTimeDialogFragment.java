@@ -1,26 +1,33 @@
 package com.kunzisoft.switchdatetime;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.ViewSwitcher;
+import android.widget.ViewAnimator;
 
-import java.text.DateFormat;
+import com.kunzisoft.switchdatetime.date.OnYearSelectedListener;
+import com.kunzisoft.switchdatetime.date.widget.ListPickerYearView;
+import com.kunzisoft.switchdatetime.time.SwitchTimePicker;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * A fragment that displays a dialog window with Date and Time who can be selected by switch button
@@ -29,8 +36,10 @@ import java.util.Date;
  */
 public class SwitchDateTimeDialogFragment extends DialogFragment {
 
+    private static final String TAG = "SwitchDateTimeDialogFrg";
+
     private static final String STATE_DATETIME = "STATE_DATETIME";
-    private Calendar dateTime = Calendar.getInstance();
+    private Calendar dateTimeCalendar;
 
     private static final String TAG_LABEL = "LABEL";
     private static final String TAG_POSITIVE_BUTTON = "POSITIVE_BUTTON";
@@ -41,18 +50,35 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private String mNegativeButton;
     private OnButtonClickListener mListener;
 
-    private ViewGroup viewGroup;
-    private ViewSwitcher switcher;
+    private final static int UNDEFINED_TIME_VALUE = -1;
+    private int year = UNDEFINED_TIME_VALUE;
+    private int month = UNDEFINED_TIME_VALUE;
+    private int day = UNDEFINED_TIME_VALUE;
+    private int hourOfDay = UNDEFINED_TIME_VALUE;
+    private int minute = UNDEFINED_TIME_VALUE;
 
-    private int year = dateTime.get(Calendar.YEAR);
-    private int month = dateTime.get(Calendar.MONTH);
-    private int day = dateTime.get(Calendar.DAY_OF_MONTH);
-    private int hour = dateTime.get(Calendar.HOUR_OF_DAY);
-    private int minute = dateTime.get(Calendar.MINUTE);
-    private DateFormat simpleDateFormat = DateFormat.getDateTimeInstance();
+    private boolean is24HoursMode = false;
+
+    private SimpleDateFormat dayAndMonthSimpleDate;
+    private SimpleDateFormat yearSimpleDate;
+
+    private ViewAnimator viewSwitcher;
+    private SwitchTimePicker timePicker;
+    private MaterialCalendarView materialCalendarView;
+    private ListPickerYearView listPickerYearView;
+
+    private TextView monthAndDayHeaderValues;
+    private TextView yearHeaderValues;
+
+    private boolean blockAnimationIn;
+    private boolean blockAnimationOut;
 
     /**
      * Create a new instance of SwitchDateTimeDialogFragment
+     * @param label Title of dialog
+     * @param positiveButton Text for positive button
+     * @param negativeButton Text for negative button
+     * @return DialogFragment
      */
     public static SwitchDateTimeDialogFragment newInstance(String label, String positiveButton, String negativeButton) {
         SwitchDateTimeDialogFragment switchDateTimeDialogFragment = new SwitchDateTimeDialogFragment();
@@ -74,18 +100,19 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         this.mListener = onButtonClickListener;
     }
 
+
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the current datetime
-        savedInstanceState.putLong(STATE_DATETIME, dateTime.getTimeInMillis());
+        savedInstanceState.putLong(STATE_DATETIME, dateTimeCalendar.getTimeInMillis());
+        timePicker.onSaveInstanceState(savedInstanceState);
 
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    @NonNull
     @Override
-    @SuppressWarnings("deprecation")
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
+    public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
 
         if(getArguments() != null) {
@@ -94,20 +121,29 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             mNegativeButton = getArguments().getString(TAG_NEGATIVE_BUTTON);
         }
 
+        dateTimeCalendar = Calendar.getInstance();
+
         if (savedInstanceState != null) {
             // Restore value from saved state
-            dateTime.setTime(new Date(savedInstanceState.getLong(STATE_DATETIME)));
-        } else {
-            // Init with values set
-            dateTime.set(year, month, day, hour, minute);
+            dateTimeCalendar.setTime(new Date(savedInstanceState.getLong(STATE_DATETIME)));
         }
+
+        // Init values with current time if setDefault is not used
+        if(year == UNDEFINED_TIME_VALUE)
+            year = dateTimeCalendar.get(Calendar.YEAR);
+        if(month == UNDEFINED_TIME_VALUE)
+            month = dateTimeCalendar.get(Calendar.MONTH);
+        if(day == UNDEFINED_TIME_VALUE)
+            day = dateTimeCalendar.get(Calendar.DAY_OF_MONTH);
+        if(hourOfDay == UNDEFINED_TIME_VALUE)
+            hourOfDay = dateTimeCalendar.get(Calendar.HOUR_OF_DAY);
+        if(minute == UNDEFINED_TIME_VALUE)
+            minute = dateTimeCalendar.get(Calendar.MINUTE);
+        assignAllValuesToCalendar();
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View dateTimeLayout = inflater.inflate(R.layout.dialog_switch_datetime_picker,
                 (ViewGroup) getActivity().findViewById(R.id.datetime_picker));
-
-        // ViewGroup add
-        viewGroup = (ViewGroup) dateTimeLayout.findViewById(R.id.section_add);
 
         // Set label
         TextView labelView = (TextView) dateTimeLayout.findViewById(R.id.label);
@@ -115,7 +151,141 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             labelView.setText(mLabel);
         else
             labelView.setText(getString(R.string.label_datetime_dialog));
-        final TextView dateText = (TextView) dateTimeLayout.findViewById(R.id.value);
+
+        // Lock animation for fast clicks
+        blockAnimationIn = false;
+        blockAnimationOut = false;
+        viewSwitcher = (ViewAnimator) dateTimeLayout.findViewById(R.id.dateSwitcher);
+        viewSwitcher.getInAnimation().setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                blockAnimationIn = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                blockAnimationIn = false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+        viewSwitcher.getOutAnimation().setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                blockAnimationOut = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                blockAnimationOut = false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {}
+        });
+
+        // Button for switch between Hours/Minutes, Calendar and YearList
+        ImageButton buttonSwitch = (ImageButton) dateTimeLayout.findViewById(R.id.button_switch);
+        buttonSwitch.setBackgroundColor(Color.TRANSPARENT);
+        buttonSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.animLabelElement(view);
+                if(!(blockAnimationIn && blockAnimationOut))
+                    viewSwitcher.showNext();
+            }
+        });
+
+        // Values header hourOfDay minutes
+        View timeHeaderValues = dateTimeLayout.findViewById(R.id.time_header_values);
+        View.OnClickListener onTimeClickListener =
+                new OnClickHeaderElementListener(HeaderViewsPosition.VIEW_HOURS_AND_MINUTES.getPosition());
+        timeHeaderValues.setOnClickListener(onTimeClickListener);
+        // Values header month day
+        monthAndDayHeaderValues = (TextView) dateTimeLayout.findViewById(R.id.date_picker_month_and_day);
+        View.OnClickListener onMonthAndDayClickListener =
+                new OnClickHeaderElementListener(HeaderViewsPosition.VIEW_MONTH_AND_DAY.getPosition());
+        monthAndDayHeaderValues.setOnClickListener(onMonthAndDayClickListener);
+        // Values header year
+        yearHeaderValues = (TextView) dateTimeLayout.findViewById(R.id.date_picker_year);
+        View.OnClickListener onYearClickListener =
+                new OnClickHeaderElementListener(HeaderViewsPosition.VIEW_YEAR.getPosition());
+        yearHeaderValues.setOnClickListener(onYearClickListener);
+
+        // Init simple date format if null
+        if(dayAndMonthSimpleDate == null)
+            dayAndMonthSimpleDate = new SimpleDateFormat("MMMM dd", Locale.getDefault());
+        if(yearSimpleDate == null)
+            yearSimpleDate = new SimpleDateFormat("yyyy", Locale.getDefault());
+
+        // Init headers
+        yearHeaderValues.setText(String.valueOf(year));
+        monthAndDayHeaderValues.setText(dayAndMonthSimpleDate.format(dateTimeCalendar.getTime()));
+
+        // Construct TimePicker
+        SwitchTimePicker.OnTimeSelectedListener onTimeSelectedListener = new SwitchTimePicker.OnTimeSelectedListener() {
+            @Override
+            public void onTimeSelected(int hourOfDayTime, int minuteTime) {
+                hourOfDay = hourOfDayTime;
+                minute = minuteTime;
+                dateTimeCalendar.set(Calendar.HOUR_OF_DAY, hourOfDayTime);
+                dateTimeCalendar.set(Calendar.MINUTE, minuteTime);
+            }
+        };
+        // Init time with saved elements
+        if(savedInstanceState == null)
+            timePicker = new SwitchTimePicker(getContext(), onTimeSelectedListener);
+        else
+            timePicker = new SwitchTimePicker(getContext(), onTimeSelectedListener, savedInstanceState);
+            timePicker = new SwitchTimePicker(getContext(), onTimeSelectedListener, savedInstanceState);
+        timePicker.setIs24HourMode(is24HoursMode);
+        timePicker.setHourOfDay(hourOfDay);
+        timePicker.setMinute(minute);
+        timePicker.onCreateView(dateTimeLayout, savedInstanceState);
+        timePicker.setOnClickTimeListener(onTimeClickListener);
+
+        // Construct DatePicker
+        materialCalendarView = (MaterialCalendarView) dateTimeLayout.findViewById(com.kunzisoft.switchdatetime.R.id.datePicker);
+        materialCalendarView.setCurrentDate(dateTimeCalendar.getTime());
+        materialCalendarView.setDateSelected(dateTimeCalendar, true);
+        materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay calendarDay, boolean selected) {
+                Date currentDate = calendarDay.getDate();
+                year = calendarDay.getYear();
+                month = calendarDay.getMonth();
+                day = calendarDay.getDay();
+
+                dateTimeCalendar.set(Calendar.YEAR, year);
+                dateTimeCalendar.set(Calendar.MONTH, month);
+                dateTimeCalendar.set(Calendar.DAY_OF_MONTH, day);
+                listPickerYearView.assignCurrentYear(year);
+
+                yearHeaderValues.setText(String.valueOf(year));
+                monthAndDayHeaderValues.setText(dayAndMonthSimpleDate.format(currentDate));
+            }
+        });
+
+        // Construct YearPicker
+        listPickerYearView = (ListPickerYearView) dateTimeLayout.findViewById(R.id.yearPicker);
+        listPickerYearView.assignCurrentYear(year);
+        listPickerYearView.setDatePickerListener(new OnYearSelectedListener() {
+            @Override
+            public void onYearSelected(View view, int yearPicker) {
+                year = yearPicker;
+
+                dateTimeCalendar.set(Calendar.YEAR, year);
+
+                materialCalendarView.setCurrentDate(dateTimeCalendar.getTime());
+                materialCalendarView.setDateSelected(dateTimeCalendar, true);
+                // For resolve bug of switch year
+                materialCalendarView.goToNext();
+                materialCalendarView.goToPrevious();
+
+                yearHeaderValues.setText(String.valueOf(year));
+            }
+        });
 
         // Assign buttons
         AlertDialog.Builder db = new AlertDialog.Builder(getActivity());
@@ -125,8 +295,10 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         db.setPositiveButton(mPositiveButton, new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        if(mListener !=null)
-                            mListener.onPositiveButtonClick(dateTime.getTime());
+                        if(mListener !=null) {
+                            assignAllValuesToCalendar();
+                            mListener.onPositiveButtonClick(dateTimeCalendar.getTime());
+                        }
                     }
                 });
         if(mNegativeButton == null)
@@ -135,102 +307,191 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         // Close dialog
-                        if(mListener !=null)
-                            mListener.onNegativeButtonClick(dateTime.getTime());
+                        if(mListener !=null) {
+                            assignAllValuesToCalendar();
+                            mListener.onNegativeButtonClick(dateTimeCalendar.getTime());
+                        }
                     }
                 });
 
-        // Show datetime from locale format
-        dateText.setText(simpleDateFormat.format(dateTime.getTime()));
-        AlertDialog dialog = db.show();
-
-        // Switch date to time and reverse
-        switcher = (ViewSwitcher) dialog.findViewById(R.id.dateSwitcher);
-        ImageButton buttonSwitch = (ImageButton) dialog.findViewById(R.id.button_switch);
-        buttonSwitch.setBackgroundColor(Color.TRANSPARENT);
-        buttonSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(switcher.getDisplayedChild() == 0) {
-                    switcher.showNext();
-                    ((ImageButton) view).setImageResource(R.drawable.ic_clock_32dp);
-                }
-                else if (switcher.getDisplayedChild() == 1) {
-                    switcher.showPrevious();
-                    ((ImageButton) view).setImageResource(R.drawable.ic_calendar_32dp);
-                }
-            }
-        });
-
-        // Construct TimePicker
-        TimePicker timePicker = (AMPMTimePicker) dialog.findViewById(R.id.timePicker);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            timePicker.setHour(hour);
-        } else {
-            timePicker.setCurrentHour(hour);
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            timePicker.setMinute(minute);
-        } else {
-            timePicker.setCurrentMinute(minute);
-        }
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker timePicker, int i, int i1) {
-                dateTime.set(Calendar.HOUR_OF_DAY, i);
-                dateTime.set(Calendar.MINUTE, i1);
-                dateText.setText(simpleDateFormat.format(dateTime.getTime()));
-            }
-        });
-
-        // Construct DatePicker
-        DatePicker datePicker = (DatePicker) dialog.findViewById(R.id.datePicker);
-        datePicker.init(year, month, day, new DatePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                dateTime.set(Calendar.YEAR, i);
-                dateTime.set(Calendar.MONTH, i1);
-                dateTime.set(Calendar.DAY_OF_MONTH, i2);
-                dateText.setText(simpleDateFormat.format(dateTime.getTime()));
-            }
-        });
-
-        dialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialogInterface) {
-                switcher.setMinimumWidth(viewGroup.getWidth() + switcher.getWidth());
-            }
-        });
-
-        return dialog;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
-
-    public void setMinute(int minute) {
-        this.minute = minute;
+        return db.create();
     }
 
     /**
-     * Assign a SimpleDateFormat like "d MMM yyyy HH:mm:ss" to show formatted DateTime
+     * Assign each value of time in calendar
+     */
+    private void assignAllValuesToCalendar() {
+        dateTimeCalendar.set(Calendar.YEAR, year);
+        dateTimeCalendar.set(Calendar.MONTH, month);
+        dateTimeCalendar.set(Calendar.DAY_OF_MONTH, day);
+        dateTimeCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        dateTimeCalendar.set(Calendar.MINUTE, minute);
+        dateTimeCalendar.set(Calendar.SECOND, 0);
+    }
+
+    /**
+     * Assign default year at start
+     * @param year
+     */
+    public void setDefaultYear(int year) {
+        this.year = year;
+    }
+
+    @Deprecated
+    /**
+     * @deprecated Does not change after launch
+     * {@link #setDefaultYear(int)}
+     */
+    public void setYear(int year) {
+        setDefaultYear(year);
+    }
+
+    /**
+     * Assign default month at start (ex: Calendar.DECEMBER)
+     * @see Calendar
+     * @param month
+     */
+    public void setDefaultMonth(int month) {
+        this.month = month;
+    }
+
+    @Deprecated
+    /**
+     * @deprecated Does not change after launch
+     * {@link #setDefaultMonth(int)}
+     */
+    public void setMonth(int month) {
+        setDefaultMonth(month);
+    }
+
+    /**
+     * Assign default day at start
+     * @param day
+     */
+    public void setDefaultDay(int day) {
+        this.day = day;
+    }
+
+    @Deprecated
+    /**
+     * @deprecated Does not change after launch
+     * {@link #setDefaultDay(int)}
+     */
+    public void setDay(int day) {
+        setDefaultDay(day);
+    }
+
+    /**
+     * Assign default hour of day (in 24 hours) at start
+     * @param hourOfDay
+     */
+    public void setDefaultHourOfDay(int hourOfDay) {
+        this.hourOfDay = hourOfDay;
+    }
+
+    @Deprecated
+    /**
+     * @deprecated Does not change after launch and 24 hours format
+     * {@link #setDefaultHourOfDay(int)}
+     */
+    public void setHour(int hour) {
+        setDefaultHourOfDay(hour);
+    }
+
+    /**
+     * Assign default minute at start
+     * @param minute
+     */
+    public void setDefaultMinute(int minute) {
+        this.minute = minute;
+    }
+
+    @Deprecated
+    /**
+     * @deprecated Does not change after launch
+     * {@link #setDefaultMinute(int)}
+     */
+    public void setMinute(int minute) {
+        setDefaultMinute(minute);
+    }
+
+    /**
+     * Get current year
+     * @return
+     */
+    public int getYear() {
+        return year;
+    }
+
+    /**
+     * Get current month as Calendar.MONTH
+     * @see Calendar
+     * @return
+     */
+    public int getMonth() {
+        return month;
+    }
+
+    /**
+     * Get current day
+     * @return
+     */
+    public int getDay() {
+        return day;
+    }
+
+    /**
+     * Get current hour of day (hour in 24 hours)
+     * @return
+     */
+    public int getHourOfDay() {
+        return hourOfDay;
+    }
+
+    /**
+     * get current minute
+     * @return
+     */
+    public int getMinute() {
+        return minute;
+    }
+
+    /**
+     * Return default SimpleDateFormat for Month and Day
+     * @return
+     */
+    public SimpleDateFormat getSimpleDateMonthAndDayFormat() {
+        return dayAndMonthSimpleDate;
+    }
+
+    /**
+     * Assign a SimpleDateFormat like "d MMM" to show formatted DateTime
      * @param simpleDateFormat
      */
-    public void setSimpleDateFormat(SimpleDateFormat simpleDateFormat) {
-        this.simpleDateFormat = simpleDateFormat;
+    public void setSimpleDateMonthAndDayFormat(SimpleDateFormat simpleDateFormat) throws SimpleDateMonthAndDayFormatException{
+        Pattern patternMonthAndDay = Pattern.compile("(M|w|W|D|d|F|E|u|\\s)*");
+        Matcher matcherMonthAndDay = patternMonthAndDay.matcher(simpleDateFormat.toPattern());
+        if(!matcherMonthAndDay.matches()) {
+            throw new SimpleDateMonthAndDayFormatException(simpleDateFormat.toPattern() + "isn't allowed for " + patternMonthAndDay.pattern());
+        }
+        this.dayAndMonthSimpleDate = simpleDateFormat;
+    }
+
+    /**
+     * Define if time miust be in 24 hours mode or in 12 hours, must be applied before "show"
+     * @param is24HoursMode
+     */
+    public void set24HoursMode(boolean is24HoursMode) {
+        this.is24HoursMode = is24HoursMode;
+    }
+
+    /**
+     * Class exception if SimpleDateFormat contains something else that "d" or/and "M"
+     */
+    public class SimpleDateMonthAndDayFormatException extends Exception {
+        SimpleDateMonthAndDayFormatException(String message) {
+            super(message);
+        }
     }
 
     /**
@@ -239,6 +500,41 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     public interface OnButtonClickListener {
         void onPositiveButtonClick(Date date);
         void onNegativeButtonClick(Date date);
+    }
+
+    /**
+     * Enumeration of header views
+     */
+    public enum HeaderViewsPosition {
+        VIEW_HOURS_AND_MINUTES(0), VIEW_MONTH_AND_DAY(1), VIEW_YEAR(2);
+
+        private int positionSwitch;
+
+        HeaderViewsPosition(int position) {
+            this.positionSwitch = position;
+        }
+
+        public int getPosition() {
+            return positionSwitch;
+        }
+    }
+
+    /**
+     * Listener for click on Header element
+     */
+    public class OnClickHeaderElementListener implements View.OnClickListener{
+        private int positionView;
+
+        OnClickHeaderElementListener(int positionView) {
+            this.positionView = positionView;
+        }
+
+        @Override
+        public void onClick(View view) {
+            Utils.animLabelElement(view);
+            if(viewSwitcher.getDisplayedChild() != positionView)
+                viewSwitcher.setDisplayedChild(positionView);
+        }
     }
 }
 

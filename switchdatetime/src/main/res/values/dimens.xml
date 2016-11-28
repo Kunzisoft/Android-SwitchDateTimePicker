@@ -1,4 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="pickerWidth">400dp</dimen>
+    <!-- header -->
+    <dimen name="header_width">200dp</dimen>
+
+    <dimen name="time_label_text">16sp</dimen>
+    <dimen name="time_label_height">32dip</dimen>
+    <dimen name="time_label_width">128dip</dimen>
+    <dimen name="time_label_min_width">170dp</dimen>
+    <dimen name="ampm_label_size">16sp</dimen>
+    <dimen name="ampm_left_padding">6dip</dimen>
+    <dimen name="extra_time_label_margin">-30dp</dimen>
+    <dimen name="separator_padding">4dip</dimen>
+
+    <dimen name="year_label_height">64dip</dimen>
+
+    <!-- Content -->
+    <dimen name="time_circle_width">320dp</dimen>
+
+    <dimen name="calendar_margin_top_portrait">54dp</dimen>
+    <dimen name="calendar_margin_start_portrait">18dp</dimen>
+    <dimen name="calendar_margin_end_portrait">18dp</dimen>
+    <dimen name="calendar_margin_bottom_portrait">54dp</dimen>
+    <dimen name="calendar_margin_top_land">62dp</dimen>
+    <dimen name="calendar_margin_start_land">0dp</dimen>
+    <dimen name="calendar_margin_end_land">0dp</dimen>
+    <dimen name="calendar_margin_bottom_land">62dp</dimen>
+
+    <dimen name="year_padding">24dp</dimen>
+
+    <dimen name="date_picker_view_animator_height">270dip</dimen>
+
+    <item name="circle_radius_multiplier" format="float" type="string">0.82</item>
+    <item name="circle_radius_multiplier_24HourMode" format="float" type="string">0.85</item>
+
+    <item name="numbers_radius_multiplier_normal" format="float" type="string">0.81</item>
+    <item name="numbers_radius_multiplier_inner" format="float" type="string">0.60</item>
+    <item name="numbers_radius_multiplier_outer" format="float" type="string">0.83</item>
+
+    <item name="text_size_multiplier_normal" format="float" type="string">0.17</item>
+    <item name="text_size_multiplier_inner" format="float" type="string">0.14</item>
+    <item name="text_size_multiplier_outer" format="float" type="string">0.11</item>
+
+    <item name="ampm_circle_radius_multiplier" format="float" type="string">0.19</item>
+    <item name="selection_radius_multiplier" format="float" type="string">0.16</item>
+
 </resources>

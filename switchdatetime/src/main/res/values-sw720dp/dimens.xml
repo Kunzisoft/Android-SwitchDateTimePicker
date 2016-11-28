@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Header -->
+    <dimen name="header_width">200dp</dimen>
+
+    <!-- Content -->
+    <dimen name="time_circle_width">420dp</dimen>
+
+    <dimen name="calendar_margin_top_portrait">220dp</dimen>
+    <dimen name="calendar_margin_start_portrait">22dp</dimen>
+    <dimen name="calendar_margin_end_portrait">22dp</dimen>
+    <dimen name="calendar_margin_bottom_portrait">220dp</dimen>
+    <dimen name="calendar_margin_top_land">120dp</dimen>
+    <dimen name="calendar_margin_start_land">0dp</dimen>
+    <dimen name="calendar_margin_end_land">0dp</dimen>
+    <dimen name="calendar_margin_bottom_land">120dp</dimen>
+
+    <dimen name="year_padding">48dp</dimen>
+</resources>
