@@ -27,20 +27,25 @@ Add the JitPack repository in your build.gradle at the end of repositories:
 And add the dependency
 ```
 	dependencies {
-	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.0'
+	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.1'
 	}
 ```
 
 ## Usage
 
 ### SimpleDateFormat for Day and Month
-You can specify a particular [*SimpleDateFormat*](https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html) for value of Day and Month with **setSimpleDateFormat(SimpleDateFormat format)**
+You can specify a particular [*SimpleDateFormat*](https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html) for value of Day and Month with **setSimpleDateMonthAndDayFormat(SimpleDateFormat format)**
 Warning, the format must satisfy the regular expression : **(M|w|W|D|d|F|E|u|\s)***
 , for example *dd MMMM*
 
 ### 24 Hours mode
 By default, time is in 12 hours mode, If you want a 24-hour display, use:
 `dateTimeFragment.set24HoursMode(true);`
+before the "show"
+
+### Start with a specific view
+For launch Dialog with a specific view, call :
+`dateTimeFragment.startAtTimeView();`, `dateTimeFragment.startAtCalendarView();` or `dateTimeFragment.startAtYearView();`
 before the "show"
 
 ### Style
@@ -137,6 +142,7 @@ SwitchDateTimeDialogFragment dateTimeDialogFragment = SwitchDateTimeDialogFragme
 );
 
 // Assign values
+dateTimeFragment.startAtCalendarView();
 dateTimeFragment.set24HoursMode(true);
 dateTimeFragment.setDefaultHourOfDay(15);
 dateTimeFragment.setDefaultMinute(20);

@@ -58,6 +58,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private int minute = UNDEFINED_TIME_VALUE;
 
     private boolean is24HoursMode = false;
+    private int startAtPosition = 0;
 
     private SimpleDateFormat dayAndMonthSimpleDate;
     private SimpleDateFormat yearSimpleDate;
@@ -184,6 +185,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             @Override
             public void onAnimationRepeat(Animation animation) {}
         });
+        viewSwitcher.setDisplayedChild(startAtPosition);
 
         // Button for switch between Hours/Minutes, Calendar and YearList
         ImageButton buttonSwitch = (ImageButton) dateTimeLayout.findViewById(R.id.button_switch);
@@ -327,6 +329,27 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         dateTimeCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         dateTimeCalendar.set(Calendar.MINUTE, minute);
         dateTimeCalendar.set(Calendar.SECOND, 0);
+    }
+
+    /**
+     * Define "Time" as the first view to show
+     */
+    public void startAtTimeView() {
+        startAtPosition = 0;
+    }
+
+    /**
+     * Define "Calendar" as the first view to show
+     */
+    public void startAtCalendarView() {
+        startAtPosition = 1;
+    }
+
+    /**
+     * Define "Year" as the first view to show
+     */
+    public void startAtYearView() {
+        startAtPosition = 2;
     }
 
     /**
