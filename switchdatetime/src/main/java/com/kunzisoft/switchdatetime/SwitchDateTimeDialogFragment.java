@@ -101,8 +101,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         this.mListener = onButtonClickListener;
     }
 
-
-
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the current datetime
@@ -143,6 +141,8 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         assignAllValuesToCalendar();
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
+        getActivity().getTheme().applyStyle(R.style.Theme_SwitchDateTime, false);
+        //getActivity().setTheme(R.style.Theme_SwitchDateTime);
         View dateTimeLayout = inflater.inflate(R.layout.dialog_switch_datetime_picker,
                 (ViewGroup) getActivity().findViewById(R.id.datetime_picker));
 
@@ -240,7 +240,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             timePicker = new SwitchTimePicker(getContext(), onTimeSelectedListener);
         else
             timePicker = new SwitchTimePicker(getContext(), onTimeSelectedListener, savedInstanceState);
-            timePicker = new SwitchTimePicker(getContext(), onTimeSelectedListener, savedInstanceState);
         timePicker.setIs24HourMode(is24HoursMode);
         timePicker.setHourOfDay(hourOfDay);
         timePicker.setMinute(minute);
@@ -290,7 +289,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         });
 
         // Assign buttons
-        AlertDialog.Builder db = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder db = new AlertDialog.Builder(getContext());
         db.setView(dateTimeLayout);
         if(mPositiveButton == null)
             mPositiveButton = getString(R.string.positive_button_datetime_picker);

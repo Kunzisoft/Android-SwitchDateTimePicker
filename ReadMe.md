@@ -50,84 +50,32 @@ before the "show"
 
 ### Style
 You can customize the style to change color, bold, etc... of each element.
-In your *styles.xml*, for example
+You need to use a Theme.AppCompat theme (or descendant) with SwitchDateTime's activity. (`compile 'com.android.support:appcompat-v7:25.0.1'` in gradle)
+
+<img src="https://raw.githubusercontent.com/J-Jamet/Android-SwitchDateTimePicker/master/art/screen1.jpg">
+
+In your *styles.xml*, you can redefine each style separately, but you must keep each item, for example : change size of "year label"
 ```
 <resources>
     <!-- Base application theme. -->
-    <style name="SwitchDateTimeThemeCustom" parent="AlertDialog.AppCompat.Light">
+    <style name="MyAppCustomTheme" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- Custom SwitchDateTime style, each element is optional-->
-		<!-- Theme for SwitchDateTime -->
-		    <style name="Theme.SwitchDateTime" parent="Theme.AppCompat.Light.DarkActionBar">
-		        <!-- DateTime -->
-		        <item name="dateTimeColorBackground">#c94545</item>
-		        <item name="dateTimeColorLabelBackground">#c94545</item>
-		        <item name="dateTimeColorLabel">#cacaca</item>
-		        <item name="dateTimeColorValue">#fff</item>
-		        <item name="dateTimeColorIcon">#fff</item>
-
-		        <!-- Time -->
-		        <item name="timeLabelColorBackground">#c94545</item>
-		        <item name="timeLabelColorAccent">#fff</item>
-		        <item name="timeLabelColor">#fff</item>
-
-		        <item name="timeColorBackground">#fff</item>
-		        <item name="timeColorCircle">#e1e1e1</item>
-		        <item name="timeColorCenter">#000</item>
-		        <item name="timeColorNumbers">#494949</item>
-		        <item name="timeColorSelector">#c94545</item>
-
-		        <item name="timeAmPmColorBackground">#c94545</item>
-		        <item name="timeAmPmColorSelectBackground">#c94545</item> <!-- Alpha is apply-->
-		        <item name="timeAmPmColorText">#fff</item>
-
-		        <!-- Date -->
-		        <item name="dateLabelColorBackground">#c94545</item>
-		        <item name="dateSelectDayColor">#c94545</item>
-
-		        <!-- Year -->
-		        <item name="dateSelectYearBackgroundColor">#c94545</item>
-		        <item name="dateSelectYearTextColor">#fff</item>
-		    </style>
-
-		    <style name="Theme.SwitchDateTime.TitleDateTimeLabelText">
-		        <item name="android:textSize">18sp</item>
-		        <item name="android:textColor">#fff</item>
-		        <item name="android:textStyle">bold</item>
-		    </style>
-
-		    <!-- Time precise -->
-		    <style name="Theme.SwitchDateTime.TimeLabelText">
-		        <item name="android:textSize">26sp</item>
-		        <item name="android:textColor">#fff</item>
-		    </style>
-
-		    <style name="Theme.SwitchDateTime.TimeLabelAmPm">
-		        <item name="android:textSize">12sp</item>
-		        <item name="android:textColor">#fff</item>
-		        <item name="android:textStyle">bold</item>
-		    </style>
-
-		    <!-- Date Precise -->
-		    <style name="Theme.SwitchDateTime.DateLabelMonthAndDay">
-		        <item name="android:textSize">26sp</item>
-		        <item name="android:textColor">#fff</item>
-		    </style>
-
-		    <!-- Year Precise -->
-		    <style name="Theme.SwitchDateTime.DateLabelYear">
-		        <item name="android:textSize">16sp</item>
-		        <item name="android:textColor">#fff</item>
-		        <item name="android:textStyle">bold</item>
-		    </style>
+    <!-- SwitchDateTime style is independent, each element is optional-->
+    <!-- Year Precise -->
+    <style name="Theme.SwitchDateTime.DateLabelYear">
+        <item name="android:textSize">58sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
 
 ```
+Styles elements : https://github.com/Kunzisoft/Android-SwitchDateTimePicker/blob/master/switchdatetime/src/main/res/values/styles.xml
 
 ### Sample
 You can see

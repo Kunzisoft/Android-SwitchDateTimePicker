@@ -78,8 +78,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private View mAmPmHitspace;
     private RadialPickerLayout mTimePicker;
 
-    private int mColorAccent;
-    private int mColor;
+    //private int mColorAccent;
+    //private int mColor;
     private String mAmText;
     private String mPmText;
 
@@ -107,8 +107,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
     // Enable/Disable Vibrations
     private boolean mVibrate = true;
-    private boolean mCloseOnSingleTapMinute;
-
 
     public SwitchTimePicker(Context context, OnTimeSelectedListener callback) {
         mContext = context;
@@ -167,10 +165,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             mTimePicker.setVibrate(vibrate);
     }
 
-    public void setCloseOnSingleTapMinute(boolean closeOnSingleTapMinute) {
-        mCloseOnSingleTapMinute = closeOnSingleTapMinute;
-    }
-
     public View onCreateView(final View view,
                              Bundle savedInstanceState) {
         KeyboardListener keyboardListener = new KeyboardListener();
@@ -194,10 +188,10 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         TypedValue typedValueColorAccent = new TypedValue();
         TypedValue typedValueColor = new TypedValue();
         Resources.Theme theme = mContext.getTheme();
-        theme.resolveAttribute(com.kunzisoft.switchdatetime.R.attr.timeLabelColorAccent, typedValueColorAccent, true);
-        theme.resolveAttribute(com.kunzisoft.switchdatetime.R.attr.timeLabelColor, typedValueColor, true);
-        mColorAccent = typedValueColorAccent.data;
-        mColor = typedValueColor.data;
+        theme.resolveAttribute(R.attr.dateTimeLabelAccentColor, typedValueColorAccent, true);
+        theme.resolveAttribute(R.attr.dateTimeLabelColor, typedValueColor, true);
+        //mColorAccent = typedValueColorAccent.data;
+        //mColor = typedValueColor.data;
 
         if (Build.VERSION.SDK_INT <= 14) {
 
@@ -419,10 +413,12 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             labelToAnimate = mMinuteView;
         }
 
+        /*
         int hourColor = (index == HOUR_INDEX) ? mColorAccent : mColor;
         int minuteColor = (index == MINUTE_INDEX) ? mColorAccent : mColor;
         mHourView.setTextColor(hourColor);
         mMinuteView.setTextColor(minuteColor);
+        */
 
         ObjectAnimator pulseAnimator = Utils.getPulseAnimator(labelToAnimate, 0.85f, 1.1f);
         if (delayLabelAnimate) {
@@ -639,10 +635,10 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
                     String.format(minuteFormat, values[1]).replace(' ', mPlaceholderText);
             mHourView.setText(hourStr);
             mHourSpaceView.setText(hourStr);
-            mHourView.setTextColor(mColor);
+            //mHourView.setTextColor(mColor);
             mMinuteView.setText(minuteStr);
             mMinuteSpaceView.setText(minuteStr);
-            mMinuteView.setTextColor(mColor);
+            //mMinuteView.setTextColor(mColor);
             if (!mIs24HourMode) {
                 updateAmPmDisplay(values[2]);
             }

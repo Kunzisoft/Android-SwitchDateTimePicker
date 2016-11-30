@@ -1,28 +1,18 @@
 <resources>
-    <attr name="dateTimeColorBackground" format="reference|color" />
-    <attr name="dateTimeColorLabelBackground" format="reference|color" />
-    <attr name="dateTimeColorLabel" format="reference|color" />
-    <attr name="dateTimeColorValue" format="reference|color" />
-    <attr name="dateTimeColorIcon" format="reference|color" />
+    <attr name="dateTimeBackgroundColor" format="reference|color" />
+    <attr name="dateTimeLabelBackgroundColor" format="reference|color" />
+    <attr name="dateTimeIconColor" format="reference|color" />
+    <attr name="dateTimeLabelAccentColor" format="reference|color" />
+    <attr name="dateTimeLabelColor" format="reference|color" />
 
-    <!-- Time -->
-    <attr name="timeLabelColorBackground" format="reference|color" />
-    <attr name="timeLabelColor" format="reference|color" />
-    <attr name="timeLabelColorAccent" format="reference|color" />
-
-    <attr name="timeColorBackground" format="reference|color" />
-    <attr name="timeColorCircle" format="reference|color" />
-    <attr name="timeColorCenter" format="reference|color" />
-    <attr name="timeColorNumbers" format="reference|color" />
-    <attr name="timeColorSelector" format="reference|color" />
-
-    <attr name="timeAmPmColorBackground" format="reference|color" />
-    <attr name="timeAmPmColorSelectBackground" format="reference|color" />
-    <attr name="timeAmPmColorText" format="reference|color" />
+    <attr name="timeAmPmBackgroundColor" format="reference|color" />
+    <attr name="timeAmPmSelectBackgroundColor" format="reference|color" />
+    <attr name="timeAmPmTextColor" format="reference|color" />
 
     <!-- Date -->
-    <attr name="dateLabelColorBackground" format="reference|color" />
     <attr name="dateSelectDayColor" format="reference|color" />
+
+    <!-- Year -->
     <attr name="dateSelectYearBackgroundColor" format="reference|color" />
     <attr name="dateSelectYearTextColor" format="reference|color" />
 
@@ -54,7 +44,7 @@
     </declare-styleable>
 
     <declare-styleable name="TextCircularIndicatorView">
-        <!-- Change color of circle background -->
+        <!-- Change color of circle background TODO javadoc-->
         <attr name="colorCircleIndicator" format="reference|color" />
     </declare-styleable>
 

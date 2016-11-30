@@ -7,14 +7,14 @@
 
     <LinearLayout
         android:id="@+id/section_add"
-        android:background="?attr/dateTimeColorBackground"
+        android:background="?attr/dateTimeBackgroundColor"
         android:layout_width="@dimen/header_width"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/label_header"
-            android:background="?attr/dateTimeColorLabelBackground"
+            android:background="?attr/dateTimeLabelBackgroundColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_view_carousel_black_32dp"
-                android:tint="?attr/dateTimeColorIcon"
+                android:tint="?attr/dateTimeIconColor"
                 android:contentDescription="@string/img_datetime"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
@@ -116,7 +116,6 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="?attr/timeColorBackground"
                 android:gravity="center">
                 <com.kunzisoft.switchdatetime.time.RadialPickerLayout
                     android:id="@+id/time_picker"
@@ -127,13 +126,13 @@
                     android:focusableInTouchMode="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    switch:timeCircleColor="?attr/timeColorCircle"
-                    switch:timeCenterColor="?attr/timeColorNumbers"
-                    switch:timeSelectorColor="?attr/timeColorSelector"
-                    switch:timeCircularNumbersColor="?attr/timeColorNumbers"
-                    switch:amPmBackgroundColor="?attr/timeAmPmColorBackground"
-                    switch:amPmSelectBackgroundColor="?attr/timeAmPmColorSelectBackground"
-                    switch:amPmTextColor="?attr/timeAmPmColorText"/>
+                    switch:timeCircleColor="?attr/timeCircleColor"
+                    switch:timeCenterColor="?attr/timeSelectorColor"
+                    switch:timeSelectorColor="?attr/timeSelectorColor"
+                    switch:timeCircularNumbersColor="?attr/timeCircularNumbersColor"
+                    switch:amPmBackgroundColor="?attr/timeAmPmBackgroundColor"
+                    switch:amPmSelectBackgroundColor="?attr/timeAmPmSelectBackgroundColor"
+                    switch:amPmTextColor="?attr/timeAmPmTextColor"/>
             </RelativeLayout>
         </RelativeLayout>
 

@@ -1,65 +1,59 @@
 <resources>
     <!-- Theme for SwitchDateTime -->
     <style name="Theme.SwitchDateTime" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- DateTime -->
-        <item name="dateTimeColorBackground">#c94545</item>
-        <item name="dateTimeColorLabelBackground">#c94545</item>
-        <item name="dateTimeColorLabel">#cacaca</item>
-        <item name="dateTimeColorValue">#fff</item>
-        <item name="dateTimeColorIcon">#fff</item>
+        <!-- DateTime Header color -->
+        <item name="dateTimeBackgroundColor">?android:colorPrimary</item>
+        <item name="dateTimeLabelBackgroundColor">?android:colorPrimary</item>
+        <item name="dateTimeIconColor">?android:textColorPrimary</item>
+        <!-- Text header color -->
+        <item name="dateTimeLabelAccentColor">?android:textColorPrimary</item>
+        <item name="dateTimeLabelColor">?android:textColorSecondary</item>
 
         <!-- Time -->
-        <item name="timeLabelColorBackground">#c94545</item>
-        <item name="timeLabelColorAccent">#fff</item>
-        <item name="timeLabelColor">#fff</item>
-
-        <item name="timeColorBackground">#fff</item>
-        <item name="timeColorCircle">#e1e1e1</item>
-        <item name="timeColorCenter">#000</item>
-        <item name="timeColorNumbers">#494949</item>
-        <item name="timeColorSelector">#c94545</item>
-
-        <item name="timeAmPmColorBackground">#c94545</item>
-        <item name="timeAmPmColorSelectBackground">#c94545</item> <!-- Alpha is apply-->
-        <item name="timeAmPmColorText">#fff</item>
+        <item name="timeCircleColor">#e1e1e1</item>
+        <item name="timeCircularNumbersColor">#494949</item>
+        <item name="timeSelectorColor">?android:colorPrimary</item>
+        <item name="timeAmPmBackgroundColor">?android:colorPrimary</item>
+        <item name="timeAmPmSelectBackgroundColor">?android:colorPrimary</item> <!-- Alpha is apply-->
+        <item name="timeAmPmTextColor">?android:textColorSecondary</item>
 
         <!-- Date -->
-        <item name="dateLabelColorBackground">#c94545</item>
-        <item name="dateSelectDayColor">#c94545</item>
+        <item name="dateSelectDayColor">?android:colorPrimary</item>
 
         <!-- Year -->
-        <item name="dateSelectYearBackgroundColor">#c94545</item>
-        <item name="dateSelectYearTextColor">#fff</item>
+        <item name="dateSelectYearBackgroundColor">?android:colorPrimary</item>
+        <item name="dateSelectYearTextColor">?android:textColorSecondary</item>
     </style>
 
+    <!-- Title -->
     <style name="Theme.SwitchDateTime.TitleDateTimeLabelText">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">#fff</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!-- Time precise -->
+    <!-- Time Label -->
     <style name="Theme.SwitchDateTime.TimeLabelText">
         <item name="android:textSize">26sp</item>
-        <item name="android:textColor">#fff</item>
+        <item name="android:textColor">?attr/dateTimeLabelColor</item>
     </style>
 
     <style name="Theme.SwitchDateTime.TimeLabelAmPm">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">#fff</item>
+        <item name="android:textColor">?attr/dateTimeLabelColor</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <!-- Date Precise -->
+    <!-- Date Label -->
     <style name="Theme.SwitchDateTime.DateLabelMonthAndDay">
         <item name="android:textSize">26sp</item>
-        <item name="android:textColor">#fff</item>
+        <item name="android:textColor">?attr/dateTimeLabelColor</item>
     </style>
 
-    <!-- Year Precise -->
+    <!-- Year Label -->
     <style name="Theme.SwitchDateTime.DateLabelYear">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">#fff</item>
+        <item name="android:textColor">?attr/dateTimeLabelColor</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>
