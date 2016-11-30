@@ -70,6 +70,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private OnTimeSelectedListener onTimeSelectedListener;
     private OnClickListener onClickTimeListener;
 
+    private int mCurrentViewShow;
+
     private TextView mHourView;
     private TextView mHourSpaceView;
     private TextView mMinuteView;
@@ -120,14 +122,19 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     public SwitchTimePicker(Context context, OnTimeSelectedListener callback,
                             Bundle savedInstanceState) {
         this(context, callback);
-        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_HOUR_OF_DAY)
-                && savedInstanceState.containsKey(KEY_MINUTE)
-                && savedInstanceState.containsKey(KEY_IS_24_HOUR_VIEW)) {
-            hourOfDay = savedInstanceState.getInt(KEY_HOUR_OF_DAY);
-            minute = savedInstanceState.getInt(KEY_MINUTE);
-            mIs24HourMode = savedInstanceState.getBoolean(KEY_IS_24_HOUR_VIEW);
-            mInKbMode = savedInstanceState.getBoolean(KEY_IN_KB_MODE);
-            mVibrate = savedInstanceState.getBoolean(KEY_VIBRATE);
+        if (savedInstanceState != null) {
+            if(savedInstanceState.containsKey(KEY_HOUR_OF_DAY))
+                hourOfDay = savedInstanceState.getInt(KEY_HOUR_OF_DAY);
+            if(savedInstanceState.containsKey(KEY_MINUTE))
+                minute = savedInstanceState.getInt(KEY_MINUTE);
+            if(savedInstanceState.containsKey(KEY_IS_24_HOUR_VIEW))
+                mIs24HourMode = savedInstanceState.getBoolean(KEY_IS_24_HOUR_VIEW);
+            if(savedInstanceState.containsKey(KEY_CURRENT_ITEM_SHOWING))
+                mCurrentViewShow = savedInstanceState.getInt(KEY_CURRENT_ITEM_SHOWING);
+            if(savedInstanceState.containsKey(KEY_IN_KB_MODE))
+                mInKbMode = savedInstanceState.getBoolean(KEY_IN_KB_MODE);
+            if(savedInstanceState.containsKey(KEY_VIBRATE))
+                mVibrate = savedInstanceState.getBoolean(KEY_VIBRATE);
         }
     }
 
@@ -218,12 +225,12 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mTimePicker.setOnValueSelectedListener(this);
         mTimePicker.setOnKeyListener(keyboardListener);
         mTimePicker.initialize(mContext, hourOfDay, minute, mIs24HourMode, mVibrate);
-        int currentItemShowing = HOUR_INDEX;
+        mCurrentViewShow = HOUR_INDEX;
         if (savedInstanceState != null &&
                 savedInstanceState.containsKey(KEY_CURRENT_ITEM_SHOWING)) {
-            currentItemShowing = savedInstanceState.getInt(KEY_CURRENT_ITEM_SHOWING);
+            mCurrentViewShow = savedInstanceState.getInt(KEY_CURRENT_ITEM_SHOWING);
         }
-        setCurrentItemShowing(currentItemShowing, false, true, true);
+        setCurrentItemShowing(mCurrentViewShow, false, true, true);
         mTimePicker.invalidate();
 
         mHourView.setOnClickListener(new OnClickListener() {
@@ -238,7 +245,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mMinuteView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                setCurrentItemShowing(MINUTE_INDEX, true, false, true);
+                // TODO bug
+                //setCurrentItemShowing(MINUTE_INDEX, true, false, true);
                 mTimePicker.tryVibrate();
                 if(onClickTimeListener != null)
                     onClickTimeListener.onClick(mMinuteView);
@@ -916,6 +924,10 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
     public void setIs24HourMode(boolean is24HourMode) {
         this.mIs24HourMode = is24HourMode;
+    }
+
+    public void setFirstViewShow(int viewIndex) {
+        mCurrentViewShow = viewIndex;
     }
 
     /**
