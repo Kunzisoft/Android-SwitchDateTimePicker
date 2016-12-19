@@ -18,29 +18,29 @@
 
     <!-- Attrs Switch Time -->
     <declare-styleable name="SwitchTimeCircleColor">
-        <attr name="timeCircleColor" format="color" />
-        <attr name="timeCenterColor" format="color" />
+        <attr name="timeCircleColor" format="reference|color" />
+        <attr name="timeCenterColor" format="reference|color" />
     </declare-styleable>
 
     <declare-styleable name="SwitchTimeSelectorColor">
-        <attr name="timeSelectorColor" format="color" />
+        <attr name="timeSelectorColor" format="reference|color" />
     </declare-styleable>
 
     <declare-styleable name="SwitchTimeCircularNumbersColor">
-        <attr name="timeCircularNumbersColor" format="color" />
+        <attr name="timeCircularNumbersColor" format="reference|color" />
     </declare-styleable>
 
     <declare-styleable name="SwitchTimeAMPMColor">
-        <attr name="amPmBackgroundColor" format="color" />
-        <attr name="amPmSelectBackgroundColor" format="color" />
-        <attr name="amPmTextColor" format="color" />
+        <attr name="amPmBackgroundColor" format="reference|color" />
+        <attr name="amPmSelectBackgroundColor" format="reference|color" />
+        <attr name="amPmTextColor" format="reference|color" />
     </declare-styleable>
 
     <!-- Attrs Years -->
     <declare-styleable name="ListPickerYearView">
-        <attr name="minYear" format="integer" />
-        <attr name="maxYear" format="integer" />
-        <attr name="defaultYear" format="integer" />
+        <attr name="minYear" format="reference|integer" />
+        <attr name="maxYear" format="reference|integer" />
+        <attr name="defaultYear" format="reference|integer" />
     </declare-styleable>
 
     <declare-styleable name="TextCircularIndicatorView">

@@ -4,10 +4,10 @@
         <!-- DateTime Header color -->
         <item name="dateTimeBackgroundColor">?android:colorPrimary</item>
         <item name="dateTimeLabelBackgroundColor">?android:colorPrimary</item>
-        <item name="dateTimeIconColor">?android:textColorPrimary</item>
+        <item name="dateTimeIconColor">?android:textColorPrimaryInverse</item>
         <!-- Text header color -->
-        <item name="dateTimeLabelAccentColor">?android:textColorPrimary</item>
-        <item name="dateTimeLabelColor">?android:textColorSecondary</item>
+        <item name="dateTimeLabelAccentColor">?android:textColorPrimaryInverse</item>
+        <item name="dateTimeLabelColor">?android:textColorSecondaryInverse</item>
 
         <!-- Time -->
         <item name="timeCircleColor">#e1e1e1</item>
@@ -22,38 +22,38 @@
 
         <!-- Year -->
         <item name="dateSelectYearBackgroundColor">?android:colorPrimary</item>
-        <item name="dateSelectYearTextColor">?android:textColorSecondary</item>
+        <item name="dateSelectYearTextColor">?android:textColorPrimaryInverse</item>
     </style>
 
     <!-- Title -->
     <style name="Theme.SwitchDateTime.TitleDateTimeLabelText">
         <item name="android:textSize">18sp</item>
-        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <!-- Time Label -->
     <style name="Theme.SwitchDateTime.TimeLabelText">
-        <item name="android:textSize">26sp</item>
-        <item name="android:textColor">?attr/dateTimeLabelColor</item>
+        <item name="android:textSize">@dimen/time_label_text</item>
+        <item name="android:textColor">?android:textColorSecondaryInverse</item>
     </style>
 
     <style name="Theme.SwitchDateTime.TimeLabelAmPm">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">?attr/dateTimeLabelColor</item>
+        <item name="android:textColor">?android:textColorSecondaryInverse</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <!-- Date Label -->
     <style name="Theme.SwitchDateTime.DateLabelMonthAndDay">
         <item name="android:textSize">26sp</item>
-        <item name="android:textColor">?attr/dateTimeLabelColor</item>
+        <item name="android:textColor">?android:textColorSecondaryInverse</item>
     </style>
 
     <!-- Year Label -->
     <style name="Theme.SwitchDateTime.DateLabelYear">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">?attr/dateTimeLabelColor</item>
+        <item name="android:textColor">?android:textColorSecondaryInverse</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>

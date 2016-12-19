@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="MyAppCustomTheme" parent="Theme.AppCompat">
+    <style name="MyAppCustomTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,8 +11,8 @@
     <!-- SwitchDateTime style is independent, each element is optional-->
     <!-- Year Precise -->
     <style name="Theme.SwitchDateTime.DateLabelYear">
-        <item name="android:textSize">32sp</item>
-        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:textColor">#ffffff</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>

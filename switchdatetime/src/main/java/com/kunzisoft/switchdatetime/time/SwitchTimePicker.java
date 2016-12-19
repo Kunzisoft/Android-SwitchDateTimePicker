@@ -192,14 +192,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mAmPmTextView = (TextView) view.findViewById(R.id.ampm_label);
         mAmPmTextView.setOnKeyListener(keyboardListener);
 
-        TypedValue typedValueColorAccent = new TypedValue();
-        TypedValue typedValueColor = new TypedValue();
-        Resources.Theme theme = mContext.getTheme();
-        theme.resolveAttribute(R.attr.dateTimeLabelAccentColor, typedValueColorAccent, true);
-        theme.resolveAttribute(R.attr.dateTimeLabelColor, typedValueColor, true);
-        //mColorAccent = typedValueColorAccent.data;
-        //mColor = typedValueColor.data;
-
         if (Build.VERSION.SDK_INT <= 14) {
 
             mAmPmTextView.setTransformationMethod(new TransformationMethod() {
@@ -420,13 +412,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             }
             labelToAnimate = mMinuteView;
         }
-
-        /*
-        int hourColor = (index == HOUR_INDEX) ? mColorAccent : mColor;
-        int minuteColor = (index == MINUTE_INDEX) ? mColorAccent : mColor;
-        mHourView.setTextColor(hourColor);
-        mMinuteView.setTextColor(minuteColor);
-        */
 
         ObjectAnimator pulseAnimator = Utils.getPulseAnimator(labelToAnimate, 0.85f, 1.1f);
         if (delayLabelAnimate) {

@@ -7,14 +7,13 @@
     android:orientation="vertical">
     <LinearLayout
         android:id="@+id/section_add"
-        android:background="?attr/dateTimeBackgroundColor"
+        android:background="@color/SwitchDateTime_primary_color"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <RelativeLayout
             android:id="@+id/label_header"
-            android:background="?attr/dateTimeLabelBackgroundColor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
@@ -27,7 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_view_carousel_black_32dp"
-                android:tint="?attr/dateTimeIconColor"
+                android:tint="@color/SwitchDateTime_primary_inverse_color"
                 android:contentDescription="@string/img_datetime"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
@@ -116,13 +115,13 @@
                 android:layout_gravity="center"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                switch:timeCircleColor="?attr/timeCircleColor"
-                switch:timeCenterColor="?attr/timeSelectorColor"
-                switch:timeSelectorColor="?attr/timeSelectorColor"
-                switch:timeCircularNumbersColor="?attr/timeCircularNumbersColor"
-                switch:amPmBackgroundColor="?attr/timeAmPmBackgroundColor"
-                switch:amPmSelectBackgroundColor="?attr/timeAmPmSelectBackgroundColor"
-                switch:amPmTextColor="?attr/timeAmPmTextColor"/>
+                switch:timeCircleColor="@color/SwitchDateTime_secondary_inverse_color"
+                switch:timeCenterColor="@color/SwitchDateTime_primary_color"
+                switch:timeSelectorColor="@color/SwitchDateTime_primary_color"
+                switch:timeCircularNumbersColor="@color/SwitchDateTime_secondary_color"
+                switch:amPmBackgroundColor="@color/SwitchDateTime_secondary_color"
+                switch:amPmSelectBackgroundColor="@color/SwitchDateTime_primary_color"
+                switch:amPmTextColor="@color/SwitchDateTime_secondary_inverse_color"/>
         </LinearLayout>
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -137,7 +136,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:mcv_showOtherDates="all"
-            app:mcv_selectionColor="?attr/dateSelectDayColor"
+            app:mcv_selectionColor="@color/SwitchDateTime_primary_color"
             />
 
         <com.kunzisoft.switchdatetime.date.widget.ListPickerYearView

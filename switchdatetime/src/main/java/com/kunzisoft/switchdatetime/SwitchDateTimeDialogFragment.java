@@ -32,7 +32,6 @@ import java.util.regex.Pattern;
 /**
  * A fragment that displays a dialog window with Date and Time who can be selected by switch button
  * @author J-Jamet
- * @version 1.0
  */
 public class SwitchDateTimeDialogFragment extends DialogFragment {
 
