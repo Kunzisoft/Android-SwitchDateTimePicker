@@ -113,19 +113,19 @@
             android:layout_gravity="top"
             android:focusable="true" >
             <RelativeLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center">
                 <com.kunzisoft.switchdatetime.time.RadialPickerLayout
                     android:id="@+id/time_picker"
+                    style="@style/Theme.SwitchDateTime.Time"
                     android:layout_width="@dimen/time_circle_width"
                     android:layout_height="@dimen/time_circle_width"
                     android:layout_gravity="center"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    style="@style/Theme.SwitchDateTime.Time" />
+                    android:layout_alignParentEnd="true"/>
             </RelativeLayout>
         </RelativeLayout>
 
