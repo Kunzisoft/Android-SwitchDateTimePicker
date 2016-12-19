@@ -27,7 +27,7 @@ Add the JitPack repository in your build.gradle at the end of repositories:
 And add the dependency
 ```
 	dependencies {
-	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.2'
+	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.3'
 	}
 ```
 
@@ -50,7 +50,7 @@ before the "show"
 
 ### Style
 You can customize the style to change color, bold, etc... of each element.
-You need to use a Theme.AppCompat theme (or descendant) with SwitchDateTime's activity. (`compile 'com.android.support:appcompat-v7:25.0.1'` in gradle)
+You need to use a Theme.AppCompat theme (or descendant) with SwitchDateTime's activity. (`compile 'com.android.support:appcompat-v7:25.1.0'` in gradle)
 
 <img src="https://raw.githubusercontent.com/Kunzisoft/Android-SwitchDateTimePicker/master/art/screen1.jpg">
 

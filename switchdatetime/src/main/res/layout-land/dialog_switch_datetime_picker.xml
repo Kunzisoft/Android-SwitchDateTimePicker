@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:switch="http://schemas.android.com/apk/res-auto"
     android:id="@+id/datetime_picker"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    style="@style/Theme.SwitchDateTime" >
 
     <LinearLayout
         android:id="@+id/section_add"
-        android:background="@color/SwitchDateTime_primary_color"
+        style="@style/Theme.SwitchDateTime.HeaderBackground"
         android:layout_width="@dimen/header_width"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -26,7 +26,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_view_carousel_black_32dp"
-                android:tint="@color/SwitchDateTime_primary_inverse_color"
                 android:contentDescription="@string/img_datetime"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
@@ -97,6 +96,7 @@
         android:id="@+id/dateSwitcher"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        style="@style/Theme.SwitchDateTime.ContentBackground"
         android:inAnimation="@anim/dialog_enter_from_top"
         android:outAnimation="@anim/dialog_leave_to_bottom"
         android:layout_alignParentRight="true"
@@ -125,13 +125,7 @@
                     android:focusableInTouchMode="true"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    switch:timeCircleColor="@color/SwitchDateTime_secondary_inverse_color"
-                    switch:timeCenterColor="@color/SwitchDateTime_primary_color"
-                    switch:timeSelectorColor="@color/SwitchDateTime_primary_color"
-                    switch:timeCircularNumbersColor="@color/SwitchDateTime_secondary_color"
-                    switch:amPmBackgroundColor="@color/SwitchDateTime_secondary_color"
-                    switch:amPmSelectBackgroundColor="@color/SwitchDateTime_primary_color"
-                    switch:amPmTextColor="@color/SwitchDateTime_secondary_inverse_color"/>
+                    style="@style/Theme.SwitchDateTime.Time" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -147,7 +141,7 @@
             android:layout_marginEnd="@dimen/calendar_margin_end_land"
             android:layout_marginBottom="@dimen/calendar_margin_bottom_land"
             app:mcv_showOtherDates="all"
-            app:mcv_selectionColor="@color/SwitchDateTime_primary_color"
+            style="@style/Theme.SwitchDateTime.Date"
             />
 
         <com.kunzisoft.switchdatetime.date.widget.ListPickerYearView

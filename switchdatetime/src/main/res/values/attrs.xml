@@ -1,20 +1,8 @@
 <resources>
-    <attr name="dateTimeBackgroundColor" format="reference|color" />
-    <attr name="dateTimeLabelBackgroundColor" format="reference|color" />
-    <attr name="dateTimeIconColor" format="reference|color" />
-    <attr name="dateTimeLabelAccentColor" format="reference|color" />
-    <attr name="dateTimeLabelColor" format="reference|color" />
 
     <attr name="timeAmPmBackgroundColor" format="reference|color" />
     <attr name="timeAmPmSelectBackgroundColor" format="reference|color" />
     <attr name="timeAmPmTextColor" format="reference|color" />
-
-    <!-- Date -->
-    <attr name="dateSelectDayColor" format="reference|color" />
-
-    <!-- Year -->
-    <attr name="dateSelectYearBackgroundColor" format="reference|color" />
-    <attr name="dateSelectYearTextColor" format="reference|color" />
 
     <!-- Attrs Switch Time -->
     <declare-styleable name="SwitchTimeCircleColor">
@@ -41,6 +29,12 @@
         <attr name="minYear" format="reference|integer" />
         <attr name="maxYear" format="reference|integer" />
         <attr name="defaultYear" format="reference|integer" />
+    </declare-styleable>
+
+    <!-- Attrs Year Text Indicator -->
+    <declare-styleable name="YearTextIndicator">
+        <attr name="yearSelectBackgroundColor" format="reference|color" />
+        <attr name="yearSelectTextColor" format="reference|color" />
     </declare-styleable>
 
     <declare-styleable name="TextCircularIndicatorView">

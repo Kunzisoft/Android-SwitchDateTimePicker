@@ -132,6 +132,7 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         mDoingMove = false;
 
         mCircleView = new CircleView(context);
+        // TODO Style
         TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeCircleColor);
         mCircleView.setCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeCircleColor_timeCircleColor, Color.RED));
         mCircleView.setCenterColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeCircleColor_timeCenterColor, Color.BLACK));

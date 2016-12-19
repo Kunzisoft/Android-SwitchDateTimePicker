@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="SwitchDateTime_primary_color">#32b3e3</color>
-    <color name="SwitchDateTime_primary_inverse_color">#ffffff</color>
-    <color name="SwitchDateTime_secondary_color">#929292</color>
-    <color name="SwitchDateTime_secondary_inverse_color">#e6e6e6</color>
-</resources>

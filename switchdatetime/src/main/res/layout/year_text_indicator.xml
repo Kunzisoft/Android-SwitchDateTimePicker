@@ -5,14 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <com.kunzisoft.switchdatetime.date.widget.TextCircularIndicatorView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/year_textView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:padding="@dimen/year_padding"
-        android:textColor="@color/SwitchDateTime_primary_inverse_color"
-        app:colorCircleIndicator="@color/SwitchDateTime_primary_color"
+        style="@style/Theme.SwitchDateTime.Year"
         android:gravity="center"
         android:layout_gravity="center"/>
 </LinearLayout>
