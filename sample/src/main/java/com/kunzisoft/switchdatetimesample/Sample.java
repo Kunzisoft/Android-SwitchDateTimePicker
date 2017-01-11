@@ -57,7 +57,7 @@ public class Sample extends AppCompatActivity {
         dateTimeFragment.set24HoursMode(true);
         // WARNING 0 <= MONTH <= 11
         dateTimeFragment.setMinimumDateTime(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
-        dateTimeFragment.setMaximumDateTime(new GregorianCalendar(2030, Calendar.DECEMBER, 31).getTime());
+        dateTimeFragment.setMaximumDateTime(new GregorianCalendar(2025, Calendar.DECEMBER, 31).getTime());
         dateTimeFragment.setDefaultDateTime(new GregorianCalendar(2017, Calendar.MARCH, 4, 15, 20).getTime());
         // Or assign each element, default element is the current moment
         // dateTimeFragment.setDefaultHourOfDay(15);

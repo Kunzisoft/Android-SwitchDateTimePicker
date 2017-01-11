@@ -289,14 +289,14 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 year = yearPicker;
 
                 dateTimeCalendar.set(Calendar.YEAR, year);
+                yearHeaderValues.setText(String.valueOf(year));
 
+                // Unfortunately, we have lags here and thread isn't a solution :/
                 materialCalendarView.setCurrentDate(dateTimeCalendar.getTime());
                 materialCalendarView.setDateSelected(dateTimeCalendar, true);
                 // For resolve bug of switch year
                 materialCalendarView.goToNext();
                 materialCalendarView.goToPrevious();
-
-                yearHeaderValues.setText(String.valueOf(year));
             }
         });
 

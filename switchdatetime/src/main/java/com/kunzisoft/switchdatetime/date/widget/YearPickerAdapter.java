@@ -1,11 +1,9 @@
 package com.kunzisoft.switchdatetime.date.widget;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.kunzisoft.switchdatetime.R;
@@ -17,45 +15,25 @@ import java.util.List;
  * Adapter for manage elements of ListPickerYearView
  * @author JJamet
  */
-class YearPickerAdapter extends BaseAdapter {
+class YearPickerAdapter extends RecyclerView.Adapter<YearPickerAdapter.TextIndicatorViewHolder> {
 
     private static final int LIST_ITEM_TYPE_STANDARD = 0;
     private static final int LIST_ITEM_TYPE_INDICATOR = 1;
-    private static final int LIST_ITEM_TYPE_COUNT = 2;
+
+    public static final int UNDEFINED = -1;
 
     private List<Integer> listYears;
-    private int selectedYear;
+    private Integer selectedYear;
+    private int positionSelectedYear;
 
-    private LayoutInflater layoutInflater;
+    private OnClickYearListener onClickYearListener;
 
     /**
      * Initialize adapter with list of years and element selected
-     * @param context of adapter for layout
-     * @param selectedYear default year selected
      */
-    YearPickerAdapter(Context context, int selectedYear) {
+    YearPickerAdapter() {
         this.listYears = new ArrayList<>();
-        this.selectedYear = selectedYear;
-        this.layoutInflater = LayoutInflater.from(context);
-    }
-
-    /**
-     * Replace current list of years by list in parameter
-     * @param listYears New years
-     */
-    public void replaceYearsBy(List<Integer> listYears) {
-        this.listYears.clear();
-        this.listYears.addAll(listYears);
-    }
-
-    @Override
-    public int getCount() {
-        return listYears.size();
-    }
-
-    @Override
-    public Object getItem(int i) {
-        return listYears.get(i);
+        this.selectedYear = UNDEFINED;
     }
 
     @Override
@@ -64,43 +42,38 @@ class YearPickerAdapter extends BaseAdapter {
     }
 
     @Override
+    public int getItemCount() {
+        return listYears.size();
+    }
+
+    @Override
+    public TextIndicatorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        switch (viewType) {
+            default:
+            case LIST_ITEM_TYPE_STANDARD:
+                return new TextIndicatorViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.year_text, parent, false));
+            case LIST_ITEM_TYPE_INDICATOR:
+                return new TextIndicatorViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.year_text_indicator, parent, false));
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(TextIndicatorViewHolder holder, int position) {
+        Integer currentYear = listYears.get(position);
+        holder.textView.setText(String.valueOf(currentYear));
+
+        if(onClickYearListener != null)
+            holder.container.setOnClickListener(new BufferYearClickListener(currentYear, position));
+    }
+
+    @Override
     public int getItemViewType(int position) {
-        if(listYears.get(position) == selectedYear)
+        if(listYears.get(position).equals(selectedYear))
             return LIST_ITEM_TYPE_INDICATOR;
         else
             return LIST_ITEM_TYPE_STANDARD;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return LIST_ITEM_TYPE_COUNT;
-    }
-
-    @Override
-    @NonNull
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-
-        int type = getItemViewType(position);
-        TextIndicatorViewHolder holder;
-        if (convertView == null) {
-            holder = new TextIndicatorViewHolder();
-            switch(type) {
-                case LIST_ITEM_TYPE_STANDARD:
-                    convertView = layoutInflater.inflate(R.layout.year_text, parent, false);
-                    break;
-                case LIST_ITEM_TYPE_INDICATOR:
-                    convertView = layoutInflater.inflate(R.layout.year_text_indicator, parent, false);
-                    break;
-            }
-            assert convertView != null;
-            convertView.setTag(holder);
-        } else {
-            holder = (TextIndicatorViewHolder) convertView.getTag();
-        }
-
-        holder.textView = (TextView) convertView.findViewById(R.id.year_textView);
-        holder.textView.setText(String.valueOf(listYears.get(position)));
-        return convertView;
     }
 
     /**
@@ -112,7 +85,7 @@ class YearPickerAdapter extends BaseAdapter {
     }
 
     /**
-     * Assign tle list of years, replace current list
+     * Assign the list of years, replace current list
      * @param listYears
      */
     public void setListYears(List<Integer> listYears) {
@@ -120,7 +93,7 @@ class YearPickerAdapter extends BaseAdapter {
     }
 
     /**
-     * Get the current selected year
+     * Get the current selected year or value of UNDEFINED if undefined
      * @return
      */
     public int getSelectedYear() {
@@ -129,19 +102,91 @@ class YearPickerAdapter extends BaseAdapter {
 
     /**
      * Assign the current selected year
-     * @param selectedYear
+     * @param selectedYear year selected
      */
-    public void setSelectedYear(int selectedYear) {
+    public void setSelectedYear(int selectedYear) throws SelectYearException {
+        if(!listYears.contains(selectedYear))
+            throw new SelectYearException(selectedYear, listYears);
         this.selectedYear = selectedYear;
+        this.positionSelectedYear = listYears.indexOf(selectedYear);
+    }
+
+    /**
+     * Get position of selected year or value of UNDEFINED if undefined
+     * @return
+     */
+    public int getPositionSelectedYear() {
+        return positionSelectedYear;
+    }
+
+    /**
+     * Get the listener called when the year is clicked
+     * @return
+     */
+    public OnClickYearListener getOnClickYearListener() {
+        return onClickYearListener;
+    }
+
+    /**
+     * Set the listener called when the year is clicked
+     * @param onClickYearListener
+     */
+    public void setOnClickYearListener(OnClickYearListener onClickYearListener) {
+        this.onClickYearListener = onClickYearListener;
+    }
+
+    /**
+     * Listener when a click on Year item is performed
+     */
+    public interface OnClickYearListener {
+        /**
+         * Called on click
+         * @param view Current view clicked
+         * @param year Year of current item clicked
+         * @param position Position of item clicked
+         */
+        void onItemYearClick(View view, Integer year, int position);
+    }
+
+    private class BufferYearClickListener implements View.OnClickListener {
+
+        private Integer year;
+        private int position;
+
+        public BufferYearClickListener(Integer yearClicked, int position) {
+            this.year = yearClicked;
+            this.position = position;
+        }
+
+        @Override
+        public void onClick(View view) {
+            onClickYearListener.onItemYearClick(view, year, position);
+        }
     }
 
     /**
      * Holder for TextIndicatorView
      */
-    private class TextIndicatorViewHolder {
+    class TextIndicatorViewHolder extends RecyclerView.ViewHolder {
         /**
-         * View of year
+         * Views of year
          */
-        TextView textView;
+        private ViewGroup container;
+        private TextView textView;
+
+        TextIndicatorViewHolder(View itemView) {
+            super(itemView);
+            container = (ViewGroup) itemView.findViewById(R.id.year_element_container);
+            textView = (TextView) itemView.findViewById(R.id.year_textView);
+        }
+    }
+
+    /**
+     * Exception class for year selected
+     */
+    public class SelectYearException extends Exception {
+        SelectYearException(Integer yearSelected, List<Integer> listYears) {
+            super("Year selected " + yearSelected + " must be in list of years : " + listYears);
+        }
     }
 }

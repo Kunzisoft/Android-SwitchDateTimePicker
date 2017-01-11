@@ -3,15 +3,12 @@ package com.kunzisoft.switchdatetime.date.widget;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.graphics.drawable.StateListDrawable;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.kunzisoft.switchdatetime.R;
 import com.kunzisoft.switchdatetime.date.OnYearSelectedListener;
@@ -24,15 +21,17 @@ import java.util.ArrayList;
  * @see com.kunzisoft.switchdatetime.date.OnYearSelectedListener#onYearSelected(View, int)
  * @author JJamet
  */
-public class ListPickerYearView extends ListView implements AdapterView.OnItemClickListener {
+public class ListPickerYearView extends RecyclerView implements YearPickerAdapter.OnClickYearListener{
+
+    private final static String TAG = "ListPickerYearView";
 
     private int minYear = 1970;
     private int maxYear = 2100;
     private int currentYear;
 
     private YearPickerAdapter mAdapter;
-    private int mChildSize;
     private OnYearSelectedListener yearChangeListener;
+    private int mChildSize;
     private int mViewSize;
 
     public ListPickerYearView(Context context) {
@@ -48,18 +47,14 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
         init(context, attrs);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public ListPickerYearView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init(context, attrs);
-    }
-
     private void init(Context context, AttributeSet attrs) {
+        setLayoutManager(new LinearLayoutManager(context));
+
         if(attrs != null) {
             TypedArray yearTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ListPickerYearView);
                 setMinYear(yearTypedArray.getInt(R.styleable.ListPickerYearView_minYear, minYear));
                 setMaxYear(yearTypedArray.getInt(R.styleable.ListPickerYearView_maxYear, minYear));
-            currentYear = yearTypedArray.getInt(R.styleable.ListPickerYearView_defaultYear, 2000);
+            currentYear = yearTypedArray.getInt(R.styleable.ListPickerYearView_defaultYear, YearPickerAdapter.UNDEFINED);
             yearTypedArray.recycle();
         }
 
@@ -72,12 +67,10 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
         setVerticalFadingEdgeEnabled(true);
         setFadingEdgeLength(mChildSize / 3);
 
-        mAdapter = new YearPickerAdapter(getContext(), currentYear);
+        mAdapter = new YearPickerAdapter();
         setAdapter(mAdapter);
 
-        setOnItemClickListener(this);
-        setSelector(new StateListDrawable());
-        setDividerHeight(0);
+        mAdapter.setOnClickYearListener(this);
 
         refreshAndCenter();
     }
@@ -91,7 +84,7 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
             for (int year = minYear; year <= maxYear; year++) {
                 years.add(year);
             }
-            mAdapter.replaceYearsBy(years);
+            mAdapter.setListYears(years);
             mAdapter.notifyDataSetChanged();
         }
     }
@@ -105,51 +98,37 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    public void onItemYearClick(View view, Integer year, int position) {
+        int positionOldYear = mAdapter.getPositionSelectedYear();
+        currentYear = year;
+
         // TODO Vibrate
         //mController.tryVibrate();
-        TextView clickedView = (TextView) view.findViewById(R.id.year_textView);
-        if (clickedView != null) {
-            currentYear = getYearFromTextView(clickedView);
-            if(yearChangeListener != null) {
-                yearChangeListener.onYearSelected(clickedView, getYearFromTextView(clickedView));
-            }
-            mAdapter.setSelectedYear(currentYear);
-            mAdapter.notifyDataSetChanged();
+        if(yearChangeListener != null) {
+            yearChangeListener.onYearSelected(view, year);
         }
+
+        try {
+            mAdapter.setSelectedYear(currentYear);
+        } catch (YearPickerAdapter.SelectYearException e) {
+            Log.e(TAG, e.getMessage());
+        }
+        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyItemChanged(positionOldYear);
+        mAdapter.notifyItemChanged(position);
     }
 
     /**
      * Center list on the selected year
      * @param position of year in the list
      */
-    public void centerListOn(int position) {
-        centerListOnWithTop(position, mViewSize / 2 - mChildSize / 2);
-    }
-
-    /**
-     * Center list on the selected year and add y at the top
-     * @param position of year in the list
-     * @param y pixels from top
-     */
-    public void centerListOnWithTop(final int position, final int y) {
-        post(new Runnable() {
-            public void run() {
-                setSelectionFromTop(position, y);
-                requestLayout();
-            }
-        });
-    }
-
-    /**
-     * Get year integer from TextView
-     * @param view of text
-     * @return
-     */
-    private static int getYearFromTextView(TextView view) {
-        if(view == null)
-            return 0;
-        return Integer.valueOf(view.getText().toString());
+    public void centerListOn(final int position) {
+        getLayoutManager().scrollToPosition(position);
+        try {
+            getLayoutManager().scrollVerticallyBy(mViewSize / 2 - mChildSize / 2, null, null);
+        } catch(Exception e){
+            Log.w(TAG, "Can't scroll more");
+        }
     }
 
     /**
@@ -208,8 +187,13 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
      */
     public void assignCurrentYear(int year) {
         currentYear = year;
-        if(mAdapter != null)
-            mAdapter.setSelectedYear(currentYear);
+        if(mAdapter != null) {
+            try {
+                mAdapter.setSelectedYear(currentYear);
+            } catch (YearPickerAdapter.SelectYearException e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
         refreshAndCenter();
     }
 }
