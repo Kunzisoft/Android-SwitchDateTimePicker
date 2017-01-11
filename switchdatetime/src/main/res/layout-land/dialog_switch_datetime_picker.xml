@@ -149,7 +149,7 @@
             android:id="@+id/yearPicker"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            year:minYear="1900"
+            year:minYear="1970"
             year:maxYear="2200"
             year:defaultYear="2016"
             />

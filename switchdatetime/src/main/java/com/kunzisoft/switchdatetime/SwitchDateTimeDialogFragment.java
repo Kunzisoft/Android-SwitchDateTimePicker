@@ -25,6 +25,7 @@ import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,7 +39,9 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private static final String TAG = "SwitchDateTimeDialogFrg";
 
     private static final String STATE_DATETIME = "STATE_DATETIME";
-    private Calendar dateTimeCalendar;
+    private Calendar dateTimeCalendar = Calendar.getInstance();
+    private Calendar minimumDateTime = new GregorianCalendar(1970, 1, 1);
+    private Calendar maximumDateTime = new GregorianCalendar(2200, 1, 1);
 
     private static final String TAG_LABEL = "LABEL";
     private static final String TAG_POSITIVE_BUTTON = "POSITIVE_BUTTON";
@@ -119,8 +122,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             mNegativeButton = getArguments().getString(TAG_NEGATIVE_BUTTON);
         }
 
-        dateTimeCalendar = Calendar.getInstance();
-
         if (savedInstanceState != null) {
             // Restore value from saved state
             dateTimeCalendar.setTime(new Date(savedInstanceState.getLong(STATE_DATETIME)));
@@ -138,6 +139,11 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         if(minute == UNDEFINED_TIME_VALUE)
             minute = dateTimeCalendar.get(Calendar.MINUTE);
         assignAllValuesToCalendar();
+
+        // Throw exception if default select date isn't between minimumDateTime and maximumDateTime
+        if(dateTimeCalendar.before(minimumDateTime) || dateTimeCalendar.after(maximumDateTime))
+            throw new RuntimeException("Default date " + dateTimeCalendar.getTime() + " must be between "
+                    + minimumDateTime.getTime() + " and " + maximumDateTime.getTime());
 
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         getActivity().getTheme().applyStyle(R.style.Theme_SwitchDateTime, false);
@@ -247,6 +253,10 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
         // Construct DatePicker
         materialCalendarView = (MaterialCalendarView) dateTimeLayout.findViewById(com.kunzisoft.switchdatetime.R.id.datePicker);
+        materialCalendarView.state().edit()
+                .setMinimumDate(CalendarDay.from(minimumDateTime))
+                .setMaximumDate(CalendarDay.from(maximumDateTime))
+                .commit();
         materialCalendarView.setCurrentDate(dateTimeCalendar.getTime());
         materialCalendarView.setDateSelected(dateTimeCalendar, true);
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
@@ -266,11 +276,12 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 monthAndDayHeaderValues.setText(dayAndMonthSimpleDate.format(currentDate));
             }
         });
+        materialCalendarView.invalidate();
 
         // Construct YearPicker
         listPickerYearView = (ListPickerYearView) dateTimeLayout.findViewById(R.id.yearPicker);
-        listPickerYearView.setMinYear(1998);
-        listPickerYearView.setMaxYear(2200);
+        listPickerYearView.setMinYear(minimumDateTime.get(Calendar.YEAR));
+        listPickerYearView.setMaxYear(maximumDateTime.get(Calendar.YEAR));
         listPickerYearView.assignCurrentYear(year);
         listPickerYearView.setDatePickerListener(new OnYearSelectedListener() {
             @Override
@@ -472,11 +483,51 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     }
 
     /**
-     * get current minute
+     * Get current minute
      * @return
      */
     public int getMinute() {
         return minute;
+    }
+
+    /**
+     * Assign default DateTime at start
+     * @param date
+     */
+    public void setDefaultDateTime(Date date) {
+        this.dateTimeCalendar.setTime(date);
+    }
+
+    /**
+     * Assign minimum DateTime who can be selected
+     * @param date
+     */
+    public void setMinimumDateTime(Date date) {
+        this.minimumDateTime.setTime(date);
+    }
+
+    /**
+     * Assign maximum DateTime who can be selected
+     * @param date
+     */
+    public void setMaximumDateTime(Date date) {
+        this.maximumDateTime.setTime(date);
+    }
+
+    /**
+     * Get minimum DateTime who can be selected
+     * @return
+     */
+    public Date getMinimumDateTime() {
+        return minimumDateTime.getTime();
+    }
+
+    /**
+     * Get maximum DateTime who can be selected
+     * @return
+     */
+    public Date getMaximumDateTime() {
+        return maximumDateTime.getTime();
     }
 
     /**
