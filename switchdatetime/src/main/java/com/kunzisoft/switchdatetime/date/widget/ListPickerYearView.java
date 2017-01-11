@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class ListPickerYearView extends ListView implements AdapterView.OnItemClickListener {
 
     private int minYear = 1900;
-    private int maxYear = 3000;
+    private int maxYear = 2100;
     private int currentYear;
 
     private YearPickerAdapter mAdapter;
@@ -57,8 +57,8 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
     private void init(Context context, AttributeSet attrs) {
         if(attrs != null) {
             TypedArray yearTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.ListPickerYearView);
-            setMinYear(yearTypedArray.getInt(R.styleable.ListPickerYearView_minYear, minYear));
-            setMaxYear(yearTypedArray.getInt(R.styleable.ListPickerYearView_maxYear, minYear));
+                setMinYear(yearTypedArray.getInt(R.styleable.ListPickerYearView_minYear, minYear));
+                setMaxYear(yearTypedArray.getInt(R.styleable.ListPickerYearView_maxYear, minYear));
             currentYear = yearTypedArray.getInt(R.styleable.ListPickerYearView_defaultYear, 2000);
             yearTypedArray.recycle();
         }
@@ -72,12 +72,7 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
         setVerticalFadingEdgeEnabled(true);
         setFadingEdgeLength(mChildSize / 3);
 
-        ArrayList<Integer> years = new ArrayList<>();
-        for (int year = minYear; year <= maxYear; year++) {
-            years.add(year);
-        }
-
-        mAdapter = new YearPickerAdapter(getContext(), years, currentYear);
+        mAdapter = new YearPickerAdapter(getContext(), currentYear);
         setAdapter(mAdapter);
 
         setOnItemClickListener(this);
@@ -85,6 +80,20 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
         setDividerHeight(0);
 
         refreshAndCenter();
+    }
+
+    /**
+     * Assign years to adapter only if view is init
+     */
+    private void injectYearsInAdapter() {
+        if(mAdapter != null) {
+            ArrayList<Integer> years = new ArrayList<>();
+            for (int year = minYear; year <= maxYear; year++) {
+                years.add(year);
+            }
+            mAdapter.replaceYearsBy(years);
+            mAdapter.notifyDataSetChanged();
+        }
     }
 
     /**
@@ -165,6 +174,7 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
      */
     public void setMinYear(int minYear) {
         this.minYear = minYear;
+        injectYearsInAdapter();
     }
 
     /**
@@ -181,10 +191,11 @@ public class ListPickerYearView extends ListView implements AdapterView.OnItemCl
      */
     public void setMaxYear(int maxYear) {
         this.maxYear = maxYear;
+        injectYearsInAdapter();
     }
 
     /**
-     * Get current year select
+     * Get current year selected
      * @return
      */
     public int getYearSelected() {

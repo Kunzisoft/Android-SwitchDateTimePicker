@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.kunzisoft.switchdatetime.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,13 +31,21 @@ class YearPickerAdapter extends BaseAdapter {
     /**
      * Initialize adapter with list of years and element selected
      * @param context of adapter for layout
-     * @param listYears list of years
      * @param selectedYear default year selected
      */
-    YearPickerAdapter(Context context, List<Integer> listYears, int selectedYear) {
-        this.listYears = listYears;
+    YearPickerAdapter(Context context, int selectedYear) {
+        this.listYears = new ArrayList<>();
         this.selectedYear = selectedYear;
         this.layoutInflater = LayoutInflater.from(context);
+    }
+
+    /**
+     * Replace current list of years by list in parameter
+     * @param listYears New years
+     */
+    public void replaceYearsBy(List<Integer> listYears) {
+        this.listYears.clear();
+        this.listYears.addAll(listYears);
     }
 
     @Override

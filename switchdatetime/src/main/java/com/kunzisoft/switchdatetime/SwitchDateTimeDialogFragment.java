@@ -269,6 +269,8 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
         // Construct YearPicker
         listPickerYearView = (ListPickerYearView) dateTimeLayout.findViewById(R.id.yearPicker);
+        listPickerYearView.setMinYear(1998);
+        listPickerYearView.setMaxYear(2200);
         listPickerYearView.assignCurrentYear(year);
         listPickerYearView.setDatePickerListener(new OnYearSelectedListener() {
             @Override
