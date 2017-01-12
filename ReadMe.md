@@ -27,7 +27,7 @@ Add the JitPack repository in your build.gradle at the end of repositories:
 And add the dependency
 ```
 	dependencies {
-	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.3'
+	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.4'
 	}
 ```
 
@@ -47,6 +47,12 @@ before the "show"
 For launch Dialog with a specific view, call :
 `dateTimeFragment.startAtTimeView();`, `dateTimeFragment.startAtCalendarView();` or `dateTimeFragment.startAtYearView();`
 before the "show"
+
+### Define minimum and maximum
+For just allow selection after or/and before dates, use :
+`dateTimeFragment.setMinimumDateTime(Date minimum);`
+and
+`dateTimeFragment.setMaximumDateTime(Date maximum);`
 
 ### Style
 You can customize the style to change color, bold, etc... of each element.
@@ -92,11 +98,15 @@ SwitchDateTimeDialogFragment dateTimeDialogFragment = SwitchDateTimeDialogFragme
 // Assign values
 dateTimeFragment.startAtCalendarView();
 dateTimeFragment.set24HoursMode(true);
-dateTimeFragment.setDefaultHourOfDay(15);
-dateTimeFragment.setDefaultMinute(20);
-dateTimeFragment.setDefaultDay(4);
-dateTimeFragment.setDefaultMonth(Calendar.DECEMBER);
-dateTimeFragment.setDefaultYear(2018);
+dateTimeFragment.setMinimumDateTime(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
+dateTimeFragment.setMaximumDateTime(new GregorianCalendar(2025, Calendar.DECEMBER, 31).getTime());
+dateTimeFragment.setDefaultDateTime(new GregorianCalendar(2017, Calendar.MARCH, 4, 15, 20).getTime());
+// Or assign each element, default element is the current moment
+// dateTimeFragment.setDefaultHourOfDay(15);
+// dateTimeFragment.setDefaultMinute(20);
+// dateTimeFragment.setDefaultDay(4);
+// dateTimeFragment.setDefaultMonth(Calendar.MARCH);
+// dateTimeFragment.setDefaultYear(2017);
 
 // Define new day and month format
 try {
