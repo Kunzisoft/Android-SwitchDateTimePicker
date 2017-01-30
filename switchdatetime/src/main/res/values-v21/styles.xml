@@ -1,7 +1,6 @@
 <resources>
     <!-- Theme for SwitchDateTime -->
     <style name="Theme.SwitchDateTime" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:tint">#fff</item>
     </style>
 
     <!-- Header Background -->

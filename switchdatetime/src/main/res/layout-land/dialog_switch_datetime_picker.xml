@@ -23,9 +23,9 @@
 
             <android.support.v7.widget.AppCompatImageButton
                 android:id="@+id/button_switch"
+                style="@style/Theme.SwitchDateTime.IconDateTimeSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_view_carousel_black_32dp"
                 android:contentDescription="@string/img_datetime"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
