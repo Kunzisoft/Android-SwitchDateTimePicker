@@ -2,9 +2,11 @@
 
 # Android SwitchDateTime Picker
 
-SwitchDateTime Picker is a library for select a *Date* object in dialog with a DatePicker (Calendar) and a TimePicker (Clock) in the same UI.
+<img src="https://raw.githubusercontent.com/Kunzisoft/Android-SwitchDateTimePicker/master/art/logo.png"> SwitchDateTime Picker is a library for select a *Date* object in dialog with a DatePicker (Calendar) and a TimePicker (Clock) in the same UI.
 
 <img src="https://raw.githubusercontent.com/Kunzisoft/Android-SwitchDateTimePicker/master/art/demo1.gif">
+
+<img src="https://raw.githubusercontent.com/Kunzisoft/Android-SwitchDateTimePicker/master/art/screen1.png" width="320">
 
 <img src="https://raw.githubusercontent.com/Kunzisoft/Android-SwitchDateTimePicker/master/art/demo2.gif">
 
@@ -30,7 +32,7 @@ Add the JitPack repository in your build.gradle at the end of repositories:
 And add the dependency
 ```
 	dependencies {
-	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.5'
+	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.6'
 	}
 ```
 
@@ -61,7 +63,7 @@ and
 You can customize the style to change color, bold, etc... of each element.
 You need to use a Theme.AppCompat theme (or descendant) with SwitchDateTime's activity. (`compile 'com.android.support:appcompat-v7:25.1.0'` in gradle)
 
-<img src="https://raw.githubusercontent.com/Kunzisoft/Android-SwitchDateTimePicker/master/art/screen1.jpg">
+<img src="https://raw.githubusercontent.com/Kunzisoft/Android-SwitchDateTimePicker/master/art/screen2.jpg" width="320">
 
 In your *styles.xml*, you can redefine each style separately, but you must keep each item, for example : change size of "year label"
 ```

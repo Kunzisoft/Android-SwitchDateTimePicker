@@ -11,7 +11,7 @@
         android:supportsRtl="true">
         <activity
             android:name="com.kunzisoft.switchdatetimesample.Sample"
-            android:theme="@style/Theme.AppCompat">
+            android:theme="@style/MyAppCustomTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

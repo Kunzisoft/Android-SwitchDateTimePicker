@@ -4,12 +4,12 @@
     <dimen name="time_circle_width">300dp</dimen>
 
     <dimen name="calendar_margin_top_portrait">38dp</dimen>
-    <dimen name="calendar_margin_start_portrait">18dp</dimen>
-    <dimen name="calendar_margin_end_portrait">18dp</dimen>
+    <dimen name="calendar_margin_start_portrait">16dp</dimen>
+    <dimen name="calendar_margin_end_portrait">16dp</dimen>
     <dimen name="calendar_margin_bottom_portrait">32dp</dimen>
     <dimen name="calendar_margin_top_land">32dp</dimen>
-    <dimen name="calendar_margin_start_land">8dp</dimen>
-    <dimen name="calendar_margin_end_land">6dp</dimen>
+    <dimen name="calendar_margin_start_land">22dp</dimen>
+    <dimen name="calendar_margin_end_land">22dp</dimen>
     <dimen name="calendar_margin_bottom_land">24dp</dimen>
 
     <dimen name="year_padding">28dp</dimen>
