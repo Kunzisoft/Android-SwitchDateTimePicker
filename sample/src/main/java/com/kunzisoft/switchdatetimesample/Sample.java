@@ -54,7 +54,7 @@ public class Sample extends AppCompatActivity {
         // Assign values we want
         final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
         dateTimeFragment.startAtCalendarView();
-        dateTimeFragment.set24HoursMode(true);
+        dateTimeFragment.set24HoursMode(false);
         dateTimeFragment.setMinimumDateTime(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
         dateTimeFragment.setMaximumDateTime(new GregorianCalendar(2025, Calendar.DECEMBER, 31).getTime());
         dateTimeFragment.setDefaultDateTime(new GregorianCalendar(2017, Calendar.MARCH, 4, 15, 20).getTime());
