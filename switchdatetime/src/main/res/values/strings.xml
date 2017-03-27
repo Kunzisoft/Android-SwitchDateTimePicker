@@ -1,6 +1,4 @@
 <resources xmlns:xliff="http://schemas.android.com/tools">
-    <string name="app_name">Switch DateTime Picker</string>
-
     <!-- Default simple date format -->
     <string name="simple_date_format" translatable="false">yyyy-MM-dd \'at\' HH:mm</string>
 
@@ -12,7 +10,6 @@
 
     <!-- Image description -->
     <string name="img_datetime">Image datetime</string>
-
 
     <string name="hour_picker_description">Hours circular slider</string>
     <string name="select_hours">Select hours</string>
