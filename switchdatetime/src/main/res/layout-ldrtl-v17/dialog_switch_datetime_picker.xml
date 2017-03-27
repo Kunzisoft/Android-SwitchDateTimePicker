@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/datetime_picker"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/Theme.SwitchDateTime"
+    android:orientation="vertical"
+    android:baselineAligned="false">
+    <LinearLayout
+        android:id="@+id/section_add"
+        style="@style/Theme.SwitchDateTime.HeaderBackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/label_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingStart="10dp">
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/button_switch"
+                style="@style/Theme.SwitchDateTime.IconDateTimeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/img_datetime"
+                android:src="@drawable/ic_view_carousel_black_32dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/label"
+                style="@style/Theme.SwitchDateTime.TitleDateTimeLabelText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="end"
+                android:padding="5dp"
+                android:text="@string/label_datetime_dialog"
+                android:layout_toEndOf="@+id/button_switch"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/value_dateTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp" >
+
+            <include
+                android:id="@+id/time_header_values"
+                layout="@layout/time_header_label"
+                android:layout_width="@dimen/time_label_width"
+                android:layout_height="@dimen/time_label_height"
+                android:layout_gravity="center_vertical"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/date_picker_year"
+                style="@style/Theme.SwitchDateTime.DateLabelYear"
+                android:gravity="top|end"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:includeFontPadding="false"
+                android:layout_above="@+id/date_picker_month_and_day" />
+
+            <TextView
+                android:id="@+id/date_picker_month_and_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                style="@style/Theme.SwitchDateTime.DateLabelMonthAndDay"
+                android:layout_below="@id/time_header_values"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="6dp"
+                android:clickable="true" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <ViewFlipper
+        android:id="@+id/dateSwitcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Theme.SwitchDateTime.ContentBackground"
+        android:inAnimation="@anim/dialog_enter_from_right"
+        android:outAnimation="@anim/dialog_leave_to_left"
+        android:layout_gravity="center">
+        <LinearLayout
+            android:id="@+id/timePicker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:focusable="true" >
+            <com.kunzisoft.switchdatetime.time.RadialPickerLayout
+                android:id="@+id/time_picker"
+                android:layout_height="@dimen/time_circle_width"
+                android:layout_width="@dimen/time_circle_width"
+                android:layout_gravity="center"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                style="@style/Theme.SwitchDateTime.Time" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="@dimen/calendar_width_portrait"
+            android:layout_height="@dimen/calendar_height_portrait"
+            android:layout_gravity="center">
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                xmlns:calendar="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                calendar:mcv_showOtherDates="all"
+                style="@style/Theme.SwitchDateTime.Date"
+                />
+        </FrameLayout>
+
+
+        <com.kunzisoft.switchdatetime.date.widget.ListPickerYearView
+            xmlns:year="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/yearPicker"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            year:minYear="1970"
+            year:maxYear="2200"
+            year:defaultYear="2016"
+            />
+    </ViewFlipper>
+</LinearLayout>
