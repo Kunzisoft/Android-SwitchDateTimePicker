@@ -5,15 +5,12 @@
 
     <!-- Content -->
     <dimen name="time_circle_width">380dp</dimen>
+    <!-- Portrait -->
+    <dimen name="calendar_width_portrait">410dp</dimen>
+    <dimen name="calendar_height_portrait">468dp</dimen>
+    <!-- Landscape -->
+    <dimen name="calendar_width_land">272dp</dimen>
+    <dimen name="calendar_height_land">310dp</dimen>
 
-    <dimen name="calendar_margin_top_portrait">54dp</dimen>
-    <dimen name="calendar_margin_start_portrait">32dp</dimen>
-    <dimen name="calendar_margin_end_portrait">32dp</dimen>
-    <dimen name="calendar_margin_bottom_portrait">54dp</dimen>
-    <dimen name="calendar_margin_top_land">38dp</dimen>
-    <dimen name="calendar_margin_start_land">12dp</dimen>
-    <dimen name="calendar_margin_end_land">12dp</dimen>
-    <dimen name="calendar_margin_bottom_land">38dp</dimen>
-
-    <dimen name="year_padding">28dp</dimen>
+    <dimen name="year_item_padding">28dp</dimen>
 </resources>

@@ -129,20 +129,19 @@
             </RelativeLayout>
         </RelativeLayout>
 
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/datePicker"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/calendar_margin_top_land"
-            android:layout_marginLeft="@dimen/calendar_margin_start_land"
-            android:layout_marginStart="@dimen/calendar_margin_start_land"
-            android:layout_marginRight="@dimen/calendar_margin_end_land"
-            android:layout_marginEnd="@dimen/calendar_margin_end_land"
-            android:layout_marginBottom="@dimen/calendar_margin_bottom_land"
-            app:mcv_showOtherDates="all"
-            style="@style/Theme.SwitchDateTime.Date"
-            />
+        <FrameLayout
+            android:layout_width="@dimen/calendar_width_land"
+            android:layout_height="@dimen/calendar_height_land"
+            android:layout_gravity="center">
+            <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+                xmlns:calendar="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/datePicker"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                calendar:mcv_showOtherDates="all"
+                style="@style/Theme.SwitchDateTime.Date"
+                />
+        </FrameLayout>
 
         <com.kunzisoft.switchdatetime.date.widget.ListPickerYearView
             xmlns:year="http://schemas.android.com/apk/res-auto"

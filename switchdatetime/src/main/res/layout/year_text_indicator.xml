@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:padding="@dimen/year_padding"
+        android:padding="@dimen/year_item_padding"
         style="@style/Theme.SwitchDateTime.Year"
         android:gravity="center"
         android:layout_gravity="center"/>

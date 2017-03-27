@@ -3,7 +3,10 @@
     <!-- header -->
     <dimen name="header_width">200dp</dimen>
 
+    <dimen name="title_date_time_label_text">18sp</dimen>
+
     <dimen name="time_label_text">24sp</dimen>
+    <dimen name="time_label_AmPm">12sp</dimen>
     <dimen name="time_label_height">32dip</dimen>
     <dimen name="time_label_width">128dip</dimen>
     <dimen name="time_label_min_width">170dp</dimen>
@@ -12,21 +15,23 @@
     <dimen name="extra_time_label_margin">-30dp</dimen>
     <dimen name="separator_padding">4dip</dimen>
 
+    <dimen name="date_label_year">16sp</dimen>
+    <dimen name="date_label_month_and_day">26sp</dimen>
+
     <dimen name="year_label_height">64dip</dimen>
 
     <!-- Content -->
     <dimen name="time_circle_width">320dp</dimen>
 
-    <dimen name="calendar_margin_top_portrait">54dp</dimen>
-    <dimen name="calendar_margin_start_portrait">18dp</dimen>
-    <dimen name="calendar_margin_end_portrait">18dp</dimen>
-    <dimen name="calendar_margin_bottom_portrait">54dp</dimen>
-    <dimen name="calendar_margin_top_land">62dp</dimen>
-    <dimen name="calendar_margin_start_land">0dp</dimen>
-    <dimen name="calendar_margin_end_land">0dp</dimen>
-    <dimen name="calendar_margin_bottom_land">62dp</dimen>
+    <!-- Calendar width and height -->
+    <!-- Portrait -->
+    <dimen name="calendar_width_portrait">340dp</dimen>
+    <dimen name="calendar_height_portrait">390dp</dimen>
+    <!-- Landscape -->
+    <dimen name="calendar_width_land">190dp</dimen>
+    <dimen name="calendar_height_land">220dp</dimen>
 
-    <dimen name="year_padding">24dp</dimen>
+    <dimen name="year_item_padding">24dp</dimen>
 
     <dimen name="date_picker_view_animator_height">270dip</dimen>
 
