@@ -59,6 +59,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private int day = UNDEFINED_TIME_VALUE;
     private int hourOfDay = UNDEFINED_TIME_VALUE;
     private int minute = UNDEFINED_TIME_VALUE;
+    private boolean assignDefaultDateTimeCalendar;
 
     private boolean is24HoursMode = false;
     private int startAtPosition = 0;
@@ -124,23 +125,25 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             mNegativeButton = getArguments().getString(TAG_NEGATIVE_BUTTON);
         }
 
-        if (savedInstanceState != null) {
+        if (!assignDefaultDateTimeCalendar && savedInstanceState != null) {
             // Restore value from saved state
             dateTimeCalendar.setTime(new Date(savedInstanceState.getLong(STATE_DATETIME)));
         }
 
         // Init values with current time if setDefault is not used
-        if(year == UNDEFINED_TIME_VALUE)
+        if(assignDefaultDateTimeCalendar || year == UNDEFINED_TIME_VALUE)
             year = dateTimeCalendar.get(Calendar.YEAR);
-        if(month == UNDEFINED_TIME_VALUE)
+        if(assignDefaultDateTimeCalendar || month == UNDEFINED_TIME_VALUE)
             month = dateTimeCalendar.get(Calendar.MONTH);
-        if(day == UNDEFINED_TIME_VALUE)
+        if(assignDefaultDateTimeCalendar || day == UNDEFINED_TIME_VALUE)
             day = dateTimeCalendar.get(Calendar.DAY_OF_MONTH);
-        if(hourOfDay == UNDEFINED_TIME_VALUE)
+        if(assignDefaultDateTimeCalendar || hourOfDay == UNDEFINED_TIME_VALUE)
             hourOfDay = dateTimeCalendar.get(Calendar.HOUR_OF_DAY);
-        if(minute == UNDEFINED_TIME_VALUE)
+        if(assignDefaultDateTimeCalendar || minute == UNDEFINED_TIME_VALUE)
             minute = dateTimeCalendar.get(Calendar.MINUTE);
         assignAllValuesToCalendar();
+
+        assignDefaultDateTimeCalendar = false;
 
         // Throw exception if default select date isn't between minimumDateTime and maximumDateTime
         if(dateTimeCalendar.before(minimumDateTime) || dateTimeCalendar.after(maximumDateTime))
@@ -311,7 +314,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         }
         db.setView(dateTimeLayout);
         if(mPositiveButton == null)
-            mPositiveButton = getString(R.string.positive_button_datetime_picker);
+            mPositiveButton = getString(android.R.string.ok);
         db.setPositiveButton(mPositiveButton, new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -322,7 +325,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                     }
                 });
         if(mNegativeButton == null)
-            mNegativeButton = getString(R.string.negative_button_datetime_picker);
+            mNegativeButton = getString(android.R.string.cancel);
         db.setNegativeButton(mNegativeButton, new
                 DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -503,6 +506,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
      */
     public void setDefaultDateTime(Date date) {
         this.dateTimeCalendar.setTime(date);
+        this.assignDefaultDateTimeCalendar = true;
     }
 
     /**

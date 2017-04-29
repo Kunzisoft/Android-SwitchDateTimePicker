@@ -23,5 +23,4 @@
         android:layout_below="@+id/button"
         android:layout_centerHorizontal="true" />
 
-
 </RelativeLayout>

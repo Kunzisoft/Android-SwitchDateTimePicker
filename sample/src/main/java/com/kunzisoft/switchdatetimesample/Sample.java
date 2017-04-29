@@ -46,8 +46,8 @@ public class Sample extends AppCompatActivity {
         if(dateTimeFragment == null) {
             dateTimeFragment = SwitchDateTimeDialogFragment.newInstance(
                     getString(R.string.label_datetime_dialog),
-                    getString(R.string.positive_button_datetime_picker),
-                    getString(R.string.negative_button_datetime_picker)
+                    getString(android.R.string.ok),
+                    getString(android.R.string.cancel)
             );
         }
 
