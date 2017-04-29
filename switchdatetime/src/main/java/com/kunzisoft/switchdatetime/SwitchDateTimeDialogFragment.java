@@ -499,6 +499,21 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     }
 
     /**
+     * Assign current DateTime manually
+     * @param date
+     */
+    public void setCurrentDateTime(Date currentDateTime){
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(currentDateTime);
+
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH);
+        day = cal.get(Calendar.DAY_OF_MONTH);
+        hourOfDay = cal.get(Calendar.HOUR_OF_DAY);
+        minute = cal.get(Calendar.MINUTE);
+    }
+
+    /**
      * Assign minimum DateTime who can be selected
      * @param date
      */
