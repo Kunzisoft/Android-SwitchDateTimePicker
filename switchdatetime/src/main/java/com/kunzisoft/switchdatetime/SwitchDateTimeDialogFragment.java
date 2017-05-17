@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -61,6 +62,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     private boolean is24HoursMode = false;
     private int startAtPosition = 0;
+    private int alertStyleId;
 
     private SimpleDateFormat dayAndMonthSimpleDate;
     private SimpleDateFormat yearSimpleDate;
@@ -301,7 +303,12 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         });
 
         // Assign buttons
-        AlertDialog.Builder db = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder db;
+        if (alertStyleId != 0) {
+            db = new AlertDialog.Builder(getContext(), alertStyleId);
+        } else {
+            db = new AlertDialog.Builder(getContext());
+        }
         db.setView(dateTimeLayout);
         if(mPositiveButton == null)
             mPositiveButton = getString(R.string.positive_button_datetime_picker);
@@ -552,11 +559,19 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     }
 
     /**
-     * Define if time miust be in 24 hours mode or in 12 hours, must be applied before "show"
+     * Define if time must be in 24 hours mode or in 12 hours, must be applied before "show"
      * @param is24HoursMode
      */
     public void set24HoursMode(boolean is24HoursMode) {
         this.is24HoursMode = is24HoursMode;
+    }
+
+    /**
+     * Define if the AlertDialog must be styled, must be applied before "show"
+     * @param styleId
+     */
+    public void setAlertStyle(@StyleRes int styleId) {
+        this.alertStyleId = styleId;
     }
 
     /**
