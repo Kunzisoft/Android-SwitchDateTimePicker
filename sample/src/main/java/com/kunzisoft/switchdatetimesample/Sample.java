@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.kunzisoft.switchdatetime.SwitchDateTimeDialogFragment;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -24,9 +25,12 @@ public class Sample extends AppCompatActivity {
     private static final String TAG = "Sample";
 
     private static final String TAG_DATETIME_FRAGMENT = "TAG_DATETIME_FRAGMENT";
+    private static final String TAG_DATETIME_FRAGMENT2 = "TAG_DATETIME_FRAGMENT2";
 
     private static final String STATE_TEXTVIEW = "STATE_TEXTVIEW";
+    private static final String STATE_TEXTVIEW2= "STATE_TEXTVIEW2";
     private TextView textView;
+    private TextView textView2;
 
     private SwitchDateTimeDialogFragment dateTimeFragment;
 
@@ -36,6 +40,7 @@ public class Sample extends AppCompatActivity {
         setContentView(R.layout.activity_sample);
 
         textView = (TextView) findViewById(R.id.textView);
+        textView2 = (TextView) findViewById(R.id.textView2);
         if (savedInstanceState != null) {
             // Restore value from saved state
             textView.setText(savedInstanceState.getCharSequence(STATE_TEXTVIEW));
@@ -76,12 +81,17 @@ public class Sample extends AppCompatActivity {
         dateTimeFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
             @Override
             public void onPositiveButtonClick(Date date) {
-                textView.setText(myDateFormat.format(date));
+                if(dateTimeFragment.getTag().equals(TAG_DATETIME_FRAGMENT)){
+                    textView.setText(myDateFormat.format(date));
+                }
+                else{
+                    textView2.setText(myDateFormat.format(date));
+                }
             }
 
             @Override
             public void onNegativeButtonClick(Date date) {
-                textView.setText("");
+
             }
         });
 
@@ -89,7 +99,39 @@ public class Sample extends AppCompatActivity {
         buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String dateStr = textView.getText().toString();
+
+                if(dateStr!=null && !dateStr.isEmpty()){
+                    try {
+                        Date date = myDateFormat.parse(dateStr);
+                        dateTimeFragment.setCurrentDateTime(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 dateTimeFragment.show(getSupportFragmentManager(), TAG_DATETIME_FRAGMENT);
+
+            }
+        });
+
+        Button buttonView2 = (Button) findViewById(R.id.button2);
+        buttonView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String dateStr = textView2.getText().toString();
+
+                if(dateStr!=null && !dateStr.isEmpty()){
+                    try {
+                        Date date = myDateFormat.parse(dateStr);
+                        dateTimeFragment.setCurrentDateTime(date);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                dateTimeFragment.show(getSupportFragmentManager(), TAG_DATETIME_FRAGMENT2);
             }
         });
     }
@@ -98,6 +140,7 @@ public class Sample extends AppCompatActivity {
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the current textView
         savedInstanceState.putCharSequence(STATE_TEXTVIEW, textView.getText());
+        savedInstanceState.putCharSequence(STATE_TEXTVIEW2, textView2.getText());
         super.onSaveInstanceState(savedInstanceState);
     }
 }
