@@ -84,6 +84,10 @@ In your *styles.xml*, you can redefine each style separately, but you must keep 
 ```
 Styles elements : https://github.com/Kunzisoft/Android-SwitchDateTimePicker/blob/master/switchdatetime/src/main/res/values/styles.xml
 
+#### AlertStyle
+To customize the AlertDialog that is shown, use :
+`void setAlertStyle(@StyleRes int styleId)`
+
 ### Sample
 You can see
 https://github.com/J-Jamet/Android-SwitchDateTimePicker/blob/master/sample/src/main/java/com/kunzisoft/switchdatetimesample/Sample.java
