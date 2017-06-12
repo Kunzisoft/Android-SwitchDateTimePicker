@@ -28,7 +28,7 @@ Add the JitPack repository in your build.gradle at the end of repositories:
 And add the dependency
 ```
 	dependencies {
-	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.6'
+	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.7'
 	}
 ```
 
@@ -83,6 +83,10 @@ In your *styles.xml*, you can redefine each style separately, but you must keep 
 
 ```
 Styles elements : https://github.com/Kunzisoft/Android-SwitchDateTimePicker/blob/master/switchdatetime/src/main/res/values/styles.xml
+
+#### AlertStyle
+To customize the AlertDialog that is shown, use :
+`void setAlertStyle(@StyleRes int styleId)`
 
 ### Sample
 You can see

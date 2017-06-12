@@ -5,6 +5,7 @@
     <!-- Title -->
     <string name="label_datetime_dialog">DateTime</string>
 
+    <!-- deprecated, use android.R.string.ok and android.R.string.cancel instead -->
     <string name="positive_button_datetime_picker">OK</string>
     <string name="negative_button_datetime_picker">Cancel</string>
 
