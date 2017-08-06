@@ -47,10 +47,12 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private static final String TAG_LABEL = "LABEL";
     private static final String TAG_POSITIVE_BUTTON = "POSITIVE_BUTTON";
     private static final String TAG_NEGATIVE_BUTTON = "NEGATIVE_BUTTON";
+    private static final String TAG_NEUTRAL_BUTTON = "NEUTRAL_BUTTON";
 
     private String mLabel;
     private String mPositiveButton;
     private String mNegativeButton;
+    private String mNeutralButton;
     private OnButtonClickListener mListener;
 
     private final static int UNDEFINED_TIME_VALUE = -1;
@@ -87,12 +89,26 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
      * @return DialogFragment
      */
     public static SwitchDateTimeDialogFragment newInstance(String label, String positiveButton, String negativeButton) {
+        return newInstance(label, positiveButton, negativeButton, null);
+    }
+
+    /**
+     * Create a new instance of SwitchDateTimeDialogFragment
+     * @param label Title of dialog
+     * @param positiveButton Text for positive button
+     * @param negativeButton Text for negative button
+     * @return DialogFragment
+     */
+    public static SwitchDateTimeDialogFragment newInstance(String label, String positiveButton, String negativeButton, String neutralButton) {
         SwitchDateTimeDialogFragment switchDateTimeDialogFragment = new SwitchDateTimeDialogFragment();
         // Add arguments
         Bundle args = new Bundle();
         args.putString(TAG_LABEL, label);
         args.putString(TAG_POSITIVE_BUTTON, positiveButton);
         args.putString(TAG_NEGATIVE_BUTTON, negativeButton);
+        if (neutralButton != null) {
+            args.putString(TAG_NEUTRAL_BUTTON, neutralButton);
+        }
         switchDateTimeDialogFragment.setArguments(args);
 
         return switchDateTimeDialogFragment;
@@ -123,6 +139,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             mLabel = getArguments().getString(TAG_LABEL);
             mPositiveButton = getArguments().getString(TAG_POSITIVE_BUTTON);
             mNegativeButton = getArguments().getString(TAG_NEGATIVE_BUTTON);
+            mNeutralButton = getArguments().getString(TAG_NEUTRAL_BUTTON);
         }
 
         if (!assignDefaultDateTimeCalendar && savedInstanceState != null) {
@@ -337,6 +354,17 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                     }
                 });
 
+        if (mNegativeButton != null) {
+            db.setNeutralButton(mNeutralButton, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (mListener != null) {
+                        assignAllValuesToCalendar();
+                        mListener.onNeutralButtonClick(dateTimeCalendar.getTime());
+                    }
+                }
+            });
+        }
         return db.create();
     }
 
@@ -593,6 +621,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     public interface OnButtonClickListener {
         void onPositiveButtonClick(Date date);
         void onNegativeButtonClick(Date date);
+        void onNeutralButtonClick(Date date);
     }
 
     /**

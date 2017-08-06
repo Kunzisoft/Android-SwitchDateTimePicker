@@ -41,57 +41,79 @@ public class Sample extends AppCompatActivity {
             textView.setText(savedInstanceState.getCharSequence(STATE_TEXTVIEW));
         }
 
-        // Construct SwitchDateTimePicker
-        dateTimeFragment = (SwitchDateTimeDialogFragment) getSupportFragmentManager().findFragmentByTag(TAG_DATETIME_FRAGMENT);
-        if(dateTimeFragment == null) {
-            dateTimeFragment = SwitchDateTimeDialogFragment.newInstance(
-                    getString(R.string.label_datetime_dialog),
-                    getString(android.R.string.ok),
-                    getString(android.R.string.cancel)
-            );
-        }
-
-        // Assign values we want
-        final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
-        dateTimeFragment.startAtCalendarView();
-        dateTimeFragment.set24HoursMode(false);
-        dateTimeFragment.setMinimumDateTime(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
-        dateTimeFragment.setMaximumDateTime(new GregorianCalendar(2025, Calendar.DECEMBER, 31).getTime());
-        dateTimeFragment.setDefaultDateTime(new GregorianCalendar(2017, Calendar.MARCH, 4, 15, 20).getTime());
-        // Or assign each element, default element is the current moment
-        // dateTimeFragment.setDefaultHourOfDay(15);
-        // dateTimeFragment.setDefaultMinute(20);
-        // dateTimeFragment.setDefaultDay(4);
-        // dateTimeFragment.setDefaultMonth(Calendar.MARCH);
-        // dateTimeFragment.setDefaultYear(2017);
-
-        // Define new day and month format
-        try {
-            dateTimeFragment.setSimpleDateMonthAndDayFormat(new SimpleDateFormat("MMMM dd", Locale.getDefault()));
-        } catch (SwitchDateTimeDialogFragment.SimpleDateMonthAndDayFormatException e) {
-            Log.e(TAG, e.getMessage());
-        }
-
-        // Set listener for date
-        dateTimeFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
-            @Override
-            public void onPositiveButtonClick(Date date) {
-                textView.setText(myDateFormat.format(date));
-            }
-
-            @Override
-            public void onNegativeButtonClick(Date date) {
-                textView.setText("");
-            }
-        });
-
         Button buttonView = (Button) findViewById(R.id.button);
         buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dateTimeFragment = SwitchDateTimeDialogFragment.newInstance(
+                        getString(R.string.label_datetime_dialog),
+                        getString(android.R.string.ok),
+                        getString(android.R.string.cancel)
+                );
+                setupDatetimeFragment();
+
                 dateTimeFragment.show(getSupportFragmentManager(), TAG_DATETIME_FRAGMENT);
             }
         });
+
+        Button neutralButtonView = (Button) findViewById(R.id.button_neutral);
+        neutralButtonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dateTimeFragment = SwitchDateTimeDialogFragment.newInstance(
+                        getString(R.string.label_datetime_dialog),
+                        getString(android.R.string.ok),
+                        getString(android.R.string.cancel),
+                        getString(R.string.clean)
+                );
+                setupDatetimeFragment();
+
+                dateTimeFragment.show(getSupportFragmentManager(), TAG_DATETIME_FRAGMENT);
+            }
+        });
+    }
+
+    private void setupDatetimeFragment() {
+        if (dateTimeFragment != null) {
+            // Assign values we want
+            final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
+            dateTimeFragment.startAtCalendarView();
+            dateTimeFragment.set24HoursMode(false);
+            dateTimeFragment.setMinimumDateTime(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
+            dateTimeFragment.setMaximumDateTime(new GregorianCalendar(2025, Calendar.DECEMBER, 31).getTime());
+            dateTimeFragment.setDefaultDateTime(new GregorianCalendar(2017, Calendar.MARCH, 4, 15, 20).getTime());
+            // Or assign each element, default element is the current moment
+            // dateTimeFragment.setDefaultHourOfDay(15);
+            // dateTimeFragment.setDefaultMinute(20);
+            // dateTimeFragment.setDefaultDay(4);
+            // dateTimeFragment.setDefaultMonth(Calendar.MARCH);
+            // dateTimeFragment.setDefaultYear(2017);
+
+            // Define new day and month format
+            try {
+                dateTimeFragment.setSimpleDateMonthAndDayFormat(new SimpleDateFormat("MMMM dd", Locale.getDefault()));
+            } catch (SwitchDateTimeDialogFragment.SimpleDateMonthAndDayFormatException e) {
+                Log.e(TAG, e.getMessage());
+            }
+
+            // Set listener for date
+            dateTimeFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
+                @Override
+                public void onPositiveButtonClick(Date date) {
+                    textView.setText(myDateFormat.format(date));
+                }
+
+                @Override
+                public void onNegativeButtonClick(Date date) {
+
+                }
+
+                @Override
+                public void onNeutralButtonClick(Date date) {
+                    textView.setText("");
+                }
+            });
+        }
     }
 
     @Override
