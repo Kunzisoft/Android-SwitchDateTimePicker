@@ -353,14 +353,14 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                         }
                     }
                 });
-
-        if (mNegativeButton != null) {
+        if (mNeutralButton != null) {
             db.setNeutralButton(mNeutralButton, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (mListener != null) {
                         assignAllValuesToCalendar();
-                        mListener.onNeutralButtonClick(dateTimeCalendar.getTime());
+                        if(mListener instanceof OnButtonWithNeutralClickListener)
+                            ((OnButtonWithNeutralClickListener) mListener).onNeutralButtonClick(dateTimeCalendar.getTime());
                     }
                 }
             });
@@ -621,6 +621,12 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     public interface OnButtonClickListener {
         void onPositiveButtonClick(Date date);
         void onNegativeButtonClick(Date date);
+    }
+
+    /**
+     * Callback class for assign action on positive, negative and neutral button
+     */
+    public interface OnButtonWithNeutralClickListener extends OnButtonClickListener {
         void onNeutralButtonClick(Date date);
     }
 

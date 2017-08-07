@@ -28,7 +28,7 @@ Add the JitPack repository in your build.gradle at the end of repositories:
 And add the dependency
 ```
 	dependencies {
-	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.7'
+	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.8'
 	}
 ```
 
@@ -137,6 +137,35 @@ dateTimeDialogFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment
 // Show
 dateTimeDialogFragment.show(getSupportFragmentManager(), "dialog_time");
 ```
+
+#### Neutral button
+
+<img src="https://raw.githubusercontent.com/Kunzisoft/Android-SwitchDateTimePicker/master/art/screen3.jpg" width="320">
+
+To use with a neutral button, initialize with another parameter and implement the *OnButtonWithNeutralClickListener* :
+```
+SwitchDateTimeDialogFragment dateTimeDialogFragment = SwitchDateTimeDialogFragment.newInstance(
+        "Title example",
+        "OK",
+        "Cancel",
+        "Clean"
+);
+
+dateTimeFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonWithNeutralClickListener() {
+    @Override
+    public void onPositiveButtonClick(Date date) {
+    }
+
+    @Override
+    public void onNegativeButtonClick(Date date) {
+    }
+
+    @Override
+    public void onNeutralButtonClick(Date date) {
+    }
+});
+```
+
 ## Bonus
 You can follow the project live on https://www.livecoding.tv/kunzisoft/
 
