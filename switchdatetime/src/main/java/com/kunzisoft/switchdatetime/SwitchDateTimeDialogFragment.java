@@ -23,6 +23,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -235,7 +236,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             yearSimpleDate = new SimpleDateFormat("yyyy", Locale.getDefault());
 
         // Init headers
-        yearHeaderValues.setText(String.valueOf(dateTimeCalendar.get(Calendar.YEAR)));
+        yearHeaderValues.setText(yearSimpleDate.format(dateTimeCalendar.getTime()));
         monthAndDayHeaderValues.setText(dayAndMonthSimpleDate.format(dateTimeCalendar.getTime()));
 
         // Construct TimePicker
@@ -270,7 +271,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 dateTimeCalendar.set(Calendar.MONTH, calendarDay.getMonth());
                 dateTimeCalendar.set(Calendar.DAY_OF_MONTH, calendarDay.getDay());
                 listPickerYearView.assignCurrentYear(calendarDay.getYear());
-                yearHeaderValues.setText(String.valueOf(calendarDay.getYear()));
+                yearHeaderValues.setText(yearSimpleDate.format(dateTimeCalendar.getTime()));
                 monthAndDayHeaderValues.setText(dayAndMonthSimpleDate.format(currentDate));
             }
         });
@@ -285,7 +286,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
             @Override
             public void onYearSelected(View view, int yearPicker) {
                 dateTimeCalendar.set(Calendar.YEAR, yearPicker);
-                yearHeaderValues.setText(String.valueOf(yearPicker));
+                yearHeaderValues.setText(yearSimpleDate.format(dateTimeCalendar.getTime()));
 
                 // Unfortunately, we have lags here and thread isn't a solution :/
                 materialCalendarView.setCurrentDate(dateTimeCalendar.getTime());

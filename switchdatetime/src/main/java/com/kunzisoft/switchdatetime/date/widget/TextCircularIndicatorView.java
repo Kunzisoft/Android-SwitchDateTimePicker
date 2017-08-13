@@ -5,11 +5,9 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Build;
 import android.support.annotation.ColorInt;
-import android.support.annotation.RequiresApi;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
-import android.widget.TextView;
 
 import com.kunzisoft.switchdatetime.R;
 
@@ -17,7 +15,7 @@ import com.kunzisoft.switchdatetime.R;
  * TextView with circular colored background
  * @author JJamet
  */
-public class TextCircularIndicatorView extends TextView {
+public class TextCircularIndicatorView extends AppCompatTextView {
 
     private int mCircleColor = Color.BLUE;
     private Paint mCirclePaint = new Paint();
@@ -32,12 +30,6 @@ public class TextCircularIndicatorView extends TextView {
 
     public TextCircularIndicatorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public TextCircularIndicatorView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
 

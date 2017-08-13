@@ -8,8 +8,12 @@ import android.widget.TextView;
 
 import com.kunzisoft.switchdatetime.R;
 
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Adapter for manage elements of ListPickerYearView
@@ -21,6 +25,9 @@ class YearPickerAdapter extends RecyclerView.Adapter<YearPickerAdapter.TextIndic
     private static final int LIST_ITEM_TYPE_INDICATOR = 1;
 
     public static final int UNDEFINED = -1;
+
+    private SimpleDateFormat yearFormat;
+    private Calendar calendar;
 
     private List<Integer> listYears;
     private Integer selectedYear;
@@ -34,6 +41,8 @@ class YearPickerAdapter extends RecyclerView.Adapter<YearPickerAdapter.TextIndic
     YearPickerAdapter() {
         this.listYears = new ArrayList<>();
         this.selectedYear = UNDEFINED;
+        this.yearFormat = new SimpleDateFormat("yyyy", Locale.getDefault());
+        this.calendar = Calendar.getInstance();
     }
 
     @Override
@@ -62,7 +71,9 @@ class YearPickerAdapter extends RecyclerView.Adapter<YearPickerAdapter.TextIndic
     @Override
     public void onBindViewHolder(TextIndicatorViewHolder holder, int position) {
         Integer currentYear = listYears.get(position);
-        holder.textView.setText(String.valueOf(currentYear));
+
+        calendar.set(Calendar.YEAR, currentYear);
+        holder.textView.setText(yearFormat.format(calendar.getTime()));
 
         if(onClickYearListener != null)
             holder.container.setOnClickListener(new BufferYearClickListener(currentYear, position));
