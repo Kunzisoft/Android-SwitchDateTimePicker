@@ -73,9 +73,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private int mCurrentViewShow;
 
     private TextView mHourView;
-    private TextView mHourSpaceView;
     private TextView mMinuteView;
-    private TextView mMinuteSpaceView;
     private TextView mAmPmTextView;
     private View mAmPmHitspace;
     private RadialPickerLayout mTimePicker;
@@ -180,15 +178,16 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         final Resources resources = mContext.getResources();
         mHourPickerDescription = resources.getString(R.string.hour_picker_description);
         mSelectHours = resources.getString(R.string.select_hours);
+
         mMinutePickerDescription = resources.getString(R.string.minute_picker_description);
         mSelectMinutes = resources.getString(R.string.select_minutes);
 
         mHourView = (TextView) view.findViewById(R.id.hours);
         mHourView.setOnKeyListener(keyboardListener);
-        mHourSpaceView = (TextView) view.findViewById(R.id.hour_space);
-        mMinuteSpaceView = (TextView) view.findViewById(R.id.minutes_space);
+
         mMinuteView = (TextView) view.findViewById(R.id.minutes);
         mMinuteView.setOnKeyListener(keyboardListener);
+
         mAmPmTextView = (TextView) view.findViewById(R.id.ampm_label);
         mAmPmTextView.setOnKeyListener(keyboardListener);
 
@@ -238,7 +237,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             @Override
             public void onClick(View v) {
                 // TODO bug
-                //setCurrentItemShowing(MINUTE_INDEX, true, false, true);
+                setCurrentItemShowing(MINUTE_INDEX, true, false, true);
                 mTimePicker.tryVibrate();
                 if(onClickTimeListener != null)
                     onClickTimeListener.onClick(mMinuteView);
@@ -366,7 +365,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
         CharSequence text = String.format(format, value);
         mHourView.setText(text);
-        mHourSpaceView.setText(text);
         if (announce) {
             Utils.tryAccessibilityAnnounce(mTimePicker, text);
         }
@@ -385,7 +383,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         CharSequence text = String.format(Locale.getDefault(), "%02d", value);
         Utils.tryAccessibilityAnnounce(mTimePicker, text);
         mMinuteView.setText(text);
-        mMinuteSpaceView.setText(text);
     }
 
     // Show either Hours or Minutes.
@@ -627,10 +624,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             String minuteStr = (values[1] == -1) ? mDoublePlaceholderText :
                     String.format(minuteFormat, values[1]).replace(' ', mPlaceholderText);
             mHourView.setText(hourStr);
-            mHourSpaceView.setText(hourStr);
             //mHourView.setTextColor(mColor);
             mMinuteView.setText(minuteStr);
-            mMinuteSpaceView.setText(minuteStr);
             //mMinuteView.setTextColor(mColor);
             if (!mIs24HourMode) {
                 updateAmPmDisplay(values[2]);
