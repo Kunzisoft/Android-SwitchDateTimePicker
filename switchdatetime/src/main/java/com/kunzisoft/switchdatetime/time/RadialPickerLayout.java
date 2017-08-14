@@ -16,6 +16,7 @@ package com.kunzisoft.switchdatetime.time;
  * limitations under the License.
  */
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
@@ -48,6 +49,8 @@ import com.kunzisoft.switchdatetime.time.widget.CircleView;
 import com.kunzisoft.switchdatetime.time.widget.RadialSelectorView;
 import com.kunzisoft.switchdatetime.time.widget.RadialTextsView;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
@@ -578,24 +581,26 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         mCurrentItemShowing = index;
 
         if (animate && (index != lastIndex)) {
-            ObjectAnimator[] anims = new ObjectAnimator[4];
-            if (index == MINUTE_INDEX) {
-                anims[0] = mHourRadialTextsView.getDisappearAnimator();
-                anims[1] = mHourRadialSelectorView.getDisappearAnimator();
-                anims[2] = mMinuteRadialTextsView.getReappearAnimator();
-                anims[3] = mMinuteRadialSelectorView.getReappearAnimator();
-            } else {
-                anims[0] = mHourRadialTextsView.getReappearAnimator();
-                anims[1] = mHourRadialSelectorView.getReappearAnimator();
-                anims[2] = mMinuteRadialTextsView.getDisappearAnimator();
-                anims[3] = mMinuteRadialSelectorView.getDisappearAnimator();
+            List<Animator> animators = new ArrayList<>();
+            switch(index) {
+                case MINUTE_INDEX :
+                    animators.add(mHourRadialTextsView.getDisappearAnimator());
+                    animators.add(mHourRadialSelectorView.getDisappearAnimator());
+                    animators.add(mMinuteRadialTextsView.getReappearAnimator());
+                    animators.add(mMinuteRadialSelectorView.getReappearAnimator());
+                    break;
+                case HOUR_INDEX :
+                    animators.add(mHourRadialTextsView.getReappearAnimator());
+                    animators.add(mHourRadialSelectorView.getReappearAnimator());
+                    animators.add(mMinuteRadialTextsView.getDisappearAnimator());
+                    animators.add(mMinuteRadialSelectorView.getDisappearAnimator());
+                    break;
             }
-
             if (mTransition != null && mTransition.isRunning()) {
                 mTransition.end();
             }
             mTransition = new AnimatorSet();
-            mTransition.playTogether(anims);
+            mTransition.playTogether(animators);
             mTransition.start();
         } else {
             if (Build.VERSION.SDK_INT >= 11) {

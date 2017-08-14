@@ -47,23 +47,17 @@ public class Sample extends AppCompatActivity {
             dateTimeFragment = SwitchDateTimeDialogFragment.newInstance(
                     getString(R.string.label_datetime_dialog),
                     getString(android.R.string.ok),
-                    getString(android.R.string.cancel)
+                    getString(android.R.string.cancel),
+                    getString(R.string.clean) // Optional
             );
         }
 
-        // Assign values we want
+        // Init format
         final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
-        dateTimeFragment.startAtCalendarView();
+        // Assign unmodifiable values
         dateTimeFragment.set24HoursMode(false);
         dateTimeFragment.setMinimumDateTime(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
         dateTimeFragment.setMaximumDateTime(new GregorianCalendar(2025, Calendar.DECEMBER, 31).getTime());
-        dateTimeFragment.setDefaultDateTime(new GregorianCalendar(2017, Calendar.MARCH, 4, 15, 20).getTime());
-        // Or assign each element, default element is the current moment
-        // dateTimeFragment.setDefaultHourOfDay(15);
-        // dateTimeFragment.setDefaultMinute(20);
-        // dateTimeFragment.setDefaultDay(4);
-        // dateTimeFragment.setDefaultMonth(Calendar.MARCH);
-        // dateTimeFragment.setDefaultYear(2017);
 
         // Define new day and month format
         try {
@@ -73,7 +67,8 @@ public class Sample extends AppCompatActivity {
         }
 
         // Set listener for date
-        dateTimeFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
+        // Or use dateTimeFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonClickListener() {
+        dateTimeFragment.setOnButtonClickListener(new SwitchDateTimeDialogFragment.OnButtonWithNeutralClickListener() {
             @Override
             public void onPositiveButtonClick(Date date) {
                 textView.setText(myDateFormat.format(date));
@@ -81,6 +76,12 @@ public class Sample extends AppCompatActivity {
 
             @Override
             public void onNegativeButtonClick(Date date) {
+                // Do nothing
+            }
+
+            @Override
+            public void onNeutralButtonClick(Date date) {
+                // Optional if neutral button does'nt exists
                 textView.setText("");
             }
         });
@@ -89,6 +90,9 @@ public class Sample extends AppCompatActivity {
         buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // Re-init each time
+                dateTimeFragment.startAtCalendarView();
+                dateTimeFragment.setDefaultDateTime(new GregorianCalendar(2017, Calendar.MARCH, 4, 15, 20).getTime());
                 dateTimeFragment.show(getSupportFragmentManager(), TAG_DATETIME_FRAGMENT);
             }
         });
