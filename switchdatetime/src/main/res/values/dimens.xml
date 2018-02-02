@@ -8,8 +8,8 @@
     <dimen name="time_label_text">24sp</dimen>
     <dimen name="time_label_AmPm">12sp</dimen>
     <dimen name="time_label_height">32dip</dimen>
-    <dimen name="time_label_width">128dip</dimen>
-    <dimen name="time_label_min_width">170dp</dimen>
+    <dimen name="time_label_width">150dip</dimen>
+    <dimen name="time_label_min_width">180dp</dimen>
     <dimen name="ampm_label_size">16sp</dimen>
     <dimen name="ampm_left_padding">6dip</dimen>
     <dimen name="extra_time_label_margin">-30dp</dimen>

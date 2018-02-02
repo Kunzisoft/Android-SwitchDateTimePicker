@@ -273,6 +273,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 listPickerYearView.assignCurrentYear(calendarDay.getYear());
                 yearHeaderValues.setText(yearSimpleDate.format(dateTimeCalendar.getTime()));
                 monthAndDayHeaderValues.setText(dayAndMonthSimpleDate.format(currentDate));
+                timePicker.clickHour();
             }
         });
         materialCalendarView.invalidate();

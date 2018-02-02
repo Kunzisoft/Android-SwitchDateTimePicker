@@ -11,11 +11,11 @@
 
 Donations will be used to create free and open source applications.
 
-[![Donation Paypal](https://4.bp.blogspot.com/-ncaIbUGaHOk/WfhaThYUPGI/AAAAAAAAAVQ/_HidNgdB1q4DaC24ujaKNzH64KUUJiQewCLcBGAs/s1600/pay-with-paypal.png "")](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KM6QMDAXZM3UU "Kunzisoft Paypal Donation")
+[![Donation Paypal](https://4.bp.blogspot.com/-ncaIbUGaHOk/WfhaThYUPGI/AAAAAAAAAVQ/_HidNgdB1q4DaC24ujaKNzH64KUUJiQewCLcBGAs/s1600/pay-with-paypal.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KM6QMDAXZM3UU "Kunzisoft Paypal Donation")
 
-[![Donation Streamlabs](https://lh3.googleusercontent.com/d1aTMwN6NMJmcMdsz24h_J4JmH5aZ9lhbJdZWQ3VFne3VZxiUVPrYZ41qm1Zig2ha4lU4Wg_BSAE_w=w1920-h1200-no "")](https://youtube.streamlabs.com/UC_U4icXPFfgKo4IDSTSzBEQ "Kunzisoft Streamlabs Donation")
+<a href="bitcoin:1DSwXCk7Sob24sNsofywNoRQw2f5Qj5t2F"><img src="https://2.bp.blogspot.com/-K7-LKnSZd7c/WkvIKpLdmKI/AAAAAAAAAVs/-5LTimDq5IURMHwMmEP5VPTT53b2EUsswCLcBGAs/s1600/donate-with-bitcoin.png" alt="Kunzisoft Bitcoin" />Bitcoin wallet address : 1DSwXCk7Sob24sNsofywNoRQw2f5Qj5t2F</a>
 
-[![Donation Liberapay](https://liberapay.com/assets/widgets/donate.svg "")](https://liberapay.com/Kunzisoft/donate "Kunzisoft Liberapay Donation")
+[![Donation Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/Kunzisoft/donate "Kunzisoft Liberapay Donation")
 
 ## Installation
 Add the JitPack repository in your build.gradle at the end of repositories:
