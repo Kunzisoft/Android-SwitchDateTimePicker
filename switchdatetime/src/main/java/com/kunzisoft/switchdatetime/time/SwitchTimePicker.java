@@ -108,6 +108,9 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     // Enable/Disable Vibrations
     private boolean mVibrate = true;
 
+    private boolean isSelected = false;
+
+
     public SwitchTimePicker(Context context, OnTimeSelectedListener callback) {
         mContext = context;
         onTimeSelectedListener = callback;
@@ -236,7 +239,11 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mMinuteView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO bug
+                //if user click minute first then we ask user to select the Hours first.
+                if(!isSelected){
+                    clickHour();
+                    return;
+                }
                 setCurrentItemShowing(MINUTE_INDEX, true, false, true);
                 mTimePicker.tryVibrate();
                 if(onClickTimeListener != null)
@@ -908,6 +915,14 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
     public void setFirstViewShow(int viewIndex) {
         mCurrentViewShow = viewIndex;
+    }
+
+    public void clickHour() {
+        isSelected = true;
+        setCurrentItemShowing(HOUR_INDEX, true, false, true);
+        mTimePicker.tryVibrate();
+        if(onClickTimeListener != null)
+            onClickTimeListener.onClick(mHourView);
     }
 
     /**
