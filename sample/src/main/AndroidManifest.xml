@@ -7,11 +7,10 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/switch_datetime_picker_name"
-        android:theme="@style/AppTheme.NoActionbar"
+        android:theme="@style/MyAppCustomTheme"
         android:supportsRtl="true">
         <activity
-            android:name="com.kunzisoft.switchdatetimesample.Sample"
-            android:theme="@style/MyAppCustomTheme">
+            android:name="com.kunzisoft.switchdatetimesample.Sample">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
