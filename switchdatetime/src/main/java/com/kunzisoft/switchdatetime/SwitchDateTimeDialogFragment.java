@@ -47,6 +47,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private Calendar dateTimeCalendar = Calendar.getInstance();
     private Calendar minimumDateTime = new GregorianCalendar(1970, 1, 1);
     private Calendar maximumDateTime = new GregorianCalendar(2200, 1, 1);
+    private TimeZone timeZone = TimeZone.getDefault();
 
     private static final String TAG_LABEL = "LABEL";
     private static final String TAG_POSITIVE_BUTTON = "POSITIVE_BUTTON";
@@ -132,6 +133,8 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     @Override
     public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
+        
+        dateTimeCalendar.setTimeZone(timeZone);
 
         if(getArguments() != null) {
             mLabel = getArguments().getString(TAG_LABEL);
@@ -562,6 +565,15 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
      */
     public void set24HoursMode(boolean is24HoursMode) {
         this.is24HoursMode = is24HoursMode;
+    }
+    
+    /**
+    * Set timezone different from default
+    */
+    public void setTimeZone(TimeZone timeZone) {
+        if(timeZone != null) {
+            this.timeZone = timeZone;
+        }
     }
 
     /**
