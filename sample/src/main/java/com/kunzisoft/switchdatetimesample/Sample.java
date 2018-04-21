@@ -14,6 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * Sample class for an example of using the API SwitchDateTimePicker
@@ -51,6 +52,9 @@ public class Sample extends AppCompatActivity {
                     getString(R.string.clean) // Optional
             );
         }
+
+        // Optionally define a timezone
+        dateTimeFragment.setTimeZone(TimeZone.getDefault());
 
         // Init format
         final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());

@@ -7,15 +7,13 @@
 <img src="https://raw.githubusercontent.com/Kunzisoft/Android-SwitchDateTimePicker/master/art/demo2.gif" width="500">
 <img src="https://raw.githubusercontent.com/Kunzisoft/Android-SwitchDateTimePicker/master/art/demo1.gif" width="320">
 
-## Donation
+## Contributions
 
-Donations will be used to create free and open source applications.
+You can contribute in different ways to help us on our work.
 
-[![Donation Paypal](https://4.bp.blogspot.com/-ncaIbUGaHOk/WfhaThYUPGI/AAAAAAAAAVQ/_HidNgdB1q4DaC24ujaKNzH64KUUJiQewCLcBGAs/s1600/pay-with-paypal.png)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=KM6QMDAXZM3UU "Kunzisoft Paypal Donation")
-
-<a href="bitcoin:1DSwXCk7Sob24sNsofywNoRQw2f5Qj5t2F"><img src="https://2.bp.blogspot.com/-K7-LKnSZd7c/WkvIKpLdmKI/AAAAAAAAAVs/-5LTimDq5IURMHwMmEP5VPTT53b2EUsswCLcBGAs/s1600/donate-with-bitcoin.png" alt="Kunzisoft Bitcoin" />Bitcoin wallet address : 1DSwXCk7Sob24sNsofywNoRQw2f5Qj5t2F</a>
-
-[![Donation Liberapay](https://liberapay.com/assets/widgets/donate.svg)](https://liberapay.com/Kunzisoft/donate "Kunzisoft Liberapay Donation")
+* Add features by a pull request.
+* Help to translate into your language
+* [Donate](https://www.kunzisoft.com/donation)  人◕ ‿‿ ◕人Y for a better service and a quick development of your features.
 
 ## Installation
 Add the JitPack repository in your build.gradle at the end of repositories:
@@ -56,6 +54,10 @@ For just allow selection after or/and before dates, use :
 `dateTimeFragment.setMinimumDateTime(Date minimum);`
 and
 `dateTimeFragment.setMaximumDateTime(Date maximum);`
+
+### TimeZone
+Optionally define a timezone :
+`dateTimeFragment.setTimeZone(TimeZone.getDefault());`
 
 ### Style
 You can customize the style to change color, bold, etc... of each element.
