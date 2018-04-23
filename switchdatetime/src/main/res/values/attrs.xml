@@ -1,9 +1,5 @@
 <resources>
 
-    <attr name="timeAmPmBackgroundColor" format="reference|color" />
-    <attr name="timeAmPmSelectBackgroundColor" format="reference|color" />
-    <attr name="timeAmPmTextColor" format="reference|color" />
-
     <!-- Attrs Switch Time -->
     <declare-styleable name="SwitchTimeCircleColor">
         <attr name="timeCircleColor" format="reference|color" />
@@ -19,9 +15,9 @@
     </declare-styleable>
 
     <declare-styleable name="SwitchTimeAMPMColor">
-        <attr name="amPmBackgroundColor" format="reference|color" />
-        <attr name="amPmSelectBackgroundColor" format="reference|color" />
-        <attr name="amPmTextColor" format="reference|color" />
+        <attr name="timeAmPmBackgroundColor" format="reference|color" />
+        <attr name="timeAmPmSelectBackgroundColor" format="reference|color" />
+        <attr name="timeAmPmTextColor" format="reference|color" />
     </declare-styleable>
 
     <!-- Attrs Years -->

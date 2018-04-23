@@ -18,7 +18,6 @@ package com.kunzisoft.switchdatetime.time;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
@@ -135,7 +134,6 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         mDoingMove = false;
 
         mCircleView = new CircleView(context);
-        // TODO Style
         TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeCircleColor);
         mCircleView.setCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeCircleColor_timeCircleColor, Color.RED));
         mCircleView.setCenterColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeCircleColor_timeCenterColor, Color.BLACK));
@@ -144,9 +142,9 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
 
         mAmPmCirclesView = new AmPmCirclesView(context);
         TypedArray switchTimeAMPMColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeAMPMColor);
-        mAmPmCirclesView.setCircleColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_amPmBackgroundColor, Color.WHITE));
-        mAmPmCirclesView.setSelectCircleColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_amPmSelectBackgroundColor, Color.RED));
-        mAmPmCirclesView.setAmPmTextColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_amPmTextColor, Color.BLACK));
+        mAmPmCirclesView.setCircleColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmBackgroundColor, Color.WHITE));
+        mAmPmCirclesView.setSelectCircleColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmSelectBackgroundColor, Color.RED));
+        mAmPmCirclesView.setAmPmTextColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmTextColor, Color.BLACK));
         switchTimeAMPMColorTypedArray.recycle();
         addView(mAmPmCirclesView);
 

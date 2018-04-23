@@ -21,12 +21,11 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.graphics.Paint.Align;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-
 
 import com.kunzisoft.switchdatetime.R;
 import com.kunzisoft.switchdatetime.time.SwitchTimePicker;
@@ -79,9 +78,9 @@ public class AmPmCirclesView extends View {
         mIsInitialized = false;
 
         TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeAMPMColor);
-        setCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_amPmBackgroundColor, mBackgroundColor));
-        setSelectCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_amPmSelectBackgroundColor, mSelectBackgroundColor));
-        setAmPmTextColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_amPmTextColor, mAmPmTextColor));
+        setCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmBackgroundColor, mBackgroundColor));
+        setSelectCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmSelectBackgroundColor, mSelectBackgroundColor));
+        setAmPmTextColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmTextColor, mAmPmTextColor));
         switchTimeColorTypedArray.recycle();
     }
 
