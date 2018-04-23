@@ -1,11 +1,15 @@
 <resources>
     <!-- Theme for SwitchDateTime -->
     <style name="Theme.SwitchDateTime" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">#29b6f6</item>
+        <item name="colorPrimaryDark">#03a9f4</item>
+        <item name="android:textColorPrimaryInverse">#e6e6e6</item>
+        <item name="android:textColorSecondaryInverse">#e1e1e1</item>
     </style>
 
     <!-- Header Background -->
     <style name="Theme.SwitchDateTime.HeaderBackground">
-        <item name="android:background">#32b3e3</item>
+        <item name="android:background">?attr/colorPrimary</item>
     </style>
 
     <!-- Content Background -->
@@ -16,60 +20,60 @@
     <!-- Title -->
     <style name="Theme.SwitchDateTime.TitleDateTimeLabelText">
         <item name="android:textSize">@dimen/title_date_time_label_text</item>
-        <item name="android:textColor">#fff</item>
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <!-- Icon -->
     <style name="Theme.SwitchDateTime.IconDateTimeSwitch">
         <item name="android:src">@drawable/ic_view_carousel_black_32dp</item>
-        <item name="android:tint">#fff</item>
+        <item name="tint">?android:attr/textColorPrimaryInverse</item>
     </style>
 
     <!-- Time  -->
     <style name="Theme.SwitchDateTime.Time">
         <item name="timeCircleColor">#e1e1e1</item>
-        <item name="timeCenterColor">#32b3e3</item>
-        <item name="timeAmPmBackgroundColor">#32b3e3</item>
-        <item name="timeAmPmSelectBackgroundColor">#32b3e3</item> <!-- Alpha is apply-->
-        <item name="timeAmPmTextColor">#c2c2c2</item>
-        <item name="timeSelectorColor">#32b3e3</item>
+        <item name="timeCenterColor">?attr/colorPrimary</item>
+        <item name="timeAmPmBackgroundColor">?attr/colorPrimary</item>
+        <item name="timeAmPmSelectBackgroundColor">?attr/colorPrimary</item> <!-- Alpha is apply-->
+        <item name="timeAmPmTextColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="timeSelectorColor">?attr/colorPrimary</item>
         <item name="timeCircularNumbersColor">#494949</item>
     </style>
 
     <!-- Time Label -->
     <style name="Theme.SwitchDateTime.TimeLabelText">
         <item name="android:textSize">@dimen/time_label_text</item>
-        <item name="android:textColor">#e1e1e1</item>
+        <item name="android:textColor">?android:attr/textColorSecondaryInverse</item>
     </style>
 
     <style name="Theme.SwitchDateTime.TimeLabelAmPm">
         <item name="android:textSize">@dimen/time_label_AmPm</item>
-        <item name="android:textColor">#e1e1e1</item>
+        <item name="android:textColor">?android:attr/textColorSecondaryInverse</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <!-- Date -->
     <style name="Theme.SwitchDateTime.Date">
-        <item name="mcv_selectionColor">#32b3e3</item>
+        <item name="mcv_selectionColor">?attr/colorPrimary</item>
     </style>
 
     <!-- Date Label -->
     <style name="Theme.SwitchDateTime.DateLabelMonthAndDay">
         <item name="android:textSize">@dimen/date_label_month_and_day</item>
-        <item name="android:textColor">#e1e1e1</item>
+        <item name="android:textColor">?android:attr/textColorSecondaryInverse</item>
     </style>
 
     <!-- Year Selected-->
     <style name="Theme.SwitchDateTime.Year">
-        <item name="colorCircleIndicator">#32b3e3</item>
-        <item name="android:textColor">#e6e6e6</item>
+        <item name="colorCircleIndicator">?attr/colorPrimary</item>
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
     </style>
 
     <!-- Year Label -->
     <style name="Theme.SwitchDateTime.DateLabelYear">
         <item name="android:textSize">@dimen/date_label_year</item>
-        <item name="android:textColor">#e1e1e1</item>
+        <item name="android:textColor">?android:attr/textColorSecondaryInverse</item>
         <item name="android:textStyle">bold</item>
     </style>
 </resources>
