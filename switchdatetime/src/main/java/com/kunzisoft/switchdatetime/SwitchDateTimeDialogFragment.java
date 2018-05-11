@@ -238,6 +238,9 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         if(yearSimpleDate == null)
             yearSimpleDate = new SimpleDateFormat("yyyy", Locale.getDefault());
 
+        dayAndMonthSimpleDate.setTimeZone(timeZone);
+        yearSimpleDate.setTimeZone(timeZone);
+        
         // Init headers
         yearHeaderValues.setText(yearSimpleDate.format(dateTimeCalendar.getTime()));
         monthAndDayHeaderValues.setText(dayAndMonthSimpleDate.format(dateTimeCalendar.getTime()));
@@ -264,18 +267,17 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 .setMinimumDate(CalendarDay.from(minimumDateTime))
                 .setMaximumDate(CalendarDay.from(maximumDateTime))
                 .commit();
-        materialCalendarView.setCurrentDate(dateTimeCalendar.getTime());
+        materialCalendarView.setCurrentDate(dateTimeCalendar);
         materialCalendarView.setDateSelected(dateTimeCalendar, true);
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay calendarDay, boolean selected) {
-                Date currentDate = calendarDay.getDate();
                 dateTimeCalendar.set(Calendar.YEAR, calendarDay.getYear());
                 dateTimeCalendar.set(Calendar.MONTH, calendarDay.getMonth());
                 dateTimeCalendar.set(Calendar.DAY_OF_MONTH, calendarDay.getDay());
                 listPickerYearView.assignCurrentYear(calendarDay.getYear());
                 yearHeaderValues.setText(yearSimpleDate.format(dateTimeCalendar.getTime()));
-                monthAndDayHeaderValues.setText(dayAndMonthSimpleDate.format(currentDate));
+                monthAndDayHeaderValues.setText(dayAndMonthSimpleDate.format(dateTimeCalendar.getTime()));
                 timePicker.clickHour();
             }
         });
