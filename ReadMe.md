@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/Kunzisoft/Android-SwitchDateTimePicker.svg)](https://jitpack.io/#Kunzisoft/Android-SwitchDateTimePicker) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchDateTimePicker-blue.svg?style=flat)](http://android-arsenal.com/details/1/4513)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwitchDateTimePicker-blue.svg?style=flat)](http://android-arsenal.com/details/1/4513)
 
 # Android SwitchDateTime Picker
 
@@ -26,9 +26,12 @@ Add the JitPack repository in your build.gradle at the end of repositories:
 	}
 ```
 And add the dependency
+[![](https://jitpack.io/v/Kunzisoft/Android-SwitchDateTimePicker.svg)](https://jitpack.io/#Kunzisoft/Android-SwitchDateTimePicker)
+*replacing ${version} with the version number in jitpack*
+
 ```
 	dependencies {
-	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:1.9'
+	        compile 'com.github.Kunzisoft:Android-SwitchDateTimePicker:${version}'
 	}
 ```
 

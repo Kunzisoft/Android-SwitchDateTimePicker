@@ -1,12 +1,12 @@
 apply plugin: "com.android.library"
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion "27.0.3"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
     }
@@ -19,7 +19,7 @@ android {
     }
 }
 
-def supportVersion = "25.4.0"
+def supportVersion = "27.0.2"
 
 dependencies {
     implementation "com.android.support:appcompat-v7:$supportVersion"
