@@ -17,6 +17,7 @@
     <declare-styleable name="SwitchTimeAMPMColor">
         <attr name="timeAmPmBackgroundColor" format="reference|color" />
         <attr name="timeAmPmSelectBackgroundColor" format="reference|color" />
+        <attr name="timeAmPmHighlightSelected" format="boolean" />
         <attr name="timeAmPmTextColor" format="reference|color" />
     </declare-styleable>
 

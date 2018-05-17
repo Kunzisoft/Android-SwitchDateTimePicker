@@ -16,7 +16,6 @@ package com.kunzisoft.switchdatetime.time;
  */
 
 import android.animation.ObjectAnimator;
-import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -24,13 +23,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.method.TransformationMethod;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kunzisoft.switchdatetime.R;
@@ -49,6 +46,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private static final String KEY_HOUR_OF_DAY = "hour_of_day";
     private static final String KEY_MINUTE = "minute";
     private static final String KEY_IS_24_HOUR_VIEW = "is_24_hour_view";
+    private static final String KEY_HIGHLIGHT_SELECTED_AM_PM_VIEW = "highlight_selected_AM_PM_view";
     private static final String KEY_CURRENT_ITEM_SHOWING = "current_item_showing";
     private static final String KEY_IN_KB_MODE = "in_kb_mode";
     private static final String KEY_TYPED_TIMES = "typed_times";
@@ -88,6 +86,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
     private int minute;
 
     private boolean mIs24HourMode;
+    private boolean mHighlightAMPMSelection;
 
     // For hardware IME input.
     private char mPlaceholderText;
@@ -116,6 +115,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         onTimeSelectedListener = callback;
 
         mIs24HourMode = false;
+        mHighlightAMPMSelection = false;
         mInKbMode = false;
         mVibrate = false;
     }
@@ -130,6 +130,8 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
                 minute = savedInstanceState.getInt(KEY_MINUTE);
             if(savedInstanceState.containsKey(KEY_IS_24_HOUR_VIEW))
                 mIs24HourMode = savedInstanceState.getBoolean(KEY_IS_24_HOUR_VIEW);
+            if(savedInstanceState.containsKey(KEY_HIGHLIGHT_SELECTED_AM_PM_VIEW))
+                mHighlightAMPMSelection = savedInstanceState.getBoolean(KEY_HIGHLIGHT_SELECTED_AM_PM_VIEW);
             if(savedInstanceState.containsKey(KEY_CURRENT_ITEM_SHOWING))
                 mCurrentViewShow = savedInstanceState.getInt(KEY_CURRENT_ITEM_SHOWING);
             if(savedInstanceState.containsKey(KEY_IN_KB_MODE))
@@ -148,6 +150,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             outState.putInt(KEY_HOUR_OF_DAY, mTimePicker.getHours());
             outState.putInt(KEY_MINUTE, mTimePicker.getMinutes());
             outState.putBoolean(KEY_IS_24_HOUR_VIEW, mIs24HourMode);
+            outState.putBoolean(KEY_HIGHLIGHT_SELECTED_AM_PM_VIEW, mHighlightAMPMSelection);
             outState.putInt(KEY_CURRENT_ITEM_SHOWING, mTimePicker.getCurrentItemShowing());
             outState.putBoolean(KEY_IN_KB_MODE, mInKbMode);
             if (mInKbMode) {
@@ -215,10 +218,10 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mAmText = amPmTexts[0];
         mPmText = amPmTexts[1];
 
-        mTimePicker = (RadialPickerLayout) view.findViewById(R.id.time_picker);
+        mTimePicker = view.findViewById(R.id.time_picker);
         mTimePicker.setOnValueSelectedListener(this);
         mTimePicker.setOnKeyListener(keyboardListener);
-        mTimePicker.initialize(mContext, hourOfDay, minute, mIs24HourMode, mVibrate);
+        mTimePicker.initialize(mContext, hourOfDay, minute, mIs24HourMode, mHighlightAMPMSelection, mVibrate);
         mCurrentViewShow = HOUR_INDEX;
         if (savedInstanceState != null &&
                 savedInstanceState.containsKey(KEY_CURRENT_ITEM_SHOWING)) {
@@ -255,12 +258,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mAmPmHitspace = view.findViewById(R.id.ampm_hitspace);
         if (mIs24HourMode) {
             mAmPmTextView.setVisibility(View.GONE);
-
-            RelativeLayout.LayoutParams paramsSeparator = new RelativeLayout.LayoutParams(
-                    LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-            paramsSeparator.addRule(RelativeLayout.CENTER_IN_PARENT);
-            TextView separatorView = (TextView) view.findViewById(R.id.separator);
-            separatorView.setLayoutParams(paramsSeparator);
         } else {
             mAmPmTextView.setVisibility(View.VISIBLE);
             updateAmPmDisplay(hourOfDay < 12 ? AM : PM);
@@ -911,6 +908,10 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
     public void setIs24HourMode(boolean is24HourMode) {
         this.mIs24HourMode = is24HourMode;
+    }
+
+    public void setHighlightAMPMSelection(boolean highlightSelection) {
+        this.mHighlightAMPMSelection = highlightSelection;
     }
 
     public void setFirstViewShow(int viewIndex) {

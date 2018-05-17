@@ -61,6 +61,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     private OnButtonClickListener mListener;
 
     private boolean is24HoursMode = false;
+    private boolean highlightAMPMSelection = false;
     private int startAtPosition = UNDEFINED_POSITION;
     private int currentPosition = 0;
     private int alertStyleId;
@@ -253,6 +254,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         // Init time with saved elements
         timePicker = new SwitchTimePicker(getContext(), onTimeSelectedListener, savedInstanceState);
         timePicker.setIs24HourMode(is24HoursMode);
+        timePicker.setHighlightAMPMSelection(highlightAMPMSelection);
         timePicker.setHourOfDay(dateTimeCalendar.get(Calendar.HOUR_OF_DAY));
         timePicker.setMinute(dateTimeCalendar.get(Calendar.MINUTE));
         timePicker.onCreateView(dateTimeLayout, savedInstanceState);
@@ -565,6 +567,14 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
      */
     public void set24HoursMode(boolean is24HoursMode) {
         this.is24HoursMode = is24HoursMode;
+    }
+
+    /**
+     * Highlight AM or PM selected, by default AM or PM selected is not highlight. Only works if 24 hours mode is activated
+     * @param highlightAMPMSelection true to visually highlight selected item
+     */
+    public void setHighlightAMPMSelection(boolean highlightAMPMSelection) {
+        this.highlightAMPMSelection = highlightAMPMSelection;
     }
     
     /**

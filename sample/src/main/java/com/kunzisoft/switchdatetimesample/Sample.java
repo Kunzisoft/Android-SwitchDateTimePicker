@@ -36,7 +36,7 @@ public class Sample extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sample);
 
-        textView = (TextView) findViewById(R.id.textView);
+        textView = findViewById(R.id.textView);
         if (savedInstanceState != null) {
             // Restore value from saved state
             textView.setText(savedInstanceState.getCharSequence(STATE_TEXTVIEW));
@@ -60,6 +60,7 @@ public class Sample extends AppCompatActivity {
         final SimpleDateFormat myDateFormat = new SimpleDateFormat("d MMM yyyy HH:mm", java.util.Locale.getDefault());
         // Assign unmodifiable values
         dateTimeFragment.set24HoursMode(false);
+        dateTimeFragment.setHighlightAMPMSelection(false);
         dateTimeFragment.setMinimumDateTime(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
         dateTimeFragment.setMaximumDateTime(new GregorianCalendar(2025, Calendar.DECEMBER, 31).getTime());
 
@@ -90,7 +91,7 @@ public class Sample extends AppCompatActivity {
             }
         });
 
-        Button buttonView = (Button) findViewById(R.id.button);
+        Button buttonView = findViewById(R.id.button);
         buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

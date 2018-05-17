@@ -144,6 +144,7 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
         TypedArray switchTimeAMPMColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeAMPMColor);
         mAmPmCirclesView.setCircleColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmBackgroundColor, Color.WHITE));
         mAmPmCirclesView.setSelectCircleColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmSelectBackgroundColor, Color.RED));
+        mAmPmCirclesView.setInverseSelectedColors(switchTimeAMPMColorTypedArray.getBoolean(R.styleable.SwitchTimeAMPMColor_timeAmPmHighlightSelected, false));
         mAmPmCirclesView.setAmPmTextColor(switchTimeAMPMColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmTextColor, Color.BLACK));
         switchTimeAMPMColorTypedArray.recycle();
         addView(mAmPmCirclesView);
@@ -213,12 +214,13 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
      * @param is24HourMode
      */
     public void initialize(Context context, int initialHoursOfDay, int initialMinutes,
-                           boolean is24HourMode, boolean vibrate) {
+                           boolean is24HourMode, boolean highlightSelectedAMPM, boolean vibrate) {
         if (mTimeInitialized) {
             Log.e(TAG, "Time has already been initialized.");
             return;
         }
         mIs24HourMode = is24HourMode;
+        mAmPmCirclesView.setInverseSelectedColors(highlightSelectedAMPM);
         mHideAmPm = Utils.isTouchExplorationEnabled(mAccessibilityManager) || mIs24HourMode;
 
         mVibrate = vibrate;

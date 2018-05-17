@@ -47,6 +47,10 @@ By default, time is in 12 hours mode, If you want a 24-hour display, use:
 `dateTimeFragment.set24HoursMode(true);`
 before the "show"
 
+#### Hightligh selected AM / PM
+In 24 hours mode, If you want to highlight the selected AM or PM, use :
+`dateTimeFragment.setHighlightAMPMSelection(true);`
+
 ### Start with a specific view
 For launch Dialog with a specific view, call :
 `dateTimeFragment.startAtTimeView();`, `dateTimeFragment.startAtCalendarView();` or `dateTimeFragment.startAtYearView();`

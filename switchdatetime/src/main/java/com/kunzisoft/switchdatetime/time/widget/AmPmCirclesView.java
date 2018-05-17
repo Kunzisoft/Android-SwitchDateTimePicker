@@ -47,6 +47,7 @@ public class AmPmCirclesView extends View {
     private int mBackgroundColor = Color.WHITE;
     private int mAmPmTextColor = Color.BLACK;
     private int mSelectBackgroundColor = Color.BLUE;
+    private boolean mInverseSelectedColors = false;
     private float mCircleRadiusMultiplier;
     private float mAmPmCircleRadiusMultiplier;
     private String mAmText;
@@ -81,6 +82,7 @@ public class AmPmCirclesView extends View {
         setCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmBackgroundColor, mBackgroundColor));
         setSelectCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmSelectBackgroundColor, mSelectBackgroundColor));
         setAmPmTextColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmTextColor, mAmPmTextColor));
+        setInverseSelectedColors(switchTimeColorTypedArray.getBoolean(R.styleable.SwitchTimeAMPMColor_timeAmPmHighlightSelected, mInverseSelectedColors));
         switchTimeColorTypedArray.recycle();
     }
 
@@ -122,7 +124,7 @@ public class AmPmCirclesView extends View {
 
     /**
      * Set to AM or PM mode when pressed
-     * @param amOrPmPressed
+     * @param amOrPmPressed AM or PM pressed
      */
     public void setAmOrPmPressed(int amOrPmPressed) {
         mAmOrPmPressed = amOrPmPressed;
@@ -186,19 +188,37 @@ public class AmPmCirclesView extends View {
         int amAlpha = 255;
         int pmColor = mBackgroundColor;
         int pmAlpha = 255;
-        if (mAmOrPm == AM) {
-            amColor = mSelectBackgroundColor;
-            amAlpha = SELECTED_ALPHA;
-        } else if (mAmOrPm == PM) {
-            pmColor = mSelectBackgroundColor;
-            pmAlpha = SELECTED_ALPHA;
-        }
-        if (mAmOrPmPressed == AM) {
-            amColor = mSelectBackgroundColor;
-            amAlpha = PRESSED_ALPHA;
-        } else if (mAmOrPmPressed == PM) {
-            pmColor = mSelectBackgroundColor;
-            pmAlpha = PRESSED_ALPHA;
+
+        if (mInverseSelectedColors) {
+            if (mAmOrPm == AM) {
+                pmColor = mSelectBackgroundColor;
+                pmAlpha = SELECTED_ALPHA;
+            } else if (mAmOrPm == PM) {
+                amColor = mSelectBackgroundColor;
+                amAlpha = SELECTED_ALPHA;
+            }
+            if (mAmOrPmPressed == AM) {
+                pmColor = mSelectBackgroundColor;
+                pmAlpha = PRESSED_ALPHA;
+            } else if (mAmOrPmPressed == PM) {
+                amColor = mSelectBackgroundColor;
+                amAlpha = PRESSED_ALPHA;
+            }
+        } else {
+            if (mAmOrPm == AM) {
+                amColor = mSelectBackgroundColor;
+                amAlpha = SELECTED_ALPHA;
+            } else if (mAmOrPm == PM) {
+                pmColor = mSelectBackgroundColor;
+                pmAlpha = SELECTED_ALPHA;
+            }
+            if (mAmOrPmPressed == AM) {
+                amColor = mSelectBackgroundColor;
+                amAlpha = PRESSED_ALPHA;
+            } else if (mAmOrPmPressed == PM) {
+                pmColor = mSelectBackgroundColor;
+                pmAlpha = PRESSED_ALPHA;
+            }
         }
 
         // Draw the two circles.
@@ -262,5 +282,13 @@ public class AmPmCirclesView extends View {
      */
     public void setSelectCircleColor(int selectBackgroundColor) {
         this.mSelectBackgroundColor = selectBackgroundColor;
+    }
+
+    /**
+     * Determine if AM / PM selected and unselected colors must be inverted
+     * @param inverseColors true to inverse color
+     */
+    public void setInverseSelectedColors(boolean inverseColors) {
+        this.mInverseSelectedColors = inverseColors;
     }
 }
