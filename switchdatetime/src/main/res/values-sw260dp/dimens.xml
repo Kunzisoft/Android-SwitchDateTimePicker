@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- header -->
+    <dimen name="header_width">142dp</dimen>
+
+    <!-- Content -->
+    <dimen name="time_circle_width">190dp</dimen>
+    <!-- Portrait -->
+    <dimen name="calendar_width_portrait">200dp</dimen>
+    <dimen name="calendar_height_portrait">230dp</dimen>
+    <!-- Landscape -->
+    <dimen name="calendar_width_land">180dp</dimen>
+    <dimen name="calendar_height_land">160dp</dimen>
+
+    <dimen name="year_item_padding">14dp</dimen>
+</resources>
