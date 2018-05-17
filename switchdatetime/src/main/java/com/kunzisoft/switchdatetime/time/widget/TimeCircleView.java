@@ -30,7 +30,7 @@ import com.kunzisoft.switchdatetime.R;
 /**
  * Draws a simple white circle on which the numbers will be drawn.
  */
-public class CircleView extends View {
+public class TimeCircleView extends View {
     private static final String TAG = "CircleView";
 
     private final Paint mPaint = new Paint();
@@ -47,20 +47,20 @@ public class CircleView extends View {
     private int mCircleRadius;
 
 
-    public CircleView(Context context) {
+    public TimeCircleView(Context context) {
         this(context, null, 0);
     }
 
-    public CircleView(Context context, AttributeSet attrs) {
+    public TimeCircleView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public CircleView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TimeCircleView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
-        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeCircleColor);
-        setCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeCircleColor_timeCircleColor, Color.WHITE));
-        setCenterColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeCircleColor_timeCenterColor, Color.BLACK));
+        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TimeCircleView);
+        setCircleColor(switchTimeColorTypedArray.getColor(R.styleable.TimeCircleView_timeCircleColor, Color.WHITE));
+        setCenterColor(switchTimeColorTypedArray.getColor(R.styleable.TimeCircleView_timeCenterColor, Color.BLACK));
         switchTimeColorTypedArray.recycle();
 
         mPaint.setAntiAlias(true);

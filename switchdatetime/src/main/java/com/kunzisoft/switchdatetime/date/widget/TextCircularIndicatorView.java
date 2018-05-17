@@ -1,5 +1,6 @@
 package com.kunzisoft.switchdatetime.date.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -35,7 +36,6 @@ public class TextCircularIndicatorView extends AppCompatTextView {
 
     /**
      * Initialize constructor
-     * @param attrs
      */
     private void init(AttributeSet attrs) {
 
@@ -52,6 +52,7 @@ public class TextCircularIndicatorView extends AppCompatTextView {
         mCirclePaint.setStyle(Paint.Style.FILL);
     }
 
+    @SuppressLint("GetContentDescriptionOverride")
     @Override
     public CharSequence getContentDescription() {
         return getText();
@@ -68,7 +69,6 @@ public class TextCircularIndicatorView extends AppCompatTextView {
 
     /**
      * Get color of background circle
-     * @return
      */
     public int getCircleColor() {
         return mCircleColor;
@@ -76,7 +76,6 @@ public class TextCircularIndicatorView extends AppCompatTextView {
 
     /**
      * Set color of background circle
-     * @param color
      */
     public void setCircleColor(@ColorInt int color) {
         this.mCircleColor = color;

@@ -35,7 +35,7 @@ import com.kunzisoft.switchdatetime.R;
  * View to show what number is selected. This will draw a blue circle over the number, with a blue
  * line coming from the center of the main circle to the edge of the blue selection.
  */
-public class RadialSelectorView extends View {
+public class TimeRadialSelectorView extends View {
     private static final String TAG = "RadialSelectorView";
 
     private final Paint mPaint = new Paint();
@@ -66,21 +66,21 @@ public class RadialSelectorView extends View {
     private double mSelectionRadians;
     private boolean mForceDrawDot;
 
-    public RadialSelectorView(Context context) {
+    public TimeRadialSelectorView(Context context) {
         this(context, null, 0);
     }
 
-    public RadialSelectorView(Context context, AttributeSet attrs) {
+    public TimeRadialSelectorView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RadialSelectorView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TimeRadialSelectorView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         mIsInitialized = false;
 
-        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeSelectorColor);
-        setSelectorColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeSelectorColor_timeSelectorColor, Color.BLUE));
+        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TimeRadialSelectorView);
+        setSelectorColor(switchTimeColorTypedArray.getColor(R.styleable.TimeRadialSelectorView_timeSelectorColor, Color.BLUE));
         switchTimeColorTypedArray.recycle();
 
         mPaint.setAntiAlias(true);
@@ -384,7 +384,7 @@ public class RadialSelectorView extends View {
     private class InvalidateUpdateListener implements ValueAnimator.AnimatorUpdateListener {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
-            RadialSelectorView.this.invalidate();
+            TimeRadialSelectorView.this.invalidate();
         }
     }
 

@@ -36,7 +36,7 @@ import com.kunzisoft.switchdatetime.R;
 /**
  * A view to show a series of numbers in a circular pattern.
  */
-public class RadialTextsView extends View {
+public class TimeRadialNumbersView extends View {
     private final static String TAG = "RadialTextsView";
 
     private final Paint mPaint = new Paint();
@@ -76,21 +76,21 @@ public class RadialTextsView extends View {
     private InvalidateUpdateListener mInvalidateUpdateListener;
 
 
-    public RadialTextsView(Context context) {
+    public TimeRadialNumbersView(Context context) {
         this(context, null, 0);
     }
 
-    public RadialTextsView(Context context, AttributeSet attrs) {
+    public TimeRadialNumbersView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public RadialTextsView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TimeRadialNumbersView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         mIsInitialized = false;
 
-        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeCircularNumbersColor);
-        setNumbersColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeCircularNumbersColor_timeCircularNumbersColor, Color.BLACK));
+        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TimeRadialNumbersView);
+        setNumbersColor(switchTimeColorTypedArray.getColor(R.styleable.TimeRadialNumbersView_timeCircularNumbersColor, Color.BLACK));
         switchTimeColorTypedArray.recycle();
 
         mPaint.setAntiAlias(true);
@@ -357,7 +357,7 @@ public class RadialTextsView extends View {
     private class InvalidateUpdateListener implements ValueAnimator.AnimatorUpdateListener {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
-            RadialTextsView.this.invalidate();
+            TimeRadialNumbersView.this.invalidate();
         }
     }
 

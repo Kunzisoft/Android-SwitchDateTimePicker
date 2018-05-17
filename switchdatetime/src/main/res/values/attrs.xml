@@ -1,20 +1,20 @@
 <resources>
 
-    <!-- Attrs Switch Time -->
-    <declare-styleable name="SwitchTimeCircleColor">
+    <!-- Attrs Time -->
+    <declare-styleable name="TimeCircleView">
         <attr name="timeCircleColor" format="reference|color" />
         <attr name="timeCenterColor" format="reference|color" />
     </declare-styleable>
 
-    <declare-styleable name="SwitchTimeSelectorColor">
+    <declare-styleable name="TimeRadialSelectorView">
         <attr name="timeSelectorColor" format="reference|color" />
     </declare-styleable>
 
-    <declare-styleable name="SwitchTimeCircularNumbersColor">
+    <declare-styleable name="TimeRadialNumbersView">
         <attr name="timeCircularNumbersColor" format="reference|color" />
     </declare-styleable>
 
-    <declare-styleable name="SwitchTimeAMPMColor">
+    <declare-styleable name="TimeAmPmCirclesView">
         <attr name="timeAmPmBackgroundColor" format="reference|color" />
         <attr name="timeAmPmSelectBackgroundColor" format="reference|color" />
         <attr name="timeAmPmHighlightSelected" format="boolean" />
@@ -34,8 +34,8 @@
         <attr name="yearSelectTextColor" format="reference|color" />
     </declare-styleable>
 
+    <!-- Attrs Year background circle -->
     <declare-styleable name="TextCircularIndicatorView">
-        <!-- Change color of circle background TODO javadoc-->
         <attr name="colorCircleIndicator" format="reference|color" />
     </declare-styleable>
 

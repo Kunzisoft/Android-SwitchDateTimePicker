@@ -35,7 +35,7 @@ import java.text.DateFormatSymbols;
 /**
  * Draw the two smaller AM and PM circles next to where the larger circle will be.
  */
-public class AmPmCirclesView extends View {
+public class TimeAmPmCirclesView extends View {
     private static final String TAG = "AmPmCirclesView";
 
     // Alpha level of blue color for selected circle.
@@ -65,24 +65,24 @@ public class AmPmCirclesView extends View {
     private int mAmOrPm;
     private int mAmOrPmPressed;
 
-    public AmPmCirclesView(Context context) {
+    public TimeAmPmCirclesView(Context context) {
         this(context, null, 0);
     }
 
-    public AmPmCirclesView(Context context, AttributeSet attrs) {
+    public TimeAmPmCirclesView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public AmPmCirclesView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public TimeAmPmCirclesView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         mIsInitialized = false;
 
-        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.SwitchTimeAMPMColor);
-        setCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmBackgroundColor, mBackgroundColor));
-        setSelectCircleColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmSelectBackgroundColor, mSelectBackgroundColor));
-        setAmPmTextColor(switchTimeColorTypedArray.getColor(R.styleable.SwitchTimeAMPMColor_timeAmPmTextColor, mAmPmTextColor));
-        setInverseSelectedColors(switchTimeColorTypedArray.getBoolean(R.styleable.SwitchTimeAMPMColor_timeAmPmHighlightSelected, mInverseSelectedColors));
+        TypedArray switchTimeColorTypedArray = getContext().obtainStyledAttributes(attrs, R.styleable.TimeAmPmCirclesView);
+        setCircleColor(switchTimeColorTypedArray.getColor(R.styleable.TimeAmPmCirclesView_timeAmPmBackgroundColor, mBackgroundColor));
+        setSelectCircleColor(switchTimeColorTypedArray.getColor(R.styleable.TimeAmPmCirclesView_timeAmPmSelectBackgroundColor, mSelectBackgroundColor));
+        setAmPmTextColor(switchTimeColorTypedArray.getColor(R.styleable.TimeAmPmCirclesView_timeAmPmTextColor, mAmPmTextColor));
+        setInverseSelectedColors(switchTimeColorTypedArray.getBoolean(R.styleable.TimeAmPmCirclesView_timeAmPmHighlightSelected, mInverseSelectedColors));
         switchTimeColorTypedArray.recycle();
     }
 
