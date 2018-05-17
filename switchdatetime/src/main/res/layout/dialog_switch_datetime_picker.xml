@@ -59,9 +59,8 @@
             <include
                 android:id="@+id/time_header_values"
                 layout="@layout/time_header_label"
-                android:layout_width="@dimen/time_label_width"
-                android:layout_height="@dimen/time_label_height"
-                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true" />
 

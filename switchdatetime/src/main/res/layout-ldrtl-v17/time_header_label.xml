@@ -15,9 +15,8 @@
   ~ limitations under the License
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minWidth="@dimen/time_label_min_width"
+    android:layout_width="@dimen/time_label_width"
+    android:layout_height="@dimen/time_label_height"
     android:layout_gravity="center">
 
     <TextView
@@ -25,9 +24,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/time_separator"
-        android:paddingLeft="@dimen/separator_padding"
-        android:paddingRight="@dimen/separator_padding"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="@dimen/separator_vertical_padding"
+        android:paddingRight="@dimen/separator_vertical_padding"
+        android:layout_marginStart="@dimen/time_separator_position"
         style="@style/Theme.SwitchDateTime.TimeLabelText" />
 
     <TextView
@@ -35,7 +35,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/time_placeholder"
-        android:layout_toStartOf="@id/separator"
+        android:layout_toStartOf="@id/minutes"
+        android:layout_marginEnd="@dimen/separator_total_vertical_padding_approximation"
         android:layout_centerVertical="true"
         style="@style/Theme.SwitchDateTime.TimeLabelText" />
 

@@ -15,33 +15,34 @@
   ~ limitations under the License
   -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minWidth="@dimen/time_label_min_width"
-    android:layout_gravity="center">
-    <!--TODO Accessible elements-->
+    android:layout_width="@dimen/time_label_width"
+    android:layout_height="@dimen/time_label_height">
 
-    <TextView
+    <com.kunzisoft.switchdatetime.time.widget.AccessibleTextView
         android:id="@+id/separator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/time_separator"
-        android:paddingLeft="@dimen/separator_padding"
-        android:paddingRight="@dimen/separator_padding"
-        android:layout_centerInParent="true"
+        android:layout_centerVertical="true"
+        android:paddingLeft="@dimen/separator_vertical_padding"
+        android:paddingRight="@dimen/separator_vertical_padding"
+        android:layout_marginLeft="@dimen/time_separator_position"
+        android:layout_marginStart="@dimen/time_separator_position"
         style="@style/Theme.SwitchDateTime.TimeLabelText" />
 
-    <TextView
+    <com.kunzisoft.switchdatetime.time.widget.AccessibleTextView
         android:id="@+id/hours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/time_placeholder"
-        android:layout_toLeftOf="@id/separator"
-        android:layout_toStartOf="@id/separator"
+        android:layout_toLeftOf="@id/minutes"
+        android:layout_toStartOf="@id/minutes"
+        android:layout_marginRight="@dimen/separator_total_vertical_padding_approximation"
+        android:layout_marginEnd="@dimen/separator_total_vertical_padding_approximation"
         android:layout_centerVertical="true"
         style="@style/Theme.SwitchDateTime.TimeLabelText" />
 
-    <TextView
+    <com.kunzisoft.switchdatetime.time.widget.AccessibleTextView
         android:id="@+id/minutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -60,7 +61,7 @@
         android:layout_alignStart="@+id/ampm_label"
         android:layout_alignRight="@+id/ampm_label"
         android:layout_alignEnd="@+id/ampm_label" />
-    <TextView
+    <com.kunzisoft.switchdatetime.time.widget.AccessibleTextView
         android:id="@+id/ampm_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
