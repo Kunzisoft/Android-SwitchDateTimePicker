@@ -24,5 +24,5 @@ def supportVersion = "25.4.0"
 dependencies {
     implementation "com.android.support:appcompat-v7:$supportVersion"
     implementation "com.android.support:recyclerview-v7:$supportVersion"
-    implementation "com.prolificinteractive:material-calendarview:1.4.3"
+    implementation 'com.github.prolificinteractive:material-calendarview:1.5.0'
 }
