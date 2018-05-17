@@ -188,13 +188,13 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
         mMinutePickerDescription = resources.getString(R.string.minute_picker_description);
         mSelectMinutes = resources.getString(R.string.select_minutes);
 
-        mHourView = (TextView) view.findViewById(R.id.hours);
+        mHourView = view.findViewById(R.id.hours);
         mHourView.setOnKeyListener(keyboardListener);
 
-        mMinuteView = (TextView) view.findViewById(R.id.minutes);
+        mMinuteView = view.findViewById(R.id.minutes);
         mMinuteView.setOnKeyListener(keyboardListener);
 
-        mAmPmTextView = (TextView) view.findViewById(R.id.ampm_label);
+        mAmPmTextView = view.findViewById(R.id.ampm_label);
         mAmPmTextView.setOnKeyListener(keyboardListener);
 
         if (Build.VERSION.SDK_INT <= 14) {
@@ -350,8 +350,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
     /**
      * Assign value to hour (12 or 24 doesn't matter)
-     * @param value
-     * @param announce
      */
     private void attributeHour(int value, boolean announce) {
         hourOfDay = value;
@@ -376,7 +374,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
     /**
      * Assign value to minute
-     * @param value
      */
     private void attributeMinute(int value) {
         minute = value;
@@ -706,8 +703,7 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
             }
         }
 
-        int[] ret = {hour, minute, amOrPm};
-        return ret;
+        return new int[]{hour, minute, amOrPm};
     }
 
     /**
@@ -878,7 +874,6 @@ public class SwitchTimePicker implements RadialPickerLayout.OnValueSelectedListe
 
     /**
      * Add listener for clik on time view
-     * @param onClickListener
      */
     public void setOnClickTimeListener(View.OnClickListener onClickListener) {
         this.onClickTimeListener = onClickListener;

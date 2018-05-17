@@ -34,11 +34,7 @@ public class Utils {
     }
 
     public static boolean isTouchExplorationEnabled(AccessibilityManager accessibilityManager) {
-        if (Build.VERSION.SDK_INT >= 14) {
-            return accessibilityManager.isTouchExplorationEnabled();
-        } else {
-            return false;
-        }
+        return Build.VERSION.SDK_INT >= 14 && accessibilityManager.isTouchExplorationEnabled();
     }
 
     /**

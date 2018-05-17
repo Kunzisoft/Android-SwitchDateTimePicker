@@ -134,6 +134,9 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     @Override
     public @NonNull Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
+
+        assert getActivity() != null;
+        assert getContext() != null;
         
         dateTimeCalendar.setTimeZone(timeZone);
 
@@ -160,7 +163,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 (ViewGroup) getActivity().findViewById(R.id.datetime_picker));
 
         // Set label
-        TextView labelView = (TextView) dateTimeLayout.findViewById(R.id.label);
+        TextView labelView = dateTimeLayout.findViewById(R.id.label);
         if(mLabel != null)
             labelView.setText(mLabel);
         else
@@ -169,7 +172,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         // Lock animation for fast clicks
         blockAnimationIn = false;
         blockAnimationOut = false;
-        viewSwitcher = (ViewAnimator) dateTimeLayout.findViewById(R.id.dateSwitcher);
+        viewSwitcher = dateTimeLayout.findViewById(R.id.dateSwitcher);
         viewSwitcher.getInAnimation().setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -206,7 +209,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         viewSwitcher.setDisplayedChild(currentPosition);
 
         // Button for switch between Hours/Minutes, Calendar and YearList
-        ImageButton buttonSwitch = (ImageButton) dateTimeLayout.findViewById(R.id.button_switch);
+        ImageButton buttonSwitch = dateTimeLayout.findViewById(R.id.button_switch);
         buttonSwitch.setBackgroundColor(Color.TRANSPARENT);
         buttonSwitch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,12 +226,12 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 new OnClickHeaderElementListener(HeaderViewsPosition.VIEW_HOURS_AND_MINUTES.getPosition());
         timeHeaderValues.setOnClickListener(onTimeClickListener);
         // Values header month day
-        monthAndDayHeaderValues = (TextView) dateTimeLayout.findViewById(R.id.date_picker_month_and_day);
+        monthAndDayHeaderValues = dateTimeLayout.findViewById(R.id.date_picker_month_and_day);
         View.OnClickListener onMonthAndDayClickListener =
                 new OnClickHeaderElementListener(HeaderViewsPosition.VIEW_MONTH_AND_DAY.getPosition());
         monthAndDayHeaderValues.setOnClickListener(onMonthAndDayClickListener);
         // Values header year
-        yearHeaderValues = (TextView) dateTimeLayout.findViewById(R.id.date_picker_year);
+        yearHeaderValues = dateTimeLayout.findViewById(R.id.date_picker_year);
         View.OnClickListener onYearClickListener =
                 new OnClickHeaderElementListener(HeaderViewsPosition.VIEW_YEAR.getPosition());
         yearHeaderValues.setOnClickListener(onYearClickListener);
@@ -264,7 +267,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         timePicker.setOnClickTimeListener(onTimeClickListener);
 
         // Construct DatePicker
-        materialCalendarView = (MaterialCalendarView) dateTimeLayout.findViewById(com.kunzisoft.switchdatetime.R.id.datePicker);
+        materialCalendarView = dateTimeLayout.findViewById(com.kunzisoft.switchdatetime.R.id.datePicker);
         materialCalendarView.state().edit()
                 .setMinimumDate(CalendarDay.from(minimumDateTime))
                 .setMaximumDate(CalendarDay.from(maximumDateTime))
@@ -286,7 +289,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
         materialCalendarView.invalidate();
 
         // Construct YearPicker
-        listPickerYearView = (ListPickerYearView) dateTimeLayout.findViewById(R.id.yearPicker);
+        listPickerYearView = dateTimeLayout.findViewById(R.id.yearPicker);
         listPickerYearView.setMinYear(minimumDateTime.get(Calendar.YEAR));
         listPickerYearView.setMaxYear(maximumDateTime.get(Calendar.YEAR));
         listPickerYearView.assignCurrentYear(dateTimeCalendar.get(Calendar.YEAR));
@@ -377,17 +380,16 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Assign default year at start
-     * @param year
      */
     public void setDefaultYear(int year) {
         this.dateTimeCalendar.set(Calendar.YEAR, year);
     }
 
-    @Deprecated
     /**
      * @deprecated Does not change after launch
      * {@link #setDefaultYear(int)}
      */
+    @Deprecated
     public void setYear(int year) {
         setDefaultYear(year);
     }
@@ -395,75 +397,70 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     /**
      * Assign default month at start (ex: Calendar.DECEMBER)
      * @see Calendar
-     * @param month
      */
     public void setDefaultMonth(int month) {
         this.dateTimeCalendar.set(Calendar.MONTH, month);
     }
 
-    @Deprecated
     /**
      * @deprecated Does not change after launch
      * {@link #setDefaultMonth(int)}
      */
+    @Deprecated
     public void setMonth(int month) {
         setDefaultMonth(month);
     }
 
     /**
      * Assign default day at start
-     * @param day
      */
     public void setDefaultDay(int day) {
         this.dateTimeCalendar.set(Calendar.DAY_OF_MONTH, day);
     }
 
-    @Deprecated
     /**
      * @deprecated Does not change after launch
      * {@link #setDefaultDay(int)}
      */
+    @Deprecated
     public void setDay(int day) {
         setDefaultDay(day);
     }
 
     /**
      * Assign default hour of day (in 24 hours) at start
-     * @param hourOfDay
      */
     public void setDefaultHourOfDay(int hourOfDay) {
         this.dateTimeCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
     }
 
-    @Deprecated
     /**
      * @deprecated Does not change after launch and 24 hours format
      * {@link #setDefaultHourOfDay(int)}
      */
+    @Deprecated
     public void setHour(int hour) {
         setDefaultHourOfDay(hour);
     }
 
     /**
      * Assign default minute at start
-     * @param minute
      */
     public void setDefaultMinute(int minute) {
         this.dateTimeCalendar.set(Calendar.MINUTE, minute);
     }
 
-    @Deprecated
     /**
      * @deprecated Does not change after launch
      * {@link #setDefaultMinute(int)}
      */
+    @Deprecated
     public void setMinute(int minute) {
         setDefaultMinute(minute);
     }
 
     /**
      * Get current year
-     * @return
      */
     public int getYear() {
         return this.dateTimeCalendar.get(Calendar.YEAR);
@@ -472,7 +469,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     /**
      * Get current month as Calendar.MONTH
      * @see Calendar
-     * @return
      */
     public int getMonth() {
         return this.dateTimeCalendar.get(Calendar.MONTH);
@@ -480,7 +476,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Get current day
-     * @return
      */
     public int getDay() {
         return this.dateTimeCalendar.get(Calendar.DAY_OF_MONTH);
@@ -488,7 +483,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Get current hour of day (hour in 24 hours)
-     * @return
      */
     public int getHourOfDay() {
         return this.dateTimeCalendar.get(Calendar.HOUR_OF_DAY);
@@ -496,7 +490,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Get current minute
-     * @return
      */
     public int getMinute() {
         return this.dateTimeCalendar.get(Calendar.MINUTE);
@@ -504,7 +497,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Assign default DateTime at start
-     * @param date
      */
     public void setDefaultDateTime(Date date) {
         this.dateTimeCalendar.setTime(date);
@@ -512,7 +504,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Assign minimum DateTime who can be selected
-     * @param date
      */
     public void setMinimumDateTime(Date date) {
         this.minimumDateTime.setTime(date);
@@ -520,7 +511,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Assign maximum DateTime who can be selected
-     * @param date
      */
     public void setMaximumDateTime(Date date) {
         this.maximumDateTime.setTime(date);
@@ -528,7 +518,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Get minimum DateTime who can be selected
-     * @return
      */
     public Date getMinimumDateTime() {
         return minimumDateTime.getTime();
@@ -536,7 +525,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Get maximum DateTime who can be selected
-     * @return
      */
     public Date getMaximumDateTime() {
         return maximumDateTime.getTime();
@@ -544,7 +532,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Return default SimpleDateFormat for Month and Day
-     * @return
      */
     public SimpleDateFormat getSimpleDateMonthAndDayFormat() {
         return dayAndMonthSimpleDate;
@@ -552,7 +539,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Assign a SimpleDateFormat like "d MMM" to show formatted DateTime
-     * @param simpleDateFormat
+     * @param simpleDateFormat Format to show month and day
      */
     public void setSimpleDateMonthAndDayFormat(SimpleDateFormat simpleDateFormat) throws SimpleDateMonthAndDayFormatException{
         Pattern patternMonthAndDay = Pattern.compile("(M|w|W|D|d|F|E|u|\\s)*");
@@ -565,7 +552,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Define if time must be in 24 hours mode or in 12 hours, must be applied before "show"
-     * @param is24HoursMode
      */
     public void set24HoursMode(boolean is24HoursMode) {
         this.is24HoursMode = is24HoursMode;
@@ -590,7 +576,6 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
 
     /**
      * Define if the AlertDialog must be styled, must be applied before "show"
-     * @param styleId
      */
     public void setAlertStyle(@StyleRes int styleId) {
         this.alertStyleId = styleId;

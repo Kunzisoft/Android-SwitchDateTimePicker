@@ -250,11 +250,11 @@ public class RadialSelectorView extends View {
         boolean topSide = (pointY < mYCenter);
         if (rightSide && topSide) {
             degrees = 90 - degrees;
-        } else if (rightSide && !topSide) {
+        } else if (rightSide) {
             degrees = 90 + degrees;
-        } else if (!rightSide && !topSide) {
+        } else if (!topSide) {
             degrees = 270 - degrees;
-        } else if (!rightSide && topSide) {
+        } else {
             degrees = 270 + degrees;
         }
         return degrees;

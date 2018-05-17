@@ -207,11 +207,6 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
 
     /**
      * Initialize the Layout with starting values.
-     *
-     * @param context
-     * @param initialHoursOfDay
-     * @param initialMinutes
-     * @param is24HourMode
      */
     public void initialize(Context context, int initialHoursOfDay, int initialMinutes,
                            boolean is24HourMode, boolean highlightSelectedAMPM, boolean vibrate) {
@@ -353,8 +348,6 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
 
     /**
      * Set the internal value as either AM or PM, and update the AM/PM circle displays.
-     *
-     * @param amOrPm
      */
     public void setAmOrPm(int amOrPm) {
         mAmPmCirclesView.setAmOrPm(amOrPm);
@@ -603,21 +596,12 @@ public class RadialPickerLayout extends FrameLayout implements OnTouchListener {
             mTransition.playTogether(animators);
             mTransition.start();
         } else {
-            if (Build.VERSION.SDK_INT >= 11) {
-                float hourAlpha = (index == HOUR_INDEX) ? 1 : 0;
-                float minuteAlpha = (index == MINUTE_INDEX) ? 1 : 0;
-                mHourRadialTextsView.setAlpha(hourAlpha);
-                mHourRadialSelectorView.setAlpha(hourAlpha);
-                mMinuteRadialTextsView.setAlpha(minuteAlpha);
-                mMinuteRadialSelectorView.setAlpha(minuteAlpha);
-            } else {
-                int hourVisibility = (index == HOUR_INDEX) ? View.VISIBLE : View.INVISIBLE;
-                int minuteVisibility = (index == MINUTE_INDEX) ? View.VISIBLE : View.INVISIBLE;
-                mHourRadialTextsView.setVisibility(hourVisibility);
-                mHourRadialSelectorView.setVisibility(hourVisibility);
-                mMinuteRadialTextsView.setVisibility(minuteVisibility);
-                mMinuteRadialSelectorView.setVisibility(minuteVisibility);
-            }
+            float hourAlpha = (index == HOUR_INDEX) ? 1 : 0;
+            float minuteAlpha = (index == MINUTE_INDEX) ? 1 : 0;
+            mHourRadialTextsView.setAlpha(hourAlpha);
+            mHourRadialSelectorView.setAlpha(hourAlpha);
+            mMinuteRadialTextsView.setAlpha(minuteAlpha);
+            mMinuteRadialSelectorView.setAlpha(minuteAlpha);
         }
 
     }

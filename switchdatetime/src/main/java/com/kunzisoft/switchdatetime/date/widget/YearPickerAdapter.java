@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.kunzisoft.switchdatetime.R;
 
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -97,7 +96,7 @@ class YearPickerAdapter extends RecyclerView.Adapter<YearPickerAdapter.TextIndic
 
     /**
      * Assign the list of years, replace current list
-     * @param listYears
+     * @param listYears list of years
      */
     public void setListYears(List<Integer> listYears) {
         this.listYears = listYears;
@@ -105,7 +104,6 @@ class YearPickerAdapter extends RecyclerView.Adapter<YearPickerAdapter.TextIndic
 
     /**
      * Get the current selected year or value of UNDEFINED if undefined
-     * @return
      */
     public int getSelectedYear() {
         return selectedYear;
@@ -124,7 +122,6 @@ class YearPickerAdapter extends RecyclerView.Adapter<YearPickerAdapter.TextIndic
 
     /**
      * Get position of selected year or value of UNDEFINED if undefined
-     * @return
      */
     public int getPositionSelectedYear() {
         return positionSelectedYear;
@@ -132,7 +129,6 @@ class YearPickerAdapter extends RecyclerView.Adapter<YearPickerAdapter.TextIndic
 
     /**
      * Get the listener called when the year is clicked
-     * @return
      */
     public OnClickYearListener getOnClickYearListener() {
         return onClickYearListener;
@@ -140,7 +136,7 @@ class YearPickerAdapter extends RecyclerView.Adapter<YearPickerAdapter.TextIndic
 
     /**
      * Set the listener called when the year is clicked
-     * @param onClickYearListener
+     * @param onClickYearListener year listener
      */
     public void setOnClickYearListener(OnClickYearListener onClickYearListener) {
         this.onClickYearListener = onClickYearListener;
@@ -164,7 +160,7 @@ class YearPickerAdapter extends RecyclerView.Adapter<YearPickerAdapter.TextIndic
         private Integer year;
         private int position;
 
-        public BufferYearClickListener(Integer yearClicked, int position) {
+        BufferYearClickListener(Integer yearClicked, int position) {
             this.year = yearClicked;
             this.position = position;
         }
@@ -187,15 +183,15 @@ class YearPickerAdapter extends RecyclerView.Adapter<YearPickerAdapter.TextIndic
 
         TextIndicatorViewHolder(View itemView) {
             super(itemView);
-            container = (ViewGroup) itemView.findViewById(R.id.year_element_container);
-            textView = (TextView) itemView.findViewById(R.id.year_textView);
+            container = itemView.findViewById(R.id.year_element_container);
+            textView = itemView.findViewById(R.id.year_textView);
         }
     }
 
     /**
      * Exception class for year selected
      */
-    public class SelectYearException extends Exception {
+    class SelectYearException extends Exception {
         SelectYearException(Integer yearSelected, List<Integer> listYears) {
             super("Year selected " + yearSelected + " must be in list of years : " + listYears);
         }
