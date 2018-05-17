@@ -112,21 +112,15 @@ SwitchDateTimeDialogFragment dateTimeDialogFragment = SwitchDateTimeDialogFragme
 );
 
 // Assign values
-dateTimeFragment.startAtCalendarView();
-dateTimeFragment.set24HoursMode(true);
-dateTimeFragment.setMinimumDateTime(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
-dateTimeFragment.setMaximumDateTime(new GregorianCalendar(2025, Calendar.DECEMBER, 31).getTime());
-dateTimeFragment.setDefaultDateTime(new GregorianCalendar(2017, Calendar.MARCH, 4, 15, 20).getTime());
-// Or assign each element, default element is the current moment
-// dateTimeFragment.setDefaultHourOfDay(15);
-// dateTimeFragment.setDefaultMinute(20);
-// dateTimeFragment.setDefaultDay(4);
-// dateTimeFragment.setDefaultMonth(Calendar.MARCH);
-// dateTimeFragment.setDefaultYear(2017);
+dateTimeDialogFragment.startAtCalendarView();
+dateTimeDialogFragment.set24HoursMode(true);
+dateTimeDialogFragment.setMinimumDateTime(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
+dateTimeDialogFragment.setMaximumDateTime(new GregorianCalendar(2025, Calendar.DECEMBER, 31).getTime());
+dateTimeDialogFragment.setDefaultDateTime(new GregorianCalendar(2017, Calendar.MARCH, 4, 15, 20).getTime());
 
 // Define new day and month format
 try {
-    dateTimeFragment.setSimpleDateMonthAndDayFormat(new SimpleDateFormat("dd MMMM", Locale.getDefault()));
+    dateTimeDialogFragment.setSimpleDateMonthAndDayFormat(new SimpleDateFormat("dd MMMM", Locale.getDefault()));
 } catch (SwitchDateTimeDialogFragment.SimpleDateMonthAndDayFormatException e) {
     Log.e(TAG, e.getMessage());
 }
