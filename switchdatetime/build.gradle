@@ -1,12 +1,12 @@
 apply plugin: "com.android.library"
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 20
         versionName "2.0"
     }
@@ -19,10 +19,8 @@ android {
     }
 }
 
-def supportVersion = "27.0.2"
-
 dependencies {
-    implementation "com.android.support:appcompat-v7:$supportVersion"
-    implementation "com.android.support:recyclerview-v7:$supportVersion"
+    implementation "androidx.appcompat:appcompat:1.0.2"
+    implementation "androidx.recyclerview:recyclerview:1.0.0"
     implementation 'com.github.prolificinteractive:material-calendarview:1.5.0'
 }

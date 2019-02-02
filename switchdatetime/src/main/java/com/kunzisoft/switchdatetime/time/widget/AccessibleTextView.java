@@ -2,12 +2,11 @@ package com.kunzisoft.switchdatetime.time.widget;
 
 import android.content.Context;
 import android.os.Build;
-import android.support.v7.widget.AppCompatTextView;
+import androidx.appcompat.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.Button;
-import android.widget.TextView;
 
 /**
  * Fake Button class, used so TextViews can announce themselves as Buttons, for accessibility.

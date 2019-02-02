@@ -1,7 +1,7 @@
 package com.kunzisoft.switchdatetimesample;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -61,7 +61,7 @@ public class Sample extends AppCompatActivity {
         // Assign unmodifiable values
         dateTimeFragment.set24HoursMode(false);
         dateTimeFragment.setHighlightAMPMSelection(false);
-        dateTimeFragment.setMinimumDateTime(new GregorianCalendar(2015, Calendar.JANUARY, 1).getTime());
+        dateTimeFragment.setMinimumDateTime(new GregorianCalendar(2018, 2, 1).getTime());
         dateTimeFragment.setMaximumDateTime(new GregorianCalendar(2025, Calendar.DECEMBER, 31).getTime());
 
         // Define new day and month format
@@ -97,7 +97,7 @@ public class Sample extends AppCompatActivity {
             public void onClick(View view) {
                 // Re-init each time
                 dateTimeFragment.startAtCalendarView();
-                dateTimeFragment.setDefaultDateTime(new GregorianCalendar(2017, Calendar.MARCH, 4, 15, 20).getTime());
+                dateTimeFragment.setDefaultDateTime(new GregorianCalendar(2019, Calendar.MARCH, 4, 15, 20).getTime());
                 dateTimeFragment.show(getSupportFragmentManager(), TAG_DATETIME_FRAGMENT);
             }
         });
