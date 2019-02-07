@@ -21,5 +21,5 @@
 
     <string name="sans_serif" translatable="false">sans-serif</string>
     <string name="radial_numbers_typeface" translatable="false">sans-serif</string>
-    <string name="deleted_key"><xliff:g id="key" example="4">%1$s</xliff:g> deleted</string>
+    <string name="deleted_key">%1$s deleted</string>
 </resources>
