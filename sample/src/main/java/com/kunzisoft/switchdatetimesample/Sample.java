@@ -53,7 +53,7 @@ public class Sample extends AppCompatActivity {
                     getString(android.R.string.ok),
                     getString(android.R.string.cancel),
                     getString(R.string.clean),// Optional
-                    "ar"
+                    "en"
             );
         }
 
