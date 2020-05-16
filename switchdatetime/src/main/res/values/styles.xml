@@ -1,6 +1,6 @@
 <resources>
     <!-- Theme for SwitchDateTime -->
-    <style name="Theme.SwitchDateTime" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="Theme.SwitchDateTime" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="colorPrimary">#29b6f6</item>
         <item name="colorPrimaryDark">#03a9f4</item>
         <item name="android:textColorPrimaryInverse">#e6e6e6</item>

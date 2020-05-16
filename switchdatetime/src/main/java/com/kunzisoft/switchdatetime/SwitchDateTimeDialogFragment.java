@@ -4,10 +4,10 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
+import androidx.fragment.app.DialogFragment;
+import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -300,7 +300,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
                 yearHeaderValues.setText(yearSimpleDate.format(dateTimeCalendar.getTime()));
 
                 // Unfortunately, we have lags here and thread isn't a solution :/
-                materialCalendarView.setCurrentDate(dateTimeCalendar.getTime());
+                materialCalendarView.setCurrentDate(dateTimeCalendar.getTime().getTime());
                 materialCalendarView.setDateSelected(dateTimeCalendar, true);
                 // For resolve bug of switch year
                 materialCalendarView.goToNext();

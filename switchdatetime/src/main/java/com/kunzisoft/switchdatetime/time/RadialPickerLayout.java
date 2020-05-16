@@ -26,7 +26,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
+import androidx.annotation.RequiresApi;
 import android.text.format.DateUtils;
 import android.text.format.Time;
 import android.util.AttributeSet;
