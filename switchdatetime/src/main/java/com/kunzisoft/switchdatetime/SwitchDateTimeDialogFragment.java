@@ -1,17 +1,10 @@
 package com.kunzisoft.switchdatetime;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.StyleRes;
-import androidx.fragment.app.DialogFragment;
-import androidx.appcompat.app.AlertDialog;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +12,11 @@ import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.DialogFragment;
 
 import com.kunzisoft.switchdatetime.date.OnYearSelectedListener;
 import com.kunzisoft.switchdatetime.date.widget.ListPickerYearView;
@@ -616,7 +614,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     /**
      * Class exception if SimpleDateFormat contains something else that "d" or/and "M"
      */
-    public class SimpleDateMonthAndDayFormatException extends Exception {
+    public static class SimpleDateMonthAndDayFormatException extends Exception {
         SimpleDateMonthAndDayFormatException(String message) {
             super(message);
         }
@@ -644,7 +642,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
     public enum HeaderViewsPosition {
         VIEW_HOURS_AND_MINUTES(0), VIEW_MONTH_AND_DAY(1), VIEW_YEAR(2);
 
-        private int positionSwitch;
+        private final int positionSwitch;
 
         HeaderViewsPosition(int position) {
             this.positionSwitch = position;
@@ -659,7 +657,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
      * Listener for click on Header element
      */
     public class OnClickHeaderElementListener implements View.OnClickListener {
-        private int positionView;
+        private final int positionView;
 
         OnClickHeaderElementListener(int positionView) {
             this.positionView = positionView;
