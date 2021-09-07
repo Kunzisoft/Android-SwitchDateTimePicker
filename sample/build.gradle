@@ -1,13 +1,13 @@
 apply plugin: "com.android.application"
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.kunzisoft.switchdatetimepicker.sample"
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdkVersion 14
+        targetSdkVersion 30
         versionCode 20
         versionName "2.0"
     }
@@ -20,9 +20,7 @@ android {
     }
 }
 
-def supportVersion = "27.1.1"
-
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation project(path: ":switchdatetime")
 }

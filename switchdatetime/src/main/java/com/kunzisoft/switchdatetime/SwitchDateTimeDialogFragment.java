@@ -542,7 +542,7 @@ public class SwitchDateTimeDialogFragment extends DialogFragment {
      * @param simpleDateFormat Format to show month and day
      */
     public void setSimpleDateMonthAndDayFormat(SimpleDateFormat simpleDateFormat) throws SimpleDateMonthAndDayFormatException{
-        Pattern patternMonthAndDay = Pattern.compile("(M|w|W|D|d|F|E|u|\\s)*");
+        Pattern patternMonthAndDay = Pattern.compile("(M|w|W|D|d|F|E|u|\\.|\\s)*");
         Matcher matcherMonthAndDay = patternMonthAndDay.matcher(simpleDateFormat.toPattern());
         if(!matcherMonthAndDay.matches()) {
             throw new SimpleDateMonthAndDayFormatException(simpleDateFormat.toPattern() + "isn't allowed for " + patternMonthAndDay.pattern());
