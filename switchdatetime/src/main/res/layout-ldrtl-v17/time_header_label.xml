@@ -31,17 +31,17 @@
         style="@style/Theme.SwitchDateTime.TimeLabelText" />
 
     <TextView
-        android:id="@+id/hours"
+        android:id="@+id/minutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/time_placeholder"
-        android:layout_toStartOf="@id/minutes"
+        android:layout_toStartOf="@id/hours"
         android:layout_marginEnd="@dimen/separator_total_vertical_padding_approximation"
         android:layout_centerVertical="true"
         style="@style/Theme.SwitchDateTime.TimeLabelText" />
 
     <TextView
-        android:id="@+id/minutes"
+        android:id="@+id/hours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/time_placeholder"
@@ -63,7 +63,7 @@
         android:text="@string/time_placeholder"
         android:paddingLeft="@dimen/ampm_left_padding"
         android:paddingRight="@dimen/ampm_left_padding"
-        android:layout_toEndOf="@+id/minutes"
+        android:layout_toEndOf="@+id/hours"
         android:layout_alignBaseline="@+id/separator"
         style="@style/Theme.SwitchDateTime.TimeLabelAmPm" />
 </RelativeLayout>

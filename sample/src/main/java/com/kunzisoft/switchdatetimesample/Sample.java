@@ -1,7 +1,9 @@
 package com.kunzisoft.switchdatetimesample;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,7 @@ import java.util.TimeZone;
 
 /**
  * Sample class for an example of using the API SwitchDateTimePicker
+ *
  * @author JJamet
  */
 public class Sample extends AppCompatActivity {
@@ -44,12 +47,13 @@ public class Sample extends AppCompatActivity {
 
         // Construct SwitchDateTimePicker
         dateTimeFragment = (SwitchDateTimeDialogFragment) getSupportFragmentManager().findFragmentByTag(TAG_DATETIME_FRAGMENT);
-        if(dateTimeFragment == null) {
+        if (dateTimeFragment == null) {
             dateTimeFragment = SwitchDateTimeDialogFragment.newInstance(
                     getString(R.string.label_datetime_dialog),
                     getString(android.R.string.ok),
                     getString(android.R.string.cancel),
-                    getString(R.string.clean) // Optional
+                    getString(R.string.clean),// Optional
+                    "en"
             );
         }
 
